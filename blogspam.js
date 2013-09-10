@@ -1,5 +1,5 @@
 /**
- * BlogSpam API, JSON version.
+ * BlogSpam API, JSON version, proof of concept hack.
  *
  * 1. Listen for HTTP-POST requests, and parse the JSON bodies.
  *
@@ -50,19 +50,26 @@ var server = http.createServer(function (request, response) {
                 response.end('\n');
             }
 
-            var complete = false;
             var currentPlugin = -1;
-            
+
             var execute = function() {
+
                 try {
                     currentPlugin++;
                     if (currentPlugin >= plugins.length) {
+                        //
+                        //  All plugins have executed and have presumably
+                        // not flagged a submission as SPAM.
+                        //
+                        //  Therefore it is HAM.
+                        //
                         response.writeHead( 200 , {'content-type': 'text/plain' });
                         response.end("OK");
                         return;
                     }
+
                     var plugin = plugins[currentPlugin];
-                    
+
                     //
                     //  Call the test-json method, with the three-callbacks:
                     //
@@ -101,7 +108,7 @@ var server = http.createServer(function (request, response) {
                     response.end("Error processing submission " + e + '\n');
                 }
             };
-            
+
             execute();
 
         });
