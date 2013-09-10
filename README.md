@@ -83,10 +83,6 @@ Each plugin will be invoked in turn, unless a SPAM or OK result terminates the p
 **NOTE**: This means you need to have 99-ok.js, or similar, so that the final result is OK.
 
 
-Plugin API
-----------
-
-Each plugin should have a method `testJSON( object, spam, ham)`, where spam and ham are callbacks invoked on failure/success.
 
 
 Steve
