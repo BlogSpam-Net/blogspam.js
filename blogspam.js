@@ -5,10 +5,12 @@
  *
  * 2. Load plugins from beneath ./plugins/ at startup.
  *
- * 3. Each plugin should have a testJSON method, which returns
- *   one of: "spam:reason", "ok", or "next".
+ * 3. Each plugin should have a testJSON method, which can invoke
+ *    one of three callbacks: spam, ham, next.
  *
  *
+ * Steve
+ * --
  */
 
 
@@ -24,7 +26,7 @@ var plugins = []
 
 
 /**
- *
+ * Trivial server for receiving JSON POST requests.
  */
 var server = http.createServer(function (request, response) {
 
@@ -59,6 +61,15 @@ var server = http.createServer(function (request, response) {
                     var plugin = plugins[i];
                     if ( complete ) { break ; }
 
+                    //
+                    //  Call the test-json method, with the three-callbacks:
+                    //
+                    //   spam.  Immediately send a 403 response.
+                    //
+                    //   ham.   Immediately send a 200 response.
+                    //
+                    //   next.  This will ensure the next plugin will be invoked.
+                    //
                     plugin.testJSON( parsed,
                                      // spam
                                      function(reason){
@@ -90,9 +101,15 @@ var server = http.createServer(function (request, response) {
                                      }
                                    );
                 }
-            } catch ( e ) {
+
                 //
-                //  Error handling the submission.
+                //  We assume a plugin has sent a response.  Is that valid?
+                //
+
+            } catch ( e ) {
+
+                //
+                //  Error invoking a plugin...
                 //
                 response.writeHead(500, {'content-type': 'text/plain' });
                 console.log( "Error during processing plugin(s): " + e );

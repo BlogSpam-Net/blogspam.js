@@ -11,7 +11,7 @@ It tests each submission to divide the comments received into two classes:
 
 Spam tests will return a HTTP 403 response, with an explaination.
 
-Valid comments will receive a HTTP 200 response, with the message "OK.
+Valid comments will receive a HTTP 200 response, with the message "OK".
 
 
 
@@ -59,15 +59,18 @@ should be a hash with the following members:
    * The subject/title the submitter supplied.
 
 
-The server will load a series of plugins on-startup, and each plugin will
-return one of three values:
+The server will load a series of plugins on-startup, and each submission will be
+passed through the loaded plugins.
 
-* `OK`
-   * The comment is definitely OK.
-* `SPAM`
-   * The comment is definitely SPAM.
-* `UNSURE`
-   * The comment is undecided.
+The plugin will be invoked and can handle the results by calling one of the three
+call-back methods it receives:
+
+* `spam`
+   * The comment is definitely SPAM
+* `ham`
+   * The comment is definitely HAM.
+* `next`
+   * The comment is undecided, keep proccessing by invoking all remaining plugins.
 
 Each plugin will be invoked in turn, unless a SPAM or OK result terminates the processing, and the result will be returned to the caller in the form of :
 
@@ -77,6 +80,7 @@ Each plugin will be invoked in turn, unless a SPAM or OK result terminates the p
 * A single line of text
    * Confirming "OK", or declaring the reason for the rejection
 
+**NOTE**: This means you need to have 99-ok.js, or similar, so that the final result is OK.
 
 
 Plugin API
