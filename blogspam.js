@@ -30,7 +30,7 @@ var plugins = []
  */
 var server = http.createServer(function (request, response) {
 
-    if ( request.method === 'POST' ) {
+    if ( request.url == "/" && request.method === 'POST' ) {
         var data = '';
         request.addListener('data', function(chunk) { data += chunk; });
         request.addListener('end', function() {
@@ -130,6 +130,43 @@ var server = http.createServer(function (request, response) {
 
         });
     }
+    else if ( request.url == "/stats" && request.method === 'POST' ) {
+        var data = '';
+
+        request.addListener('data', function(chunk) { data += chunk; });
+        request.addListener('end', function() {
+            var parsed;
+
+            //
+            //  Try to parse the JSON body.
+            //
+            try {
+                parsed = JSON.parse(data);
+                console.log( "Received stats submission: " + data );
+            } catch ( e ) {
+                response.writeHead(500, {'content-type': 'text/plain' });
+                response.write('ERROR:' + e);
+                console.log( "Failed to parse JSON: " + e );
+                response.end('\n');
+            }
+
+            //
+            // Get the parsed-site.
+            //
+            var site = parsed['site'] || "unknown";
+
+            //
+            //  TODO: Lookup the data.
+            //
+            var hash = {}
+            hash['spam'] = 0
+            hash['ham'] = 0;
+
+            response.writeHead(200, {'content-type': 'application/json' });
+            response.end(JSON.stringify(hash));
+
+        });
+    }
     else
     {
         //
@@ -138,7 +175,7 @@ var server = http.createServer(function (request, response) {
         //  Happily HTTP 405 is a sane response-code to return.
         //
         response.writeHead(405, {'content-type': 'text/plain' });
-        response.end( "We only accept POST requests, via HTTP" );
+        response.end( "We only accept POST requests, via HTTP.  Ignoring method " + request.method + " to " + request.url );
     }
 
 });
