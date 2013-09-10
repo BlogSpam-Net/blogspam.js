@@ -12,6 +12,17 @@ exports.testJSON = function ( obj, spam, ok, next )
 {
     var ip = obj['ip']
 
+    //
+    // TODO: Test the IP is an IP: /^\d\.\d+\.d+.\d+$/
+    //
+    // TODO: Check for more than the local blacklist:
+    //
+    //        1. /etc/whitelist.d/$ip
+    //
+    //        2. Check for the parent /24 too.
+    //
+    //        3. Handle IPv6.
+    //
     if ( ip && (fs.existsSync("/etc/blacklist.d/" + ip)) )
     {
         spam( "SPAM: Locally blacklisted IP" );
