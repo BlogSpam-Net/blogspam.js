@@ -50,6 +50,23 @@ var server = http.createServer(function (request, response) {
                 response.end('\n');
             }
 
+            //
+            // The parsed object might contain some options.
+            //
+            // The options include plugin-names to skip.
+            //
+            // e.g.  parsed['options']='exclude=bayasian,exclude=yy,blacklist=1.2.3.4'
+            //
+            // See the legacy API for details:
+            //
+            //     http://blogspam.net/api/testComment.html
+            //
+            // TODO: Handle this here.  This means handling plugin-names better
+            // and keeping them the same.
+            //
+
+
+
             var currentPlugin = -1;
 
             var execute = function() {
