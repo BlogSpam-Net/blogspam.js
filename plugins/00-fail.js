@@ -25,6 +25,10 @@ exports.testJSON = function ( obj, spam, ok, next)
             spam( "SPAM: Manually marked as spam, via options." );
         }
     }
+
+    //
+    //  We passed this plugin.
+    //
     next("next");
 };
 
