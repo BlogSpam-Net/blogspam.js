@@ -142,11 +142,9 @@ var server = http.createServer(function (request, response) {
             //
             try {
                 parsed = JSON.parse(data);
-                console.log( "Received stats submission: " + data );
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
                 response.write('ERROR:' + e);
-                console.log( "Failed to parse JSON: " + e );
                 response.end('\n');
             }
 
@@ -197,6 +195,9 @@ fs.readdir("./plugins", function(err, entries)  {
 
         plugins.push( v );
 
+        //
+        //  If the plugin has an init method, call it.
+        //
         if(typeof v.init === 'function') {
             v.init();
         };
