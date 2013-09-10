@@ -1,32 +1,60 @@
+//
+// Stock methods.
+//
 exports.name    = function() {return "20-ip.js" ; };
-exports.purpose = function() {return "Look for blacklisted IPs" ; };
+exports.purpose = function() {return "Look for whitelisted/blacklisted IPs" ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//  Test the IP the comment came-from.
-//
-//  We have a directory of blacklisted IPs.
+//  Test the IP the comment was submitted from.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
     var ip = obj['ip']
 
     //
-    // TODO: Test the IP is an IP: /^\d\.\d+\.d+.\d+$/
+    //  If we're missing an IP this is an error
     //
-    // TODO: Check for more than the local blacklist:
+    if ( ! ip )
+    {
+        spam( "missing IP address" );
+        return;
+    }
+
     //
-    //        1. /etc/whitelist.d/$ip
+    //  If the IP is not IPv4 or IPv6 it is invalid.
     //
-    //        2. Check for the parent /24 too.
+    var ipv4 = /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$/;
+    var ipv6 = /^([a-f0-9:]+)$/i;
+
+    if ( ( !ipv6.exec( ip ) ) && ( ! ipv4.exec(ip ) ) )
+    {
+        spam( "Malformed IP address" );
+        return;
+    }
+
     //
-    //        3. Handle IPv6.
+    //  Is the IP whitelisted?
     //
-    if ( ip && (fs.existsSync("/etc/blacklist.d/" + ip)) )
+    if ( fs.existsSync("/etc/whitelist.d/" + ip) )
+    {
+        ok( "OK: Locally whitelisted IP" );
+        return;
+    }
+
+    //
+    //  Is the IP blacklisted?
+    //
+    if ( fs.existsSync("/etc/blacklist.d/" + ip) )
     {
         spam( "SPAM: Locally blacklisted IP" );
+        return;
     }
+
+    //
+    // OK no decision reached in this plugin.
+    //
     next( "next" );
 };
 
