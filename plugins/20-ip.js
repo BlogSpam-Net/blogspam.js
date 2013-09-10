@@ -10,11 +10,11 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var ip = obj['ip'] || '';
+    var ip = obj['ip']
 
-    if (fs.existsSync("/etc/blacklist.d/" + ip))
+    if ( ip && (fs.existsSync("/etc/blacklist.d/" + ip)) )
     {
-        spam( "SPAM: Blacklisted IP" );
+        spam( "SPAM: Locally blacklisted IP" );
     }
     next( "next" );
 };
