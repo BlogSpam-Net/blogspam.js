@@ -11,7 +11,8 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var ip = obj['ip']
+    var ip      = obj['ip']
+    var options = obj['options'] || ""
 
     //
     //  If we're missing an IP this is an error
@@ -35,11 +36,40 @@ exports.testJSON = function ( obj, spam, ok, next )
     }
 
     //
+    // If the user set some options they might include a whitelist
+    // or a blacklist.
+    //
+    var array = options.split( "," );
+
+    //
+    //  Look for "whitelist=IP"
+    //
+    //  Look for "blacklist=IP"
+    //
+    for (var i = 0; i < array.length; i++)
+    {
+        var option = array[i].trim()
+
+        if ( option == "whitelist=" + ip )
+        {
+            ok( "OK: Locally whitelisted IP, via options" );
+            return;
+        }
+        if ( option == "blacklist=" + ip )
+        {
+            spam( "SPAM: Locally blacklisted IP, via options" );
+            return;
+        }
+    }
+
+
+
+    //
     //  Is the IP whitelisted?
     //
     if ( fs.existsSync("/etc/whitelist.d/" + ip) )
     {
-        ok( "OK: Locally whitelisted IP" );
+        ok( "OK: Locally whitelisted IP, globally." );
         return;
     }
 
@@ -48,7 +78,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     if ( fs.existsSync("/etc/blacklist.d/" + ip) )
     {
-        spam( "SPAM: Locally blacklisted IP" );
+        spam( "SPAM: Locally blacklisted IP, globally." );
         return;
     }
 
