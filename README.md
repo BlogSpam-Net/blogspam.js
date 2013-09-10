@@ -113,5 +113,22 @@ If you wish to contribute a plugin please do, either ported or distinct and new.
 
 
 
+Deployment
+----------
+
+This will sit behind Apache/nginx/whatever and will handle POSTs to paths
+such as /api/2.0/
+
+We want to version requests so that we don't back ourselves into a corner in the future.
+
+
+TODO
+----
+
+* Port all missing plugins.
+* Add new ones.
+* Change the return-handling, as per feedback from Steven C.
+   * Return a JSON array.  At least two members "Result" and "Reason".
+
 Steve
 --
