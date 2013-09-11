@@ -3,7 +3,7 @@ Agent: Mozilla ...
 Email: steve@steve.org.uk
 options: max-links=5
 Subject: This is my comment
-Expected: OK
+Expected: SPAM
 
 This is a valid comment which which should be, except we have six links and five are allowed.
 http://steve.org.uk/
