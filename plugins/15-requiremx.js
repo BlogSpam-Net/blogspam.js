@@ -34,6 +34,11 @@ exports.testJSON = function ( obj, spam, ok, next )
     }
     else
     {
+        //
+        //  No email address was submitted, this should be an error
+        // but if the caller cares they can use the mandatory=email
+        // server-options.
+        //
         next( "next" );
     }
 

@@ -4,7 +4,8 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//
+//  Reject comments that try to hedge their bets and submit
+// links in multiple formats.  (e.g. HTML + BBCode)
 //
 exports.testJSON = function ( obj, spam, ok, next)
 {

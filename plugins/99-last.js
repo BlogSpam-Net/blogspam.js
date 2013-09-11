@@ -4,7 +4,8 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//  Test the IP the comment came-from.
+//  This is the last plugin, if nothing previously has rejected
+//  the comment then this is where we allow it.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {

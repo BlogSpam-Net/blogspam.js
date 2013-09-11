@@ -4,7 +4,7 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//  Test for an email address of the form @example\.
+//  Test for an email address of the form foo@example.
 //
 exports.testJSON = function ( obj, spam, ok, next)
 {
@@ -14,6 +14,10 @@ exports.testJSON = function ( obj, spam, ok, next)
     {
         spam( "Example domain " + email );
     }
+
+    //
+    // We passed this plugin.
+    //
     next("next");
 };
 
