@@ -136,7 +136,9 @@ Dependencies & Deployment
 -------------------------
 
 To save state we use a [redis](http://redis.io/) store, which means that
-you need to have a redis server running upon `localhost`.
+you need to have a redis server running upon `localhost`.  You'll also need
+to ensure that you've followed the instructions above, in the testing section,
+to pull the git submodule - this will give you the redis client library.
 
 It is expected that in live-usage the server will receive POST requests which
 have been proxied via Apache/nginx/whatever.  You'll configure Apache/nginx/etc
