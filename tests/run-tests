@@ -12,12 +12,32 @@
 
 use strict;
 use warnings;
-use Data::Dumper;
 use Getopt::Long;
 
-use LWP::Simple;
-use JSON;
 
+
+#
+#  Load the modules we require
+#
+foreach my $module (qw! LWP::Simple JSON !)
+{
+    my $str = "use $module;";
+    eval($str);
+
+    if ($@)
+    {
+        print <<EOF;
+Attempting to use the module $module failed.
+
+If you're on a Debian GNU/Linux system you can install the missing dependency
+with:
+
+    apt-get install libjson-perl libwww-perl
+
+EOF
+        exit(0);
+    }
+}
 
 
 #
@@ -181,7 +201,7 @@ sub testTheFile
     #
     #  SHowing the result?
     #
-    $CONFIG{'verbose'} && print "Result : " . $result . "\n";
+    $CONFIG{ 'verbose' } && print "Result : " . $result . "\n";
 
     #
     #  Simplistic parsing of the JSON result..
@@ -225,7 +245,7 @@ sub send_data
     #
     #  Encode it.
     #
-    my $json = encode_json \%data;
+    my $json = encode_json( \%data );
 
 
     #
