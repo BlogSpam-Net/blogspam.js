@@ -4,7 +4,7 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//  Test the IP the comment came-from against the stopforumspam site.
+//  Test the IP the comment was submitted from against the stopforumspam.com site.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
@@ -13,7 +13,19 @@ exports.testJSON = function ( obj, spam, ok, next )
     var done   = false;
     var redis  = obj['_redis']
 
+    //
+    // Ensure the IP is an IPv4 address.
+    //
+    var ipv4  = /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)$/;
+    var match = ipv4.exec( ip );
+    if ( !match )
+    {
+        next( "next" );
+        return;
+    }
 
+
+    //
     //  The URL request we're going to make.
     //
     var options = {
