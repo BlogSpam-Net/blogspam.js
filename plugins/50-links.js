@@ -1,4 +1,4 @@
-exports.name    = function() {return "50-links.js" ; };
+exports.name    = function() {return "50-lotsaurls.js" ; };
 exports.purpose = function() {return "Look for excessive HTTP links" ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
