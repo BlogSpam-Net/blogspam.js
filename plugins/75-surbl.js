@@ -13,6 +13,7 @@ exports.testJSON = function ( obj, spam, ok, next )
 {
     var comment = obj['comment'] || ""
     var ip      = obj['ip']      || ""
+    var link    = obj['link']    || ""
     var redis   = obj['_redis']
 
     //
@@ -24,6 +25,20 @@ exports.testJSON = function ( obj, spam, ok, next )
     // Look for URLs.
     //
     var urls = comment.match(/https?:\/\/([^\/]+)\//gi);
+
+    //
+    //  Test the link the user submitted too, if we got one.
+    //
+    if ( link && link.match(/https?:\/\/([^\/]+)\// ) )
+    {
+        //
+        //  There might have been no links in the body, so setup a new
+        // array in that case.
+        //
+        urls = urls ? urls : new Array()
+        urls.push( link );
+    }
+
 
     //
     // For each link we found.
