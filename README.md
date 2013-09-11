@@ -7,7 +7,7 @@ This service receives POSTed JSON data, from blogs, etc.
 It tests each submission to divide the comments received into two classes:
 
 * SPAM
-* HAM
+* OK
 
 The result of each comment submission will be a JSON hash, which contains a key
 "result" declaring "`SPAM`" or "`OK`".  There may be other keys in the result,
@@ -103,6 +103,8 @@ such as /api/2.0/
 
 We want to version requests so that we don't back ourselves into a corner in the future.
 
+**NOTE**: We _do_ send a version-number in the response string.
+
 
 
 Current Status
@@ -112,7 +114,7 @@ The current code is primarily a proof of concept:
 
 * It will bind.
 * It will accept and decode JSON POSTS.
-* It will process the JSON submission via a series of plugins, called in order.
+* It will process the JSON submission via a series of plugins, each called in order.
 * It will return the result of the plugin-tests.
 
 However it will not:
@@ -120,7 +122,7 @@ However it will not:
 * Keep state, caching failing IPs.
 * Implement the [getStats()](http://blogspam.net/api/getStats.html) part of our legacy API
 * Identify even 50% of spam comments.
-
+    * Primarily because it doesn't match links.
 
 Steve
 --
