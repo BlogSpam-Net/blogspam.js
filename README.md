@@ -102,7 +102,20 @@ The actual result of the testing will be returned to the caller in the form of :
 Testing
 -------
 
-In one terminal launch the blogspam service:
+The code is designed to run directly from a git checkout, with no need to install.
+
+However because we use the git submodule feature to pull in an external copy of the
+`node.js` redis-library you'll need to fetch that first:
+
+      $ git submodule init
+      Submodule 'node_redis' (https://github.com/mranney/node_redis) registered for path 'node_redis'
+      $ git submodule update
+      Cloning into 'node_redis'...
+      ..
+
+Once this has completed you'll be able to launch the server correctly.
+
+In one terminal launch the service by running the main script:
 
      node blogspam.js
 
