@@ -1,0 +1,5 @@
+Expected: OK
+ip: 10.11.12.13
+email: steve@steve.org.uk
+
+This comment has an MX record.
