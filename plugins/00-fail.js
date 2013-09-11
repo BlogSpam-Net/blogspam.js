@@ -22,7 +22,7 @@ exports.testJSON = function ( obj, spam, ok, next)
 
         if ( option == "fail" )
         {
-            spam( "SPAM: Manually marked as spam, via options." );
+            spam( "Manually marked as spam, via options." );
         }
     }
 

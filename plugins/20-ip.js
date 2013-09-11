@@ -52,12 +52,12 @@ exports.testJSON = function ( obj, spam, ok, next )
 
         if ( option == "whitelist=" + ip )
         {
-            ok( "OK: Locally whitelisted IP, via options" );
+            ok( "Locally whitelisted IP, via options" );
             return;
         }
         if ( option == "blacklist=" + ip )
         {
-            spam( "SPAM: Locally blacklisted IP, via options" );
+            spam( "Locally blacklisted IP, via options" );
             return;
         }
     }

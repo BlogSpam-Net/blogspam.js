@@ -39,7 +39,7 @@ exports.testJSON = function ( obj, spam, ok, next )
                 // listed for at least 48 hours, as we do on our
                 // legacy-site.
                 //
-                result = "SPAM: Listed in StopForumSpam.com" ;
+                result = "Listed in StopForumSpam.com" ;
                 spam( result );
             }
             else

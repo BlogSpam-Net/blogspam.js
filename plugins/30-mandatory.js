@@ -37,7 +37,7 @@ exports.testJSON = function ( obj, spam, ok, next)
             var value = obj[field]
             if ( ! value )
             {
-                spam( "SPAM: Missing the field marked as mandatory:" + field );
+                spam( "Missing the field marked as mandatory:" + field );
                 return
             }
         }

@@ -12,7 +12,7 @@ exports.testJSON = function ( obj, spam, ok, next)
 
     if ( /@example\./.test(email) )
     {
-        spam( "SPAM: Example domain " + email );
+        spam( "Example domain " + email );
     }
     next("next");
 };

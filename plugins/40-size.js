@@ -41,14 +41,14 @@ exports.testJSON = function ( obj, spam, ok, next)
             if ( ( type == "min-size" ) &&
                  ( comment.length < size ) )
             {
-                spam( "SPAM: The comment was too short." );
+                spam( "The comment was too short." );
                 return
             }
 
             if ( ( type == "max-size" ) &&
                  ( comment.length > size ) )
             {
-                spam( "SPAM: The comment was too long." );
+                spam( "The comment was too long." );
                 return
             }
         }
