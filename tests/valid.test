@@ -1,0 +1,7 @@
+IP: 4.3.4.3
+Agent: Mozilla ...
+Email: steve@steve.org.uk
+Subject: This is my comment
+Expected: OK
+
+This is a valid comment which which should be OK.
