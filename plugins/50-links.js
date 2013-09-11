@@ -41,7 +41,7 @@ exports.testJSON = function ( obj, spam, ok, next)
             //
             var found = comment.match(/https?:\/\//g);
 
-            if ( found.length > max )
+            if ( found != null && ( found.length > max ) )
             {
                 spam( "Too many links, found " + found.length + " max is " + max );
             }
