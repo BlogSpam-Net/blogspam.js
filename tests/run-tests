@@ -126,7 +126,7 @@ sub testTheFile
     #  Note we send "test" so that the spam isn't logged.
     #
     my %params = ( 'test' => '1' );
-    my $expected_result = "";
+    my $expected_result = "OK";
 
     #
     #  Read the file.
@@ -136,9 +136,9 @@ sub testTheFile
 
     while ( my $line = <FILE> )
     {
-        if ( $line =~ /^IP: (.*)/i )
+        if ( $line =~ /^(IP|IP-Address): (.*)/i )
         {
-            $params{ 'ip' } = $1;
+            $params{ 'ip' } = $2;
         }
         elsif ( $line =~ /^expected: (.*)/i )
         {
@@ -188,7 +188,9 @@ sub testTheFile
     #
     if ( $result =~ /"result":"([^"]+)"/ )
     {
-        if ( $1 eq $expected_result )
+        my $result = $1;
+
+        if ( $result eq $expected_result )
         {
             $CONFIG{ 'pass' } += 1;
             print "OK - $file\n";
@@ -196,7 +198,7 @@ sub testTheFile
         else
         {
             $CONFIG{ 'fail' } += 1;
-            print "FAIL - $file [Expected $expected_result got $result]\n";
+            print "FAIL - $file [Expected '$expected_result' got '$result']\n";
         }
     }
     else
