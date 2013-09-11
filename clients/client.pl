@@ -1,4 +1,15 @@
 #!/usr/bin/perl
+#
+# Submit a comment-test request to the local-host.
+#
+# This is a standalone script which is designed to be simple to
+# understand and modify for real usage, rather than a complete
+# test of the server.
+#
+# For server-tests please see ./tests/
+#
+# Steve
+#
 
 use LWP::Simple;
 use JSON;
@@ -7,6 +18,9 @@ use strict;
 use warnings;
 
 
+#
+# The location of the server we're going to test-against
+#
 my $uri = 'http://localhost:8888/';
 
 #
@@ -16,12 +30,15 @@ my %data;
 $data{'name'}    = 'Steve Kemp';
 $data{'email'}   = 'steve@moi.com';
 $data{'options'} = "whitelist=127.0.0.1,mandatory=subject,mandatory=comment";
-$data{'ip'}      = '109.194.111.144';
+$data{'ip'}      = '124.132.111.144';
 $data{'comment'} = '<p>This is my body ..</p>';
 $data{'subject'} = "This is the comment subject";
 
+
 #
-#  Encode it.
+#  Encode the hash prior to submission.
+#
+#  The server expects JSON.
 #
 my $json = encode_json \%data;
 
@@ -40,6 +57,6 @@ my $lwp = LWP::UserAgent->new;
 my $response = $lwp->request( $req );
 
 #
-#  Show the result
+#  Show the result which was received.
 #
 print $response->code . " " . $response->decoded_content . "\n";

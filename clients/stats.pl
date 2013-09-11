@@ -2,6 +2,8 @@
 #
 #  Submit a request to http://localhost:8888/stats to get the per-site stats.
 #
+#  NOTE: This is currently a nop.
+#
 
 use LWP::Simple;
 use JSON;
