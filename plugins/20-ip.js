@@ -83,9 +83,17 @@ exports.testJSON = function ( obj, spam, ok, next )
     }
 
     //
-    // OK no decision reached in this plugin.
+    //  If we have a cached result, then return it.
     //
-    next( "next" );
+    var redis = obj['_redis'];
+    redis.get("blacklist-" + ip , function (err, reply) {
+        if ( reply ) {
+            spam( reply );
+        }
+        else {
+            next("next");
+        }
+    });
 };
 
 
