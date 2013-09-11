@@ -225,14 +225,21 @@ fs.readdir("./plugins", function(err, entries)  {
         v = require(plugin);
         console.log( "Loaded plugin: " + plugin );
 
-        plugins.push( v );
-
         //
         //  If the plugin has an init method, call it.
         //
         if(typeof v.init === 'function') {
             v.init();
         };
+
+        //
+        //  If the plugin has a .testJSON method
+        // we'll add it to the plugin list.
+        //
+        if(typeof v.testJSON === 'function') {
+            plugins.push( v );
+        };
+
     });
 });
 
