@@ -176,6 +176,10 @@ sub testTheFile
         {
             $params{ 'name' } = $1;
         }
+        elsif ( $line =~ /^Link: (.*)/i )
+        {
+            $params{ 'link' } = $1;
+        }
         elsif ( $line =~ /^Subject: (.*)/i )
         {
             $params{ 'subject' } = $1;
