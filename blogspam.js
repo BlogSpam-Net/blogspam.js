@@ -80,8 +80,8 @@ var server = http.createServer(function (request, response) {
                         //
                         //  Therefore it is HAM.
                         //
-                        response.writeHead( 200 , {'content-type': 'text/plain' });
-                        response.end("OK");
+                        response.writeHead( 200 , {'content-type': 'application/json' });
+                        response.end('{"result":"OK","version":"2.0"}' );
                         return;
                     }
 
@@ -90,27 +90,30 @@ var server = http.createServer(function (request, response) {
                     //
                     //  Call the test-json method, with the three-callbacks:
                     //
-                    //   spam.  Immediately send a 403 response.
+                    //   spam.  Send an error, via JSON.
                     //
-                    //   ham.   Immediately send a 200 response.
+                    //   ham.   Send an OK, via JSON.
                     //
                     //   next.  This will ensure the next plugin will be invoked.
                     //
                     plugin.testJSON( parsed, function(reason) { //spam
-                         response.writeHead( 403 , {'content-type': 'text/plain' });
 
                         //
                         //  Along with the reason.
                         //
-                        response.end(reason + "[" + plugin.name() + "]");
-                        console.log( "\tplugin " + plugin.name() + " said spam " + reason );
+                        response.writeHead( 200 , {'content-type': 'application/json' });
+                        var hash = {};
+                        hash['result'] = "SPAM";
+                        hash['reason'] = reason;
+                        hash['blocker'] = plugin.name()
+                        hash['version'] = "2.0";
+                        response.end(JSON.stringify(hash));
+                        console.log(JSON.stringify(hash));
                     }, function(reason){ //ok
-                         response.writeHead( 200, {'content-type': 'text/plain' });
 
-                         //
-                         //  Along with the reason.
-                         //
-                         response.end("OK " + plugin.name());
+                        response.writeHead( 200 , {'content-type': 'application/json' });
+                        response.end('{"result":"OK","version":"2.0"}' );
+                        return;
                      }, function(txt){ //next
                          console.log( "\tplugin " + plugin.name() + " said next :" + txt );
                          execute();

@@ -9,9 +9,10 @@ It tests each submission to divide the comments received into two classes:
 * SPAM
 * HAM
 
-Spam tests will return a HTTP 403 response, with an explaination.
-
-Valid comments will receive a HTTP 200 response, with the message "OK".
+The result of each comment submission will be a JSON hash, which contains a key
+"result" declaring "`SPAM`" or "`OK`".  There may be other keys in the result,
+such as "`reason`" which declares the reason for a SPAM result however these
+are optional.
 
 
 
@@ -85,10 +86,12 @@ A spam or ham result terminates the processing, avoiding later plugins.
 The actual result of the testing will be returned to the caller in the form of :
 
 * A HTTP status code
-   * 403 for SPAM
-   * 200 for OK
-* A single line of text
-   * Confirming "OK", or declaring the reason for the rejection
+   * 200 for SPAM/OK
+   * 404 for invalid submissions.
+   * 500 for server errors.
+* A JSON body.
+   * The JSON body will be a hash containing the key "`result`", as well as other optional keys.
+
 
 **NOTE**: This means you **must** to have 99-ok.js, or similar, so that the final result is OK.
 
