@@ -177,9 +177,17 @@ sub testTheFile
 
     my $result = send_data(%params);
 
-    if ( $result =~ /([0-9]+) (OK|SPAM)/ )
+    #
+    #  SHowing the result?
+    #
+    $CONFIG{'verbose'} && print "Result : " . $result . "\n";
+
+    #
+    #  Simplistic parsing of the JSON result..
+    #
+    if ( $result =~ /"result":"([^"]+)"/ )
     {
-        if ( $2 eq $expected_result )
+        if ( $1 eq $expected_result )
         {
             $CONFIG{ 'pass' } += 1;
             print "OK - $file\n";
