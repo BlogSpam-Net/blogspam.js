@@ -196,7 +196,8 @@ var server = http.createServer(function (request, response) {
 
         });
     }
-    else if ( request.url == "/stats" && request.method === 'POST' ) {
+    else if ( ( request.url == "/stats" || request.url == '/stats/' ) &&
+              ( request.method === 'POST' ) ) {
         var data = '';
 
         request.addListener('data', function(chunk) { data += chunk; });
@@ -242,6 +243,22 @@ var server = http.createServer(function (request, response) {
             });
 
         });
+    }
+    else if ( ( request.url == "/plugins" || request.url == "/plugins/" )  &&
+              request.method === 'GET' ) {
+        var hash = {};
+
+        plugins.forEach(function(plugin){
+            var name   = plugin.name()
+            var author = plugin.author();
+            var desc   = plugin.purpose();
+
+            hash[name] = { 'author': author, 'description': desc };
+
+        });
+
+        response.writeHead(200, {'content-type': 'application/json' });
+        response.end(JSON.stringify(hash));
     }
     else
     {
