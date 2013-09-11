@@ -48,7 +48,7 @@ my %CONFIG;
 #
 #  Default server
 #
-$CONFIG{ 'server' } = "http://localhost:8888/";
+$CONFIG{ 'server' } = "http://localhost:9999/";
 
 #
 #  Result count

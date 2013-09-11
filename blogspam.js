@@ -292,4 +292,4 @@ fs.readdir("./plugins", function(err, entries)  {
     });
 });
 
-server.listen(8888)
+server.listen(9999)
