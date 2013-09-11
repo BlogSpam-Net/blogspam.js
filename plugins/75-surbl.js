@@ -12,7 +12,7 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 exports.testJSON = function ( obj, spam, ok, next )
 {
     var comment = obj['comment'] || ""
-    var ip      = obj['ip'] || ""
+    var ip      = obj['ip']      || ""
     var redis   = obj['_redis']
 
     //
@@ -30,17 +30,37 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     if ( urls )
     {
-        urls.forEach(function(entry){
+        var currentEntry = -1;
 
+        var execute = function() {
+
+            currentEntry++;
+            if (currentEntry >= urls.length) {
+                return;
+            }
+
+            //
+            //  The current URL we're testing.
+            //
+            var entry = urls[currentEntry];
+
+            //
+            //  Remove http:// or https:// prefix.
+            //
+            //  Remove trailing "/".
+            //
             entry = entry.substr( entry.indexOf( "//" ) + 2 );
             entry = entry.replace(/\//gm,"");
 
-            console.log( "Looking up entry " + entry );
-            var lookup   = entry + ".multi.surbl.org";
+            //
+            //  The complete name we're looking up.
+            //
+            var lookup = entry + ".multi.surbl.org";
+
             dns.resolve4(lookup, function (err, addresses) {
                 if (err)
                 {
-                    next("next");
+                    execute();
                 }
                 else
                 {
@@ -53,10 +73,13 @@ exports.testJSON = function ( obj, spam, ok, next )
                     //
                     // Return the result.
                     //
-                    spam( "POsting links listed in surbl.org" );
+                    spam( "Posting links listed in surbl.org" );
+                    return;
                 }
             });
-        });
+        };
+
+        execute();
     }
     else
     {
