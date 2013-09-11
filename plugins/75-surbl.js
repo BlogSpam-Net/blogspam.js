@@ -12,6 +12,7 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 exports.testJSON = function ( obj, spam, ok, next )
 {
     var comment = obj['comment'] || ""
+    var ip      = obj['ip'] || ""
     var redis   = obj['_redis']
 
     //
