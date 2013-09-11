@@ -2,12 +2,15 @@
 JSON BlogSpam Service
 ---------------------
 
-This service receives POSTed JSON data, from blogs, etc.
+This service is a node.js reimplementation of the [BlogSpam.net service](http://blogspam.net), which is designed to test whether incoming blog-comments are spam or not in realtime.
 
-It tests each submission to divide the comments received into two classes:
+The original blogspam service was written in Perl and used XML::RPC for the
+transport mechanism, that code is available [on CPAN](http://search.cpan.org/dist/Blog-Spam/).
 
-* SPAM
-* OK
+This `node.js` service is currently underoing development with the intention
+it can replace the legacy system.  It will receive HTTP POST requests containing
+the comments a remote server submits, and will divide those comments into
+"SPAM" or "OK".
 
 The result of each comment submission will be a JSON hash, which contains a key
 "result" declaring "`SPAM`" or "`OK`".  There may be other keys in the result,
@@ -116,34 +119,33 @@ run a single case explicitly:
      ./run-tests --test ./exclude-plugins.test  [--verbose]
 
 
-Deployment
-----------
+Dependencies & Deployment
+-------------------------
 
-This will sit behind Apache/nginx/whatever and will handle POSTs to paths
-such as /api/2.0/
+To save state we use a [redis](http://redis.io/) store, which means that
+you need to have a redis server running upon `localhost`.
 
-We want to version requests so that we don't back ourselves into a corner in the future.
-
-**NOTE**: We _do_ send a version-number in the response string.
-
+It is expected that in live-usage the server will receive POST requests which
+have been proxied via Apache/nginx/whatever.  You'll configure Apache/nginx/etc
+to pass paths such as /blogspam/api/2.0/ directly to this running node.js
+service.
 
 
 Current Status
 --------------
 
-The current code is primarily a proof of concept:
+The current code is a pretty convincing proof of concept:
 
-* It will bind.
+* It will bind to a scoket.
 * It will accept and decode JSON POSTS.
 * It will process the JSON submission via a series of plugins, each called in order.
 * It will return the result of the plugin-tests.
+* It keeps state, via redis, to implement the [getStats()](http://blogspam.net/api/getStats.html) part of our legacy API
 
 However it will not:
 
-* Keep state, caching failing IPs.
-* Implement the [getStats()](http://blogspam.net/api/getStats.html) part of our legacy API
-* Identify even 50% of spam comments.
-    * Primarily because it doesn't match links.
+* Identify more than about 50% of spam comments.
+    * Primarily because it is missing plugins.
 
 Steve
 --
