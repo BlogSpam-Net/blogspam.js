@@ -1,4 +1,4 @@
-exports.name    = function() {return "50-link-format.js" ; };
+exports.name    = function() {return "50-multilinks.js" ; };
 exports.purpose = function() {return "Look for different linking stratergies" ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
