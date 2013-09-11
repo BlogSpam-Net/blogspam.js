@@ -7,6 +7,12 @@ Each plugin is loaded when the server launches, and when a new submission
 of JSON data is received each will be invoked in turn - unless a prior
 plugin has decided a submission is definitely-spam, or definitely-OK.
 
+The naming/ordering of the plugins is solely designed to complete the
+"cheaper" tests first.
+
+For example analysis of the submission is cheaper than making a DNS request,
+while making DNS request is cheaper than making a HTTP request.
+
 
 API
 ---
