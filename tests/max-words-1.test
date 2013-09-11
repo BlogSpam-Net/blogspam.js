@@ -1,0 +1,8 @@
+Expected: SPAM
+ip: 10.11.12.13
+email: steve@steve.org.uk
+options: max-words=5
+
+this is a list of words, several more than than five.
+
+
