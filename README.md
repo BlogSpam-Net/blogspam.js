@@ -151,7 +151,7 @@ Current Status
 
 The current code is a pretty convincing proof of concept:
 
-* It will bind to a scoket.
+* It will bind to a socket.
 * It will accept and decode JSON POSTS.
 * It will process the JSON submission via a series of plugins, each called in order.
 * It will return the result of the plugin-tests.
