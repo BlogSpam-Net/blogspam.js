@@ -1,3 +1,10 @@
+//
+//  Note this function is naive.  Compare implementations later:
+//
+//    http://stackoverflow.com/questions/765419/javascript-word-count-for-any-given-dom-element
+//
+
+
 exports.name    = function() {return "45-wordcount.js" ; };
 exports.purpose = function() {return "Count the words in the body and abort on too few." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
