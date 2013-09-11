@@ -220,14 +220,26 @@ var server = http.createServer(function (request, response) {
             var site = parsed['site'] || "unknown";
 
             //
-            //  Lookup the data.
+            //  Lookup the data from Redis.
             //
             var hash = {}
-            hash['spam'] = redis.get( "site-" + site + "-spam" );
-            hash['ham']  = redis.get( "site-" + site + "-ok" );
 
-            response.writeHead(200, {'content-type': 'application/json' });
-            response.end(JSON.stringify(hash));
+            redis.get( "site-" + site + "-spam" , function (err, reply) {
+                if ( reply ) {
+                    hash['spam'] = reply;
+                }
+
+                redis.get( "site-" + site + "-ok" , function (err, reply) {
+                    if ( reply ) {
+                        hash['ok'] = reply;
+                    }
+
+                    response.writeHead(200, {'content-type': 'application/json' });
+                    response.end(JSON.stringify(hash));
+                    console.log(JSON.stringify(hash));
+                });
+
+            });
 
         });
     }
