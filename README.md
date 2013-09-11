@@ -130,8 +130,7 @@ TODO
 
 * Port all missing plugins.
 * Add new ones.
-* Change the return-handling, as per feedback from Steven C.
-   * Return a JSON array.  At least two members "Result" and "Reason".
+* Add more test-cases.
 
 Steve
 --
