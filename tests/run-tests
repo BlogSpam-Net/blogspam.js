@@ -1,0 +1,238 @@
+#!/usr/bin/perl -w
+#
+#  Submit one request to the localhost for each test file we find.
+#
+#  If a host:port is specified on the command line submit against that
+# instead of http://localhost:8888/
+#
+# Steve
+# --
+#
+
+
+use strict;
+use warnings;
+use Data::Dumper;
+use Getopt::Long;
+
+use LWP::Simple;
+use JSON;
+
+
+
+#
+#  Config
+#
+my %CONFIG;
+
+#
+#  Default server
+#
+$CONFIG{ 'server' } = "http://localhost:8888/";
+
+#
+#  Result count
+#
+$CONFIG{ 'pass' } = $CONFIG{ 'fail' } = 0;
+
+
+
+#
+#  Parse our options
+#
+exit
+  if (
+       !GetOptions( "test=s",   \$CONFIG{ 'test' },
+                    "file=s",   \$CONFIG{ 'test' },
+                    "verbose",  \$CONFIG{ 'verbose' },
+                    "server=s", \$CONFIG{ 'server' },
+                  ) );
+
+
+
+
+#
+#  Make sure the server is valid
+#
+if ( $CONFIG{ 'server' } !~ /^http:\/\// )
+{
+    $CONFIG{ 'server' } = "http://" . $CONFIG{ 'server' };
+}
+if ( $CONFIG{ 'server' } !~ /:([0-9]+)/ )
+{
+    $CONFIG{ 'server' } .= ":8888/";
+}
+
+
+
+#
+#  If we're using a file then test that, otherwise
+# test all files in the current directory.
+#
+if ( $CONFIG{ 'test' } )
+{
+    testTheFile( $CONFIG{ 'test' } );
+}
+else
+{
+
+    #  Process each file in the current directory
+    #
+    foreach my $file ( sort( glob("*.test") ) )
+    {
+        testTheFile($file);
+    }
+
+    #
+    #  Show pass/fail totals
+    #
+    print "PASS: $CONFIG{'pass'} FAIL: $CONFIG{'fail'}\n";
+}
+
+
+
+#
+#  All done
+#
+exit;
+
+
+
+
+=begin doc
+
+Parse the given file, build up a hash, and then use that to report
+on the success/failure of a test-cas
+
+=end doc
+
+=cut
+
+sub testTheFile
+{
+    my ($file) = (@_);
+
+    if ( !-e $file )
+    {
+        print "File not found: $file\n";
+        return;
+    }
+
+
+    #
+    #  Params we send to the server.
+    #
+    #  Note we send "test" so that the spam isn't logged.
+    #
+    my %params = ( 'test' => '1' );
+    my $expected_result = "";
+
+    #
+    #  Read the file.
+    #
+    open( FILE, "<", $file ) or
+      die "Failed to open $file - $!";
+
+    while ( my $line = <FILE> )
+    {
+        if ( $line =~ /^IP: (.*)/i )
+        {
+            $params{ 'ip' } = $1;
+        }
+        elsif ( $line =~ /^expected: (.*)/i )
+        {
+            $expected_result = $1;
+        }
+        elsif ( $line =~ /^User-Agent: (.*)/i )
+        {
+            $params{ 'agent' } = $1;
+        }
+        elsif ( $line =~ /^Email: (.*)/i )
+        {
+            $params{ 'email' } = $1;
+        }
+        elsif ( $line =~ /^Name: (.*)/i )
+        {
+            $params{ 'name' } = $1;
+        }
+        elsif ( $line =~ /^Subject: (.*)/i )
+        {
+            $params{ 'subject' } = $1;
+        }
+        elsif ( $line =~ /^Site: (.*)/i )
+        {
+            $params{ 'site' } = $1;
+        }
+        elsif ( $line =~ /^Options: (.*)/i )
+        {
+            $params{ 'options' } = $1;
+        }
+        else
+        {
+            $params{ 'comment' } .= $line;
+        }
+
+    }
+    close(FILE);
+
+    my $result = send_data(%params);
+
+    if ( $result =~ /([0-9]+) (OK|SPAM)/ )
+    {
+        if ( $2 eq $expected_result )
+        {
+            $CONFIG{ 'pass' } += 1;
+            print "OK - $file\n";
+        }
+        else
+        {
+            $CONFIG{ 'fail' } += 1;
+            print "FAIL - $file [Expected $expected_result got $result]\n";
+        }
+    }
+    else
+    {
+        die "Unknown result: $result";
+    }
+}
+
+
+=begin doc
+
+Send the encoded hash of data to the blogspam server, after JSON encoding.
+
+Return the result
+
+=end doc
+
+=cut
+
+sub send_data
+{
+    my (%data) = (@_);
+
+    #
+    #  Encode it.
+    #
+    my $json = encode_json \%data;
+
+
+    #
+    #  We're going to use a HTTP POST.
+    #
+    my $req = HTTP::Request->new( 'POST', $CONFIG{ 'server' } );
+    $req->header( 'Content-Type' => 'application/json' );
+    $req->content($json);
+
+    #
+    #  Send the request.
+    #
+    my $lwp      = LWP::UserAgent->new;
+    my $response = $lwp->request($req);
+
+    #
+    #  Return the result
+    #
+    return ( $response->code . " " . $response->decoded_content );
+
+}

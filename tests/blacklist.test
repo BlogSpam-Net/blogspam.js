@@ -1,0 +1,5 @@
+IP: 10.11.12.13
+Options: blacklist=10.11.12.13
+Expected: SPAM
+
+This is a valid comment.

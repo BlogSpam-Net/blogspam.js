@@ -1,0 +1,3 @@
+Expected: SPAM
+
+This is a valid comment which will be marked as spam, because the IP is malformed.
