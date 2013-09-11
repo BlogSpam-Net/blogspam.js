@@ -24,8 +24,6 @@ exports.testJSON = function ( obj, spam, ok, next )
         var reversed = ip.split("." ).reverse().join( "." )
         var lookup   = reversed + ".dnsbl.dronebl.org";
 
-        console.log( "Looking for IP address for " + lookup );
-
         dns.resolve4(lookup, function (err, addresses) {
             if (err)
             {

@@ -19,8 +19,6 @@ exports.testJSON = function ( obj, spam, ok, next )
     {
         var domain = match[2].trim();
 
-        console.log( "Looking for MX for domain " + domain );
-
         dns.resolveMx(domain, function (err, addresses) {
             if (err)
             {

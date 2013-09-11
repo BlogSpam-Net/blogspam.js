@@ -25,8 +25,6 @@ exports.testJSON = function ( obj, spam, ok, next )
         var key      = "keykeykeykey.";
         var lookup   = key + reversed + ".dnsbl.httpbl.org";
 
-        console.log( "Looking for IP address for " + lookup );
-
         dns.resolve4(lookup, function (err, addresses) {
             if (err)
             {
