@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Blog::Spam::Server;
+use Blog::Spam::Proxy;
 
 
 
@@ -11,7 +11,7 @@ use Blog::Spam::Server;
 #
 #  Create the server.
 #
-my $proxy = Blog::Spam::Server->new();
+my $proxy = Blog::Spam::Proxy->new();
 
 
 #
