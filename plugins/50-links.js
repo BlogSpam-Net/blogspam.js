@@ -39,7 +39,7 @@ exports.testJSON = function ( obj, spam, ok, next)
             //
             //  So we have a max-links count.  We need to count the links
             //
-            var found = comment.match(/http:\/\//g);
+            var found = comment.match(/https?:\/\//g);
 
             if ( found.length > max )
             {
