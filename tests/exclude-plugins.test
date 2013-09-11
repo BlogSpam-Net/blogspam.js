@@ -1,7 +1,7 @@
 IP: 4.3.4.3
 Agent: Mozilla ...
 Email: steve@steve.org.uk
-options: max-links=5,exclude=links
+options: max-links=5,exclude=lotsaurls
 Subject: This is my comment
 Expected: OK
 
