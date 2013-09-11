@@ -4,11 +4,15 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//
+//  Reject submissions that contain too many URLs in the body.
 //
 exports.testJSON = function ( obj, spam, ok, next)
 {
-    var options = obj['options'] || '';
+    //
+    // Default to 10 links, which was the value we used
+    // in the legacy API.
+    //
+    var options = obj['options'] || 'max-links=10';
     var comment = obj['comment'] || '';
 
     //
@@ -22,7 +26,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     var reg = /^max-links=(.*)$/;
 
     //
-    //  Test each one
+    //  Test each option in turn.
     //
     for (var i = 0; i < array.length; i++)
     {
@@ -34,6 +38,9 @@ exports.testJSON = function ( obj, spam, ok, next)
         var match = reg.exec( option );
         if ( match )
         {
+            //
+            // The count.
+            //
             var max = match[1].trim()
 
             //
