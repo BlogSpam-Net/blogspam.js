@@ -72,13 +72,17 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             var lookup = entry + ".multi.surbl.org";
 
+            console.log( "Testing URL: " + lookup );
+
             dns.resolve4(lookup, function (err, addresses) {
                 if (err)
                 {
+                    console.log( "\tFailed" );
                     execute();
                 }
                 else
                 {
+                    console.log( "\tListed" );
                     //
                     // Cache the result for two days.
                     //
@@ -95,6 +99,7 @@ exports.testJSON = function ( obj, spam, ok, next )
         };
 
         execute();
+        next( "next" );
     }
     else
     {
