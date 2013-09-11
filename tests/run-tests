@@ -84,8 +84,9 @@ else
     }
 
     #
-    #  Show pass/fail totals
+    #  Show global pass/fail totals
     #
+    print "\n";
     print "PASS: $CONFIG{'pass'} FAIL: $CONFIG{'fail'}\n";
 }
 
