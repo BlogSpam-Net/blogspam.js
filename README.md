@@ -87,34 +87,13 @@ The actual result of the testing will be returned to the caller in the form of :
 
 * A HTTP status code
    * 200 for SPAM/OK
-   * 404 for invalid submissions.
+   * 405 for invalid submissions.
    * 500 for server errors.
 * A JSON body.
    * The JSON body will be a hash containing the key "`result`", as well as other optional keys.
 
 
 **NOTE**: This means you **must** to have 99-ok.js, or similar, so that the final result is OK.
-
-
-Current Status
---------------
-
-The current code is just a proof of concept.  It has a ropy plugin-system which needs
-converting to using "real" javascript objects.
-
-I can replay real comments to this server for testing purposes though, which will allow
-me to directly compare load, and reliability.
-
-
-Submissions Welcome
--------------------
-
-The biggest drawback to the current code is that it lacks the majority of the plugins
-which the live version of the blogspam service contains.
-
-If you wish to contribute a plugin please do, either ported or distinct and new.
-
-
 
 Deployment
 ----------
@@ -125,12 +104,23 @@ such as /api/2.0/
 We want to version requests so that we don't back ourselves into a corner in the future.
 
 
-TODO
-----
 
-* Port all missing plugins.
-* Add new ones.
-* Add more test-cases.
+Current Status
+--------------
+
+The current code is primarily a proof of concept:
+
+* It will bind.
+* It will accept and decode JSON POSTS.
+* It will process the JSON submission via a series of plugins, called in order.
+* It will return the result of the plugin-tests.
+
+However it will not:
+
+* Keep state, caching failing IPs.
+* Implement the [getStats()](http://blogspam.net/api/getStats.html) part of our legacy API
+* Identify even 50% of spam comments.
+
 
 Steve
 --
