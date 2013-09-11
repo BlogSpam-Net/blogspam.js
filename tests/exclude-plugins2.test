@@ -1,0 +1,18 @@
+IP: 4.3
+Agent: Mozilla ...
+Email: steve@steve.org.uk
+options: max-links=5,exclude=.*
+Subject: This is my comment
+Expected: OK
+
+
+This would ordinarily be dropped, because of the excessive number of links.
+
+But we're excluding the link-count plugin so we should pass.
+
+http://steve.org.uk/
+http://example.com/
+http://example.org/
+http://example.net/
+http://debian.org/
+http://debian.net/

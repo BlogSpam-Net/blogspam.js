@@ -61,11 +61,22 @@ var server = http.createServer(function (request, response) {
             //
             //     http://blogspam.net/api/testComment.html
             //
-            // TODO: Handle this here.  This means handling plugin-names better
-            // and keeping them the same.
             //
+            var options = parsed['options'] || "";
+            var opts    = options.split( "," );
+            var exclude = [];
 
+            for (var i = 0; i < opts.length; i++)
+            {
+                var option = opts[i].trim();
+                var reg = /^exclude=(.*)$/;
 
+                var match = reg.exec( option );
+                if ( match )
+                {
+                    exclude.push( match[1].trim() );
+                }
+            }
 
             var currentPlugin = -1;
 
@@ -86,38 +97,56 @@ var server = http.createServer(function (request, response) {
                     }
 
                     var plugin = plugins[currentPlugin];
+                    var skip = false;
 
-                    //
-                    //  Call the test-json method, with the three-callbacks:
-                    //
-                    //   spam.  Send an error, via JSON.
-                    //
-                    //   ham.   Send an OK, via JSON.
-                    //
-                    //   next.  This will ensure the next plugin will be invoked.
-                    //
-                    plugin.testJSON( parsed, function(reason) { //spam
+                    for (var i = 0; i < exclude.length; i++)
+                    {
+                        var name = exclude[i].trim();
+                        if ( plugin.name().match( name ) )
+                        {
+                            skip = true;
+                        }
+                    }
 
+
+                    if (  skip )
+                    {
+                        execute();
+                    }
+                    else
+                    {
                         //
-                        //  Along with the reason.
+                        //  Call the test-json method, with the three-callbacks:
                         //
-                        response.writeHead( 200 , {'content-type': 'application/json' });
-                        var hash = {};
-                        hash['result'] = "SPAM";
-                        hash['reason'] = reason;
-                        hash['blocker'] = plugin.name()
-                        hash['version'] = "2.0";
-                        response.end(JSON.stringify(hash));
-                        console.log(JSON.stringify(hash));
-                    }, function(reason){ //ok
+                        //   spam.  Send an error, via JSON.
+                        //
+                        //   ham.   Send an OK, via JSON.
+                        //
+                        //   next.  This will ensure the next plugin will be invoked.
+                        //
+                        plugin.testJSON( parsed, function(reason) { //spam
 
-                        response.writeHead( 200 , {'content-type': 'application/json' });
-                        response.end('{"result":"OK","version":"2.0"}' );
-                        return;
-                     }, function(txt){ //next
-                         console.log( "\tplugin " + plugin.name() + " said next :" + txt );
-                         execute();
-                     });
+                            //
+                            //  Along with the reason.
+                            //
+                            response.writeHead( 200 , {'content-type': 'application/json' });
+                            var hash = {};
+                            hash['result'] = "SPAM";
+                            hash['reason'] = reason;
+                            hash['blocker'] = plugin.name()
+                            hash['version'] = "2.0";
+                            response.end(JSON.stringify(hash));
+                            console.log(JSON.stringify(hash));
+                        }, function(reason){ //ok
+
+                            response.writeHead( 200 , {'content-type': 'application/json' });
+                            response.end('{"result":"OK","version":"2.0"}' );
+                            return;
+                        }, function(txt){ //next
+                            console.log( "\tplugin " + plugin.name() + " said next :" + txt );
+                            execute();
+                        });
+                    }
                 } catch ( e ) {
 
                     //
