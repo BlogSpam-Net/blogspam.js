@@ -11,7 +11,8 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var ip   = obj['ip']   || ""
+    var ip    = obj['ip']   || ""
+    var redis = obj['_redis']
 
     //
     // We can only test IPv4 addresses
@@ -21,17 +22,26 @@ exports.testJSON = function ( obj, spam, ok, next )
     if ( match )
     {
         var reversed = ip.split("." ).reverse().join( "." )
-        ip = reversed + ".dnsbl.dronebl.org";
+        var lookup   = reversed + ".dnsbl.dronebl.org";
 
-        console.log( "Looking for IP address for " + ip );
+        console.log( "Looking for IP address for " + lookup );
 
-        dns.resolve4(ip, function (err, addresses) {
+        dns.resolve4(lookup, function (err, addresses) {
             if (err)
             {
                 next("next");
             }
             else
             {
+                //
+                // Cache the result for two days.
+                //
+                redis.set( "blacklist-" + ip , "Listed in dronebl.org" );
+                redis.expire( "blacklist-" + ip , 60*60*48 );
+
+                //
+                // Return the result.
+                //
                 spam( "Listed in dronebl.org" );
             }
         });
