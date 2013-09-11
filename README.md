@@ -2,20 +2,16 @@
 JSON BlogSpam Service
 ---------------------
 
-This service is a node.js reimplementation of the [BlogSpam.net service](http://blogspam.net), which is designed to test whether incoming blog-comments are spam or not in realtime.
+This service is a node.js re-implementation of the [BlogSpam.net service](http://blogspam.net), which is designed to test whether incoming blog-comments are spam or not in real-time.
 
 The original blogspam service was written in Perl and used XML::RPC for the
 transport mechanism, that code is available [on CPAN](http://search.cpan.org/dist/Blog-Spam/).
 
-This `node.js` service is currently underoing development with the intention
-it can replace the legacy system.  It will receive HTTP POST requests containing
-the comments a remote server submits, and will divide those comments into
-"SPAM" or "OK".
-
-The result of each comment submission will be a JSON hash, which contains a key
-"result" declaring "`SPAM`" or "`OK`".  There may be other keys in the result,
-such as "`reason`" which declares the reason for a SPAM result however these
-are optional.
+This `node.js` service is being developed with the intention of replacing the legacy system.
+Rather than receiving comment-submissions via XML-RPC it will accept HTTP POST requests containing
+JSON.  Those requests will then be tested, and the result will be returned as a JSON hash containing
+a results key declaring "`SPAM`" or "`OK`".  There may be other keys in the result, such as "`reason`"
+which declares the reason for a SPAM result however these are optional.
 
 
 
@@ -27,7 +23,7 @@ comments which were received upon the [Debian Administration](http://www.debian-
 
 The comments that were spammy were a pain to deal with, but at the same time they
 weren't really specific to the site.  The idea of abstracting away the spam
-testing from the site was appealling.
+testing from the site was appealing.
 
 Since then I've added support for the remote service to many other of my sites,
 and also made it generally available to the internet at large.  The service is
@@ -39,7 +35,7 @@ pretty good, but hard to maintain for two reasons:
    * This causes 1/1000 messages to crash the server.
    * Again I hope node.js will sidestep this issue.
 
-This javascript port of the service is aimed to replace the existing XML::RPC
+This javascript port of the service is aimed at replacing the existing XML::RPC
 interface in time.  (The XML::RPC method will have to remain for backward compatibility
 but it will become a mere shim/proxy around the node.js version.)
 
@@ -47,7 +43,7 @@ but it will become a mere shim/proxy around the node.js version.)
 API
 ---
 
-The service recieves HTTP POST requests, (other HTTP methods return an error), and
+The service receives HTTP POST requests, (other HTTP methods return an error), and
 we assume that each HTTP POST request contains a JSON payload.   The payload
 should be a hash with the following members:
 
@@ -82,9 +78,10 @@ methods it receives:
 * `ham`
    * The comment is definitely HAM.
 * `next`
-   * The comment is undecided, keep proccessing by invoking all remaining plugins.
+   * The comment is undecided, keep processing by invoking all remaining plugins.
 
-A spam or ham result terminates the processing, avoiding later plugins.
+A spam or ham result terminates the processing, avoiding later plugins.  **NOTE**: This means
+you **must** have 99-ok.js, or similar plugin, so that the final result is OK.
 
 The actual result of the testing will be returned to the caller in the form of :
 
@@ -95,8 +92,6 @@ The actual result of the testing will be returned to the caller in the form of :
 * A JSON body.
    * The JSON body will be a hash containing the key "`result`", as well as other optional keys.
 
-
-**NOTE**: This means you **must** to have 99-ok.js, or similar, so that the final result is OK.
 
 
 Testing
@@ -138,7 +133,7 @@ Dependencies & Deployment
 To save state we use a [redis](http://redis.io/) store, which means that
 you need to have a redis server running upon `localhost`.  You'll also need
 to ensure that you've followed the instructions above, in the testing section,
-to pull the git submodule - this will give you the redis client library.
+to fetch the git submodule containing the redis client library.
 
 It is expected that in live-usage the server will receive POST requests which
 have been proxied via Apache/nginx/whatever.  You'll configure Apache/nginx/etc
