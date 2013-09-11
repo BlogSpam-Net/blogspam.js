@@ -14,9 +14,16 @@
  */
 
 
-var fs   = require('fs');
-var http = require('http')
-var path = require('path');
+var fs        = require('fs');
+var http      = require('http')
+var path      = require('path');
+var redis_lib = require('./node_redis/index.js');
+
+
+/**
+ * Our redis-connection.
+ */
+var redis = redis_lib.createClient();
 
 
 /**
@@ -30,6 +37,10 @@ var plugins = []
  */
 var server = http.createServer(function (request, response) {
 
+    /**
+     * If we're receiving a POST to "/" then it is to test
+     * a comment.
+     */
     if ( request.url == "/" && request.method === 'POST' ) {
         var data = '';
         request.addListener('data', function(chunk) { data += chunk; });
@@ -42,6 +53,7 @@ var server = http.createServer(function (request, response) {
             //
             try {
                 parsed = JSON.parse(data);
+                parsed["_redis"] = redis;
                 console.log( "Received submission: " + data );
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
@@ -66,6 +78,10 @@ var server = http.createServer(function (request, response) {
             var opts    = options.split( "," );
             var exclude = [];
 
+            //
+            // Populate the exclude array with regexps of plugin-names
+            // to exclude.
+            //
             for (var i = 0; i < opts.length; i++)
             {
                 var option = opts[i].trim();
@@ -78,6 +94,14 @@ var server = http.createServer(function (request, response) {
                 }
             }
 
+
+            //
+            //  Get the name of the site which is causing the test
+            // to be made - this will allow us to keep track of
+            // per-site SPAM/OK counts.
+            //
+            var site = parsed['site'] || "unknown";
+
             var currentPlugin = -1;
 
             var execute = function() {
@@ -85,6 +109,7 @@ var server = http.createServer(function (request, response) {
                 try {
                     currentPlugin++;
                     if (currentPlugin >= plugins.length) {
+
                         //
                         //  All plugins have executed and have presumably
                         // not flagged a submission as SPAM.
@@ -93,6 +118,8 @@ var server = http.createServer(function (request, response) {
                         //
                         response.writeHead( 200 , {'content-type': 'application/json' });
                         response.end('{"result":"OK","version":"2.0"}' );
+                        redis.incr( "site-" + site + "-ok" );
+                        redis.incr( "global-ok" );
                         return;
                     }
 
@@ -108,9 +135,9 @@ var server = http.createServer(function (request, response) {
                         }
                     }
 
-
-                    if (  skip )
+                    if ( skip )
                     {
+                        console.log( "SKipping plugin " + plugin.name());
                         execute();
                     }
                     else
@@ -137,10 +164,17 @@ var server = http.createServer(function (request, response) {
                             hash['version'] = "2.0";
                             response.end(JSON.stringify(hash));
                             console.log(JSON.stringify(hash));
+                            redis.incr( "site-" + site + "-spam" );
+                            redis.incr( "global-spam" );
+                            skip = true;
+                            return;
                         }, function(reason){ //ok
 
                             response.writeHead( 200 , {'content-type': 'application/json' });
                             response.end('{"result":"OK","version":"2.0"}' );
+                            redis.incr( "site-" + site + "-ok" );
+                            redis.incr( "global-ok" );
+                            skip = true;
                             return;
                         }, function(txt){ //next
                             console.log( "\tplugin " + plugin.name() + " said next :" + txt );
@@ -186,11 +220,11 @@ var server = http.createServer(function (request, response) {
             var site = parsed['site'] || "unknown";
 
             //
-            //  TODO: Lookup the data.
+            //  Lookup the data.
             //
             var hash = {}
-            hash['spam'] = 0
-            hash['ham'] = 0;
+            hash['spam'] = redis.get( "site-" + site + "-spam" );
+            hash['ham']  = redis.get( "site-" + site + "-ok" );
 
             response.writeHead(200, {'content-type': 'application/json' });
             response.end(JSON.stringify(hash));
@@ -222,23 +256,26 @@ fs.readdir("./plugins", function(err, entries)  {
     }).forEach(function(entry) {
 
         var plugin = "./plugins/" + entry;
-        v = require(plugin);
-        console.log( "Loaded plugin: " + plugin );
+        if ( plugin.match( /.js$/ ) )
+        {
+            v = require(plugin);
+            console.log( "Loaded plugin: " + plugin );
 
-        //
-        //  If the plugin has an init method, call it.
-        //
-        if(typeof v.init === 'function') {
-            v.init();
-        };
+            //
+            //  If the plugin has an init method, call it.
+            //
+            if(typeof v.init === 'function') {
+                v.init();
+            };
 
-        //
-        //  If the plugin has a .testJSON method
-        // we'll add it to the plugin list.
-        //
-        if(typeof v.testJSON === 'function') {
-            plugins.push( v );
-        };
+            //
+            //  If the plugin has a .testJSON method
+            // we'll add it to the plugin list.
+            //
+            if(typeof v.testJSON === 'function') {
+                plugins.push( v );
+            };
+        }
 
     });
 });
