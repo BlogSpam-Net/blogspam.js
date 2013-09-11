@@ -1,0 +1,14 @@
+IP: 4.3.4.3
+Agent: Mozilla ...
+Email: steve@steve.org.uk
+options: max-links=5
+Subject: This is my comment
+Expected: OK
+
+This is a valid comment which which should be OK.
+
+We have links, but fewer than the rejection threshold.
+
+http://steve.org.uk/
+http://example.com/
+[URL=http://foo.com]foo[/url]
