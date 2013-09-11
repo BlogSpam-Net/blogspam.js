@@ -95,6 +95,27 @@ The actual result of the testing will be returned to the caller in the form of :
 
 **NOTE**: This means you **must** to have 99-ok.js, or similar, so that the final result is OK.
 
+
+Testing
+-------
+
+In one terminal launch the blogspam service:
+
+     node blogspam.js
+
+In another run the test-cases by running:
+
+     cd ./tests/
+     ./run-tests
+
+This will fire off some pre-cooked comments, and compare the results of the testing
+against the expected result.  If you see errors which are surprising then you can
+run a single case explicitly:
+
+
+     ./run-tests --test ./exclude-plugins.test  [--verbose]
+
+
 Deployment
 ----------
 
