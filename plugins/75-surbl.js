@@ -1,7 +1,7 @@
 //
 // Stock methods.
 //
-exports.name    = function() {return "77-surbl.js" ; };
+exports.name    = function() {return "75-surbl.js" ; };
 exports.purpose = function() {return "Test links in messages against surbl.org" ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
