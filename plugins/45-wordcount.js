@@ -6,7 +6,7 @@
 
 
 exports.name    = function() {return "45-wordcount.js" ; };
-exports.purpose = function() {return "Count the words in the body and abort on too few." ; };
+exports.purpose = function() {return "Count the words in the body and abort on too few/many." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

@@ -2,7 +2,7 @@
 // Stock methods.
 //
 exports.name    = function() {return "60-drone.js" ; };
-exports.purpose = function() {return "Test IP of comment submitter against dronebl.org " ; };
+exports.purpose = function() {return "Test IP of comment submitter against dronebl.org." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

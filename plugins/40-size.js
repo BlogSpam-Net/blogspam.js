@@ -1,5 +1,5 @@
 exports.name    = function() {return "40-size.js" ; };
-exports.purpose = function() {return "Look at the size of the body" ; };
+exports.purpose = function() {return "Look at the size of the body." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

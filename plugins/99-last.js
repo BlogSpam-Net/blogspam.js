@@ -1,5 +1,5 @@
 exports.name    = function() {return "99-last.js" ; };
-exports.purpose = function() {return "Return OK since nothing else blocked us" ; };
+exports.purpose = function() {return "Return OK since nothing else blocked us." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

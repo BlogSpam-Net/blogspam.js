@@ -2,7 +2,7 @@
 // Stock methods.
 //
 exports.name    = function() {return "70-httpbl.js" ; };
-exports.purpose = function() {return "Test IP of comment submitter against projecthoneypot.org " ; };
+exports.purpose = function() {return "Test IP of comment submitter against projecthoneypot.org." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

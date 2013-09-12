@@ -1,5 +1,5 @@
 exports.name    = function() {return "10-example.js" ; };
-exports.purpose = function() {return "Look for example-emails" ; };
+exports.purpose = function() {return "Look for example-domains in emails." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

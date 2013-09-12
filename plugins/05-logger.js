@@ -1,5 +1,5 @@
 exports.name    = function() {return "05-logger.js" ; };
-exports.purpose = function() {return "Log the most recent submissions." ; };
+exports.purpose = function() {return "Log the most recent comment submissions." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

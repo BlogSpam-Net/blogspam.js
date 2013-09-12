@@ -1,5 +1,5 @@
 exports.name    = function() {return "10-fail.js" ; };
-exports.purpose = function() {return "Look for requests which are testing" ; };
+exports.purpose = function() {return "Look for testing-requests, which should always fail." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

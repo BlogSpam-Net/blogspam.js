@@ -1,5 +1,5 @@
 exports.name    = function() {return "80-sfs.js" ; };
-exports.purpose = function() {return "Look for blacklisted IPs via stopforumspam" ; };
+exports.purpose = function() {return "Look for blacklisted IPs via stopforumspam.com." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 

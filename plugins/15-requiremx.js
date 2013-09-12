@@ -2,7 +2,7 @@
 // Stock methods.
 //
 exports.name    = function() {return "15-requiremx.js" ; };
-exports.purpose = function() {return "Ensure submitted email addresses have an MX" ; };
+exports.purpose = function() {return "Ensure submitted email addresses have an MX." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
