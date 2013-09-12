@@ -87,7 +87,7 @@ var server = http.createServer(function (request, response) {
                 console.log( "Received submission: " + data );
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
-                response.write('ERROR:' + e);
+                response.write('Failed to parse JSON submission:' + e);
                 console.log( "Failed to parse JSON: " + e );
                 response.end('\n');
             }
@@ -167,7 +167,7 @@ var server = http.createServer(function (request, response) {
 
                     if ( skip )
                     {
-                        console.log( "SKipping plugin " + plugin.name());
+                        console.log( "Skipping plugin: " + plugin.name());
                         execute();
                     }
                     else
@@ -241,7 +241,7 @@ var server = http.createServer(function (request, response) {
                 parsed = JSON.parse(data);
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
-                response.write('ERROR:' + e);
+                response.write('Failed to parse JSON submission:' + e);
                 response.end('\n');
             }
 
@@ -282,7 +282,6 @@ var server = http.createServer(function (request, response) {
             var name   = plugin.name()
             var author = plugin.author();
             var desc   = plugin.purpose();
-
             hash[name] = { 'author': author, 'description': desc };
 
         });
