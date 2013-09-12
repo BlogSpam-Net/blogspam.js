@@ -1,12 +1,42 @@
 /**
- * BlogSpam API, JSON version, proof of concept hack.
  *
- * 1. Listen for HTTP-POST requests, and parse the JSON bodies.
+ * blogspam.js - node.js powered reimplementation of the BlogSpam API
  *
- * 2. Load plugins from beneath ./plugins/ at startup.
  *
- * 3. Each plugin should have a testJSON method, which can invoke
- *    one of three callbacks: spam, ham, next.
+ * About
+ * -----
+ *
+ * This server is designed to judge whether comments left on blogs, forums, etc,
+ * are spam, in real-time.
+ *
+ * To do that it receives submitted comments via HTTP-POST requests of JSON objects.
+ * It will then invoke a series of plugins on the submission and return a JSON object
+ * which contains the result "SPAM" or "OK".
+ *
+ * Each plugin will be called in turn until a result is achieved, and if all pass then
+ * a default OK will be the result.  If any early plugin judges a comment to be spam
+ * then further processing will cease, as a speed optimisation.
+ *
+ *
+ * Dependencies
+ * ------------
+ *
+ * You need a redis-server running on the localhost to store state, otherwise
+ * the only dependency is node.js, and the redis-client library which is included
+ * as a git-submodule.
+ *
+ *
+ * API Endpoints
+ * -------------
+ *
+ * Test acomment, via a HTTP POST of JSON data:
+ *   http://localhost:9999/
+ *
+ * Return per-site stats, via a HTTP POST:
+ *   http://localhost:9999/stats/
+ *
+ * Retrieve a JSON dump of all loaded plugins:
+ *   http://localhost:9999/plugins/
  *
  *
  * Steve
