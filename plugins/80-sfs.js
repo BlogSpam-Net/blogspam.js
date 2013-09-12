@@ -44,6 +44,10 @@ exports.testJSON = function ( obj, spam, ok, next )
             str += chunk;
         });
 
+        res.on('error', function(e) {
+            console.log( "ERROR" + e);
+            next("next");
+        });
         res.on('end', function() {
             if ( str.indexOf( "<appears>yes</appears>" ) >= 0 )
             {
@@ -61,6 +65,12 @@ exports.testJSON = function ( obj, spam, ok, next )
                 next( "next" );
             }
         });
+    });
+
+
+    re.on('error', function(error) {
+        console.log( "\tError fetching URL" );
+        next('next');
     });
 
     re.end();
