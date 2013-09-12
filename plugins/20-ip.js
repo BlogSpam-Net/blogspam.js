@@ -2,12 +2,20 @@
 // Stock methods.
 //
 exports.name    = function() {return "20-ip.js" ; };
-exports.purpose = function() {return "Look for whitelisted/blacklisted IPs" ; };
+exports.purpose = function() {return "Look for whitelisted/blacklisted IPs." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
 //  Test the IP the comment was submitted from.
+//
+//  * Against a local blacklist, maintained by the admin.
+//
+//  * Against any whitelist/blacklists the user might have set with options.
+//
+//  * Against previously tested comments; if a comment is judged spam we
+//    might automatically mark their submissions as spam for 48 hours.
+//
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
@@ -65,7 +73,7 @@ exports.testJSON = function ( obj, spam, ok, next )
 
 
     //
-    //  Is the IP whitelisted?
+    //  Is the IP whitelisted, via the site-admin?
     //
     if ( fs.existsSync("/etc/whitelist.d/" + ip) )
     {
@@ -74,7 +82,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     }
 
     //
-    //  Is the IP blacklisted?
+    //  Is the IP blacklisted, via the site-admin?
     //
     if ( fs.existsSync("/etc/blacklist.d/" + ip) )
     {
@@ -83,7 +91,8 @@ exports.testJSON = function ( obj, spam, ok, next )
     }
 
     //
-    //  If we have a cached result, then return it.
+    //  If we have a cached result set by another plugin
+    // then use that.
     //
     var redis = obj['_redis'];
     redis.get("blacklist-" + ip , function (err, reply) {
