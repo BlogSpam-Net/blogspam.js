@@ -93,6 +93,19 @@ var server = http.createServer(function (request, response) {
             }
 
             //
+            // We might have an IPv6 prefix.  If so strip it off.
+            //
+            // We do this because we assume either a valid IPv6 address,
+            // or an IPv4 address.  Not the hybrid.
+            //
+            var strip_prefix = /^::ffff:([0-9.]+)$/i;
+            var match = strip_prefix.exec( parsed['ip'] )
+            if ( match )
+            {
+                parsed['ip'] = match[1].trim()
+            }
+
+            //
             // The parsed object might contain some options.
             //
             // The options include plugin-names to skip.
