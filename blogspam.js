@@ -338,4 +338,4 @@ fs.readdir("./plugins", function(err, entries)  {
     });
 });
 
-server.listen(9999)
+server.listen(9999, '::');
