@@ -246,6 +246,14 @@ sub testComment
     }
 
     #
+    #  We're a legacy API-caller.
+    #
+    #  Record that so Steve knows when he can turn it off ..
+    #
+    $struct{'method'} = "XML-RPC";
+
+
+    #
     #  Log the peer.
     #
     if ( $xmlrpc->{ 'peerhost' } )
