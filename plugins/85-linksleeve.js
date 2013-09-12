@@ -19,6 +19,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     //  Disabled until it comes back.
     //
     next("next");
+    return;
 
     //
     // Add the link to the comment body, if we got one.
@@ -62,11 +63,13 @@ exports.testJSON = function ( obj, spam, ok, next )
         res.on('error', function(e) {
             console.log( "Error sending POST request: " + e);
             next("next");
+            return;
         });
         res.on('end', function() {
 
             // TODO: Test the result here.
             next("next");
+            return;
         });
     });
 
