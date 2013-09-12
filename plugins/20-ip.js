@@ -91,12 +91,24 @@ exports.testJSON = function ( obj, spam, ok, next )
     }
 
     //
-    //  If we have a cached result set by another plugin
-    // then use that.
+    //  If we have a cached result set by another plugin then use that.
     //
     var redis = obj['_redis'];
     redis.get("blacklist-" + ip , function (err, reply) {
         if ( reply ) {
+
+            //
+            // First of all update the expiry date again.
+            //
+            // This means rather than a cached result expiring
+            // 2-days after it has been inserted it will expire
+            // 2-days after it has last been seen in the wild.
+            //
+            redis.expire( "blacklist-" + ip , 60*60*48 );
+
+            //
+            // Send the reply.
+            //
             spam( reply );
         }
         else {
