@@ -322,4 +322,25 @@ fs.readdir("./plugins", function(err, entries)  {
     });
 });
 
+
+
+//
+// If the server receives an error exit cleanly.
+//
+// (We assume a production deployment would run under runit/daemontools/similar.)
+//
+server.on('error', function(e) {
+    if ( e.errno == "EADDRINUSE" ) {
+        console.log( "Error: The server-port is already in use.\nIs the server already running?" );
+    }
+    else {
+        console.log( "ERROR" + e);
+    }
+    process.exit( 0 );
+});
+
+
+//
+// Start the server listening on both all IPv4 & all IPv6 addresses.
+//
 server.listen(9999, '::');
