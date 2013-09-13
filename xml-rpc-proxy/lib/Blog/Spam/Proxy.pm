@@ -306,6 +306,9 @@ sub testComment
             $result .= " ";
             $result .= $r->{ 'reason' };
         }
+
+        # log the result.
+        syslog( "info|local0", $result);
         return ($result);
     }
     else
