@@ -1,0 +1,21 @@
+{
+  "name": "blogspam",
+  "version": "0.2.0",
+  "description": "JSON/HTTP server to test comment submissions to forums/blogs for SPAM.",
+  "keywords": [
+    "blogspam"
+  ],
+  "author": "Steve Kemp <steve@steve.org.uk>",
+  "main": "./blogspam.js",
+  "scripts": {
+    "test": "cd tests && ./run-tests"
+  },
+  "devDependencies": {
+    "async": ">=0.2.9",
+    "redis": ">=0.8.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/skx/blogspam.js.git"
+  }
+}

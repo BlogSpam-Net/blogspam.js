@@ -47,9 +47,43 @@
 var fs        = require('fs');
 var http      = require('http')
 var path      = require('path');
-var async     = require('./submodules/async/lib/async.js');
-var redis_lib = require('./submodules/node_redis/index.js');
+var async     = null;
+var redis_lib = null;
 
+
+
+//
+//  This code is nasty because I want to allow the service to run without
+// run without the user having to update the environmental variable NODE_PATH,
+// and setting that in code doesn't work.
+//
+//  The intention is that the user can install the required dependencies
+// either via:
+//
+//    1. `npm install`
+//
+//    2.  Using the git submodules.
+//
+//  Either solution should work equally well, although I personally prefer the
+// latter solution.  (Easier to see the local code, and easier to deploy via
+// rsync.)
+//
+if ( fs.existsSync("./submodules/async/lib" ) ) {
+    console.log( "Loading async from git submodule.");
+    async = require("./submodules/async/lib/async.js" )
+} else {
+    console.log( "Loading async from beneath ./node_modules/");
+    console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
+    async = require('async/lib/async.js');
+}
+if ( fs.existsSync("./submodules/node_redis" ) ) {
+    console.log( "Loading redis from git submodule.");
+    redis_lib =require("./submodules/node_redis/index.js" )
+} else {
+    console.log( "Loading redis from beneath ./node_modules/");
+    console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
+    redis_lib =require('redis/index.js');
+}
 
 
 /**
