@@ -17,18 +17,17 @@ use Redis;
 use JSON;
 
 
+#
+#  Get the field name to dump, if specified.
+#
 my $field = shift;
-if ( !$field )
-{
-    print <<EOF;
-Usage: $0 field
+$field = lc($field) if ($field);
 
-e.g. $0 name
-EOF
-    exit(0);
-}
 
-$field = lc($field);
+#
+#  The known fields
+#
+my %known;
 
 
 #
@@ -37,18 +36,52 @@ $field = lc($field);
 my $redis = new Redis();
 my @recent = $redis->lrange( "recent-comments", 0, -1 );
 
+#
+#  Process each saved JSON object.
+#
 foreach my $ent (@recent)
 {
     my $obj;
 
-    eval {$obj = json_decode( \$ent )};
+    # decode if we can
+    eval {$obj = decode_json($ent)};
     next if ($@);
 
-    if ( $obj->{ $field } )
+    # if we're showing a field ..
+    if ($field)
     {
-        print $obj->{ $field } . "\n";
+
+        # and that field exists.
+        if ( $obj->{ $field } )
+        {
+
+            # show it
+            print $obj->{ $field } . "\n";
+        }
+    }
+    else
+    {
+
+        # record the fields we found in this object.
+        foreach my $key ( keys %$obj )
+        {
+            $known{ $key } += 1;
+        }
+    }
+}
+
+#
+#  If we didn't get a field show known-fields.
+#
+if ( !$field )
+{
+    foreach my $key ( keys %known )
+    {
+        print $key . "\n";
     }
 }
 
 $redis->quit();
 exit(0);
+
+
