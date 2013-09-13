@@ -99,18 +99,30 @@ Testing
 
 The code is designed to run directly from a git checkout, with no need to install.
 
-However because we use the git submodule feature to pull in an external copy of the
-`node.js` redis-library you'll need to fetch that first:
+However we use two external dependencies, the `async` library and the redis client library.
+
+There are two ways you can install these:
+
+1.  Using the `npm` tool.
+2.  Using git submodules.
+
+
+If you wish to use `npm` just run the following after cloing the `blogspam.js` repository:
+
+      $ npm install
+
+If you prefer to checkout the code locally you should instead use the following two commands:
 
       $ git submodule init
-      Submodule 'node_redis' (https://github.com/mranney/node_redis) registered for path 'node_redis'
+      Submodule 'submodules/async' () registered for path 'submodules/async'
+      Submodule 'submodules/node_redis' () registered for path 'submodules/node_redis'
+
       $ git submodule update
-      Cloning into 'node_redis'...
+      ..
       ..
 
-Once this has completed you'll be able to launch the server correctly.
-
-In one terminal launch the service by running the main script:
+Now you've installed the dependencies, by one method or another, you can launch the server.
+In one terminal run the main script:
 
      node blogspam.js
 
