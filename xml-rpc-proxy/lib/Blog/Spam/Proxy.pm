@@ -232,7 +232,7 @@ sub testComment
     #  The parameters the user submitted, as a hash so
     # they're easy to work with.
     #
-    my %struct;
+    my %obj;
 
     #
     #  Copy each supplied value to the struct we'll use
@@ -242,7 +242,7 @@ sub testComment
     {
         my $lkey = lc($key);
 
-        $struct{ $lkey } = $struct->{ $key };
+        $obj{ $lkey } = $struct->{ $key };
     }
 
     #
@@ -250,7 +250,7 @@ sub testComment
     #
     #  Record that so Steve knows when he can turn it off ..
     #
-    $struct{'method'} = "XML-RPC";
+    $obj{ 'method' } = "XML-RPC";
 
 
     #
@@ -258,16 +258,20 @@ sub testComment
     #
     if ( $xmlrpc->{ 'peerhost' } )
     {
-        $struct{ 'peer' } = $xmlrpc->{ 'peerhost' };
+
+        #
+        #  Pass it along too.
+        #
+        $obj{ 'peer' } = $xmlrpc->{ 'peerhost' };
 
         $self->{ 'verbose' } &&
-          print "Connection from " . $struct{ 'peer' } . "\n";
+          print "Connection from " . $xmlrpc->{ 'peerhost' } . "\n";
 
     }
 
 
     ##
-    ##  Send %struct to our JSON server, and return the result.
+    ##  Send %obj to our JSON server, and return the result.
     ##
     #
     # The location of the server we're going to test-against
@@ -277,7 +281,7 @@ sub testComment
     #
     #  JSON-encode the hash prior to submission.
     #
-    my $json = encode_json \%struct;
+    my $json = encode_json \%obj;
 
 
     #
@@ -298,8 +302,8 @@ sub testComment
     #
     if ( $response->is_success() )
     {
-        my $json = $response->decoded_content ;
-        my $r    = decode_json( $json );
+        my $json = $response->decoded_content;
+        my $r    = decode_json($json);
 
         my $result = $r->{ 'result' } . ":";
         if ( $r->{ 'reason' } )
@@ -309,7 +313,7 @@ sub testComment
         }
 
         # log the result.
-        syslog( "info|local0", $json);
+        syslog( "info|local0", $json );
 
         return ($result);
     }
