@@ -1,10 +1,21 @@
 #!/usr/bin/perl
 #
-#  The plugin plugins/05-logger.js will keep a rotating
-# buffer of the N most-recent submissions.
+#  The plugin plugins/05-logger.js will keep a rotating buffer of the
+# N most-recent JSON submissions.
 #
-#  This utility will dump the given field from that
-# buffer of JSON objects.
+#  This utility will dump the given field from that buffer of JSON objects.
+#
+#  If you run it with no arguments you'll receive a dump of all known keys
+# that have been included in the recent submissions.
+#
+#  If you run with the single argument of a key-name it'll show you all the
+# values submitted for that key.
+#
+#  For example:
+#
+#    ./dump email
+#
+#    ./dump subject
 #
 # Steve
 # --
@@ -51,12 +62,14 @@ foreach my $ent (@recent)
     if ($field)
     {
 
-        # and that field exists.
-        if ( $obj->{ $field } )
+        # iterate over all keys to cover case-matches. sigh.
+        foreach my $key ( keys %$obj )
         {
-
-            # show it
-            print $obj->{ $field } . "\n";
+            my $lkey = lc($key);
+            if ( $lkey eq $field )
+            {
+                print $obj->{ $key } . "\n";
+            }
         }
     }
     else
