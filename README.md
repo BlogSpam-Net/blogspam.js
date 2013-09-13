@@ -107,7 +107,7 @@ There are two ways you can install these:
 2.  Using git submodules.
 
 
-If you wish to use `npm` just run the following after cloing the `blogspam.js` repository:
+If you wish to use `npm` just run the following after cloning the `blogspam.js` repository:
 
       $ npm install
 
@@ -139,35 +139,21 @@ run a single case explicitly:
      ./run-tests --test ./exclude-plugins.test  [--verbose]
 
 
-Dependencies & Deployment
--------------------------
+Dependencies
+------------
 
-To save state we use a [redis](http://redis.io/) store, which means that
-you need to have a redis server running upon `localhost`.  You'll also need
-to ensure that you've followed the instructions above, in the testing section,
-to fetch the git submodule containing the redis client library.
+To save state we use a [redis](http://redis.io/) store.  Beyond that there
+are no dependencies required, except for the two `node.js` libraries which
+were discussed in the testing section above.
 
-It is expected that in live-usage the server will receive POST requests which
-have been proxied via Apache/nginx/whatever.  You'll configure Apache/nginx/etc
-to pass paths such as /blogspam/api/2.0/ directly to this running node.js
-service.
 
 
 Current Status
 --------------
 
-The current code is a pretty convincing proof of concept:
+The current code is now in production use at http://blogspam.net/ and
+appears to be working very well.
 
-* It will bind to a socket.
-* It will accept and decode JSON POSTS.
-* It will process the JSON submission via a series of plugins, each called in order.
-* It will return the result of the plugin-tests.
-* It keeps state, via redis, to implement the [getStats()](http://blogspam.net/api/getStats.html) part of our legacy API
-
-However it will not:
-
-* Identify more than about 50% of spam comments.
-    * Primarily because it is missing plugins.
 
 Steve
 --
