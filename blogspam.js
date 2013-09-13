@@ -47,6 +47,7 @@
 var fs        = require('fs');
 var http      = require('http')
 var path      = require('path');
+var async     = require('async');
 var redis_lib = require('./node_redis/index.js');
 
 
@@ -145,98 +146,67 @@ var server = http.createServer(function (request, response) {
             //
             var site = parsed['site'] || "unknown";
 
-            var currentPlugin = -1;
+            async.eachSeries(plugins, function(plugin, callback) {
+                var skip = false;
 
-            var execute = function() {
-
-                try {
-                    currentPlugin++;
-                    if (currentPlugin >= plugins.length) {
-
-                        //
-                        //  All plugins have executed and have presumably
-                        // not flagged a submission as SPAM.
-                        //
-                        //  Therefore it is HAM.
-                        //
-                        response.writeHead( 200 , {'content-type': 'application/json' });
-                        response.end('{"result":"OK","version":"2.0"}' );
-                        redis.incr( "site-" + site + "-ok" );
-                        redis.incr( "global-ok" );
-                        return;
+                exclude.forEach(function(element) {
+                    var name = element.trim();
+                    if (plugin.name().match(name)) {
+                        skip = true;
                     }
+                });
 
-                    var plugin = plugins[currentPlugin];
-                    var skip = false;
-
-                    for (var i = 0; i < exclude.length; i++)
-                    {
-                        var name = exclude[i].trim();
-                        if ( plugin.name().match( name ) )
-                        {
-                            skip = true;
-                        }
-                    }
-
-                    if ( skip )
-                    {
-                        console.log( "Skipping plugin: " + plugin.name());
-                        execute();
-                    }
-                    else
-                    {
-                        //
-                        //  Call the test-json method, with the three-callbacks:
-                        //
-                        //   spam.  Send an error, via JSON.
-                        //
-                        //   ham.   Send an OK, via JSON.
-                        //
-                        //   next.  This will ensure the next plugin will be invoked.
-                        //
-                        plugin.testJSON( parsed, function(reason) { //spam
-
-                            //
-                            //  Along with the reason.
-                            //
-                            response.writeHead( 200 , {'content-type': 'application/json' });
-                            var hash = {};
-                            hash['result'] = "SPAM";
-                            hash['reason'] = reason;
-                            hash['blocker'] = plugin.name()
-                            hash['version'] = "2.0";
-                            response.end(JSON.stringify(hash));
-                            console.log(JSON.stringify(hash));
-                            redis.incr( "site-" + site + "-spam" );
-                            redis.incr( "global-spam" );
-                            skip = true;
-                            return;
-                        }, function(reason){ //ok
-
-                            response.writeHead( 200 , {'content-type': 'application/json' });
-                            response.end('{"result":"OK","version":"2.0"}' );
-                            redis.incr( "site-" + site + "-ok" );
-                            redis.incr( "global-ok" );
-                            skip = true;
-                            return;
-                        }, function(txt){ //next
-                            console.log( "\tplugin " + plugin.name() + " said next :" + txt );
-                            execute();
-                        });
-                    }
-                } catch ( e ) {
-
-                    //
-                    //  Error invoking a plugin...
-                    //
-                    response.writeHead(500, {'content-type': 'text/plain' });
-                    console.log( "Error during processing plugin(s): " + e );
-                    response.end("Error processing submission " + e + '\n');
+                if (skip) {
+                    console.log("Skipping plugin: " + plugin.name());
+                    return callback(null);
                 }
-            };
 
-            execute();
+                // If no skip it will jump here directly, if skip is true the
+                // return will make it go away and jump this part and the callback
+                // will call the next in the series.
+                plugin.testJSON(parsed, function(reason) {
+                    // spam
+                    response.writeHead(200, {'content-type': 'application/json'});
+                    var hash = {
+                        'result': "SPAM",
+                        'reason': reason,
+                        'blocker': plugin.name(),
+                        'version': "2.0"
+                    };
 
+                    response.end(JSON.stringify(hash));
+                    console.log(JSON.stringify(hash));
+                    redis.incr("site-" + site + "-spam");
+                    redis.incr("global-spam");
+                    skip = true;
+                    return;
+                }, function(reason) {
+                    // ok
+                    response.writeHead(200, {'content-type': 'application/json'});
+                    response.end('{"result":"OK", "version":"2.0"}');
+                    redis.incr("site-" + site + "-ok");
+                    redis.incr("global-ok");
+                    skip = true;
+                    return;
+                }, function(txt) {
+                    // next
+                    console.log("\tplugin " + plugin.name() + " said next : " + txt);
+                    return callback(null);
+                });
+
+            }, function (err) {
+                if (err) {
+                    response.writeHead(500, {'content-type': 'text/plain'});
+                    console.log("Error during processing plugin(s): " + err);
+                    return response.end("Error processing submission " + e + '\n');
+                }
+
+                response.writeHead(200, {'content-type': 'application/json'});
+                response.end('{"result":"OK", "version":"2.0"}');
+                redis.incr("site-" + site + "-ok");
+                redis.incr("global-ok");
+                return;
+            });
         });
     }
     else if ( ( request.url == "/stats" || request.url == '/stats/' ) &&
