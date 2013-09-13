@@ -1,0 +1,54 @@
+#!/usr/bin/perl
+#
+#  The plugin plugins/05-logger.js will keep a rotating
+# buffer of the N most-recent submissions.
+#
+#  This utility will dump the given field from that
+# buffer of JSON objects.
+#
+# Steve
+# --
+
+
+use strict;
+use warnings;
+
+use Redis;
+use JSON;
+
+
+my $field = shift;
+if ( !$field )
+{
+    print <<EOF;
+Usage: $0 field
+
+e.g. $0 name
+EOF
+    exit(0);
+}
+
+$field = lc($field);
+
+
+#
+#  Get the most recent logged entries
+#
+my $redis = new Redis();
+my @recent = $redis->lrange( "recent-comments", 0, -1 );
+
+foreach my $ent (@recent)
+{
+    my $obj;
+
+    eval {$obj = json_decode( \$ent )};
+    next if ($@);
+
+    if ( $obj->{ $field } )
+    {
+        print $obj->{ $field } . "\n";
+    }
+}
+
+$redis->quit();
+exit(0);
