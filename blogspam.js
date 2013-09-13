@@ -335,7 +335,6 @@ fs.readdir("./plugins", function(err, entries)  {
         if ( plugin.match( /.js$/ ) )
         {
             v = require(plugin);
-            console.log( "Loaded plugin: " + plugin );
 
             //
             //  If the plugin has an init method, call it.
@@ -350,7 +349,10 @@ fs.readdir("./plugins", function(err, entries)  {
             //
             if(typeof v.testJSON === 'function') {
                 plugins.push( v );
-            };
+                console.log( "\tLoaded plugin  : " + plugin );
+            } else {
+                console.log( "\tIgnored plugin : " + plugin );
+            }
         }
 
     });
