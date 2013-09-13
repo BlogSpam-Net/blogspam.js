@@ -298,7 +298,8 @@ sub testComment
     #
     if ( $response->is_success() )
     {
-        my $r = decode_json( $response->decoded_content );
+        my $json = $response->decoded_content ;
+        my $r    = decode_json( $json );
 
         my $result = $r->{ 'result' } . ":";
         if ( $r->{ 'reason' } )
@@ -308,7 +309,8 @@ sub testComment
         }
 
         # log the result.
-        syslog( "info|local0", $result);
+        syslog( "info|local0", $json);
+
         return ($result);
     }
     else
