@@ -1,6 +1,3 @@
-[submodule "node_redis"]
-	path = node_redis
-	url = https://github.com/mranney/node_redis
 [submodule "submodules/async"]
 	path = submodules/async
 	url = https://github.com/caolan/async.git
