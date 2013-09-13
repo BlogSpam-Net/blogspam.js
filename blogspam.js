@@ -157,7 +157,7 @@ var server = http.createServer(function (request, response) {
                 });
 
                 if (skip) {
-                    console.log("Skiipping plugin: " + plugin.name());
+                    console.log("Skipping plugin: " + plugin.name());
                     return callback(null);
                 }
 
@@ -196,10 +196,16 @@ var server = http.createServer(function (request, response) {
 
             }, function (err) {
                 if (err) {
-                  response.writeHead(500, {'content-type': 'text/plain'});
-                  console.log("Error during processing plugin(s): " + err);
-                  response.end("Error processing submission " + e + '\n');
+                    response.writeHead(500, {'content-type': 'text/plain'});
+                    console.log("Error during processing plugin(s): " + err);
+                    return response.end("Error processing submission " + e + '\n');
                 }
+
+                response.writeHead(200, {'content-type': 'application/json'});
+                response.end('{"result":"OK", "version":"2.0"}');
+                redis.incr("site-" + site + "-ok");
+                redis.incr("global-ok");
+                return;
             });
         });
     }
