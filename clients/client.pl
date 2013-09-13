@@ -21,7 +21,7 @@ use warnings;
 #
 # The location of the server we're going to test-against
 #
-my $uri = 'http://localhost:8888/';
+my $uri = 'http://localhost:9999/';
 
 #
 #  The data we'll send to the testing service.

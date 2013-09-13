@@ -12,7 +12,7 @@ use strict;
 use warnings;
 
 
-my $uri = 'http://localhost:8888/stats';
+my $uri = 'http://localhost:9999/stats';
 
 #
 #  The data we'll send to the testing service.
