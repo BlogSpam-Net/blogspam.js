@@ -47,8 +47,9 @@
 var fs        = require('fs');
 var http      = require('http')
 var path      = require('path');
-var async     = require('async');
-var redis_lib = require('./node_redis/index.js');
+var async     = require('./submodules/async/lib/async.js');
+var redis_lib = require('./submodules/node_redis/index.js');
+
 
 
 /**
