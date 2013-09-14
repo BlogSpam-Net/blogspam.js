@@ -106,7 +106,7 @@ Deployment
 
 The code is designed to run directly from a git checkout, with no need to install it system-wide.  The only service dependency is an instance of the [redis](http://redis.io) which is assumed to run on the localhost.
 
-However we do rely upon two external `node.js` libraries, and there are two ways you can
+However we do rely upon a couple of external `node.js` libraries, and there are two ways you can
 install these:
 
 1.  Using the `npm` tool.
@@ -121,6 +121,7 @@ If you prefer to checkout the code locally run instead:
       $ git submodule init
       Submodule 'submodules/async' () registered for path 'submodules/async'
       Submodule 'submodules/node_redis' () registered for path 'submodules/node_redis'
+      ..
 
       $ git submodule update
       ..
