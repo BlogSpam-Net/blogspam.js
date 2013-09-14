@@ -1,0 +1,7 @@
+IP: 200.33.200.50
+Name: Steve Kemp
+Subject: This is a comment
+Options: blacklist=200.33.200.0/24
+Expected: SPAM
+
+This is a valid body, but the blacklist will ensure we're rejected.
