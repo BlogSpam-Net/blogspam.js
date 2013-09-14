@@ -10,9 +10,10 @@
   "scripts": {
     "test": "cd tests && ./run-tests"
   },
-  "devDependencies": {
+  "dependencies": {
     "async": ">=0.2.9",
-    "redis": ">=0.8.4"
+    "redis": ">=0.8.4",
+    "cidr_match": ">=0.0.5"
   },
   "repository": {
     "type": "git",
