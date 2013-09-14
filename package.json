@@ -13,7 +13,7 @@
   "dependencies": {
     "async": ">=0.2.9",
     "redis": ">=0.8.4",
-    "cidr_match": ">=0.0.5"
+    "cidr_match": ">=0.0.7"
   },
   "repository": {
     "type": "git",
