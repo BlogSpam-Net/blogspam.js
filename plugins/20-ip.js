@@ -95,6 +95,8 @@ exports.testJSON = function ( obj, spam, ok, next )
                 var count = 256;
 
                 switch(slash){
+                case "255":
+                    count = 256; break;
                 case "24":
                     count = 256; break;
                 case "25":
