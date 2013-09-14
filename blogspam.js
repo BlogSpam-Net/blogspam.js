@@ -112,13 +112,28 @@ var server = http.createServer(function (request, response) {
         request.addListener('data', function(chunk) { data += chunk; });
         request.addListener('end', function() {
 
-            var parsed;
+            //
+            // The hash all plugins use.
+            //
+            var parsed = {};
 
             //
             //  Try to parse the JSON body.
             //
+            //  If we succeed ensure that all keys have consistent names.
+            //
             try {
-                parsed = JSON.parse(data);
+                var obj = JSON.parse(data);
+                console.log( obj['ip'] );
+
+                //
+                // Copy all keys/values from this hash, but make sure
+                // the keys are downcased.
+                //
+                Object.keys(obj).forEach(function (key,val) {
+                    var lkey = key.toLowerCase();
+                    parsed[lkey] = obj[key]
+                })
                 parsed["_redis"] = redis;
                 console.log( "Received submission: " + data );
             } catch ( e ) {
