@@ -74,7 +74,6 @@ Permitted hash fields are:
 * subject
    * The subject/title the submitter supplied.
 
-
 The server will load a series of plugins on-startup, and each submission will be
 passed through the loaded plugins in turn.
 

@@ -4,3 +4,6 @@
 [submodule "submodules/node_redis"]
 	path = submodules/node_redis
 	url = https://github.com/mranney/node_redis
+[submodule "submodules/cidr_match.js"]
+	path = submodules/cidr_match.js
+	url = https://github.com/skx/cidr_match.js

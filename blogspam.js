@@ -44,12 +44,12 @@
  */
 
 
-var fs        = require('fs');
-var http      = require('http')
-var path      = require('path');
-var async     = null;
-var redis_lib = null;
-
+var fs         = require('fs');
+var http       = require('http')
+var path       = require('path');
+var async      = null;
+var redis_lib  = null;
+var cidr_match = null;
 
 
 //
@@ -83,6 +83,14 @@ if ( fs.existsSync("./submodules/node_redis" ) ) {
     console.log( "Loading redis from beneath ./node_modules/");
     console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
     redis_lib =require('redis/index.js');
+}
+if ( fs.existsSync("./submodules/cidr_match.js/cidr_match.js" ) ) {
+    console.log( "Loading cidr_match from git submodule.");
+    cidr_match = require("./submodules/cidr_match.js/cidr_match.js" )
+} else {
+    console.log( "Loading cidr_match from beneath ./node_modules/");
+    console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
+    cidr_match = require('cidr_match');
 }
 
 
@@ -134,7 +142,14 @@ var server = http.createServer(function (request, response) {
                     var lkey = key.toLowerCase();
                     parsed[lkey] = obj[key]
                 })
+
+                //
+                //  Make our CIDR-matching library, and redis-handle
+                // available to all plugins.
+                //
                 parsed["_redis"] = redis;
+                parsed["_cidr"]  = cidr_match;
+
                 console.log( "Received submission: " + data );
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
