@@ -43,9 +43,17 @@ but it will become a mere shim/proxy around the node.js version.)
 API
 ---
 
-The service receives HTTP POST requests, (other HTTP methods return an error), and
-we assume that each HTTP POST request contains a JSON payload.   The payload
-should be a hash with the following members:
+The [API is documented online](http://blogspam.net/api/2.0), and contains three
+end-points:
+
+* A location for SPAM testing incoming JSON-encoded data.
+* A locaiton for retrieving statistics.
+* A location for retrieving plugin-names/data.
+
+The main API is the spam-testing one, and that is the only one documented here.
+The spam-testing API should receive JSON-encoded hash, via a HTTP POST.
+
+Permitted hash fields are:
 
 * comment
    * The body of the submitted comment.
@@ -62,7 +70,7 @@ should be a hash with the following members:
 * options
    * Additional options to control how things should work.
 * site
-   * A link to your site - this parameter is needed for the getStats() function to be useful.
+   * A link to your site, which can be later-used to lookup your SPAM/OK stats.
 * subject
    * The subject/title the submitter supplied.
 
@@ -149,7 +157,7 @@ There are a couple of perl utility scripts located beneath `./utils`.  In brief 
    * For each named URL on the command line show the SPAM/OK results for that site.
 * `submitJSON`
    * A simple programming sample, showing how to submit a comment for testing.
-   * Other examples are included in the [online code samples area](http://blogspam.net/code/samples/)
+   * Other examples are included in the [online code samples area](http://blogspam.net/code/samples/).
 
 Current Status
 --------------
