@@ -94,24 +94,22 @@ The actual result of the testing will be returned to the caller in the form of :
 
 
 
-Testing
--------
+Deployment
+----------
 
-The code is designed to run directly from a git checkout, with no need to install.
+The code is designed to run directly from a git checkout, with no need to install it system-wide.  The only service dependency is an instance of the [redis](http://redis.io) which is assumed to run on the localhost.
 
-However we use two external dependencies, the `async` library and the redis client library.
-
-There are two ways you can install these:
+However we do rely upon two external `node.js` libraries, and there are two ways you can
+install these:
 
 1.  Using the `npm` tool.
 2.  Using git submodules.
-
 
 If you wish to use `npm` just run the following after cloning the `blogspam.js` repository:
 
       $ npm install
 
-If you prefer to checkout the code locally you should instead use the following two commands:
+If you prefer to checkout the code locally run instead:
 
       $ git submodule init
       Submodule 'submodules/async' () registered for path 'submodules/async'
@@ -139,14 +137,19 @@ run a single case explicitly:
      ./run-tests --test ./exclude-plugins.test  [--verbose]
 
 
-Dependencies
-------------
+Utilities
+---------
 
-To save state we use a [redis](http://redis.io/) store.  Beyond that there
-are no dependencies required, except for the two `node.js` libraries which
-were discussed in the testing section above.
+There are a couple of perl utility scripts located beneath `./utils`.  In brief these are:
 
-
+* `dump`
+   * When run with no arguments dump the JSON hash keys of the last few submissions.
+   * When run with a hash key as an argument it will instead show the value received for that hash-key.
+* `stats`
+   * For each named URL on the command line show the SPAM/OK results for that site.
+* `submitJSON`
+   * A simple programming sample, showing how to submit a comment for testing.
+   * Other examples are included in the [online code samples area](http://blogspam.net/code/samples/)
 
 Current Status
 --------------
