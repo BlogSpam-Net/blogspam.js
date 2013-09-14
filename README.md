@@ -40,6 +40,16 @@ interface in time.  (The XML::RPC method will have to remain for backward compat
 but it will become a mere shim/proxy around the node.js version.)
 
 
+Wordpress Plugin
+----------------
+
+I've hacked together a minimal [Wordpress](http://wordpress.org/) plugin which will query comments in real-time against the production deployment of this server.
+
+You can find the source code and installation instructions within the github repository:
+
+* https://github.com/skx/blogspam-wordpress-plugin
+
+
 API
 ---
 
