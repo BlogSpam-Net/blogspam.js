@@ -1,45 +1,69 @@
 #!/usr/bin/perl
 #
-#  Submit a request to http://localhost:8888/stats to get the per-site stats.
+# Submit a statistics-request to the server.
 #
-#  NOTE: This is currently a nop.
+# For example to lookup my stats:
 #
+#  ./stats --server=http://test.blogspam.net:9999/stats/ http://blog.steve.org.uk/
+#
+# Steve
+# --
 
-use LWP::Simple;
+use Getopt::Long;
 use JSON;
+use LWP::Simple;
 
 use strict;
 use warnings;
 
 
-my $uri = 'http://localhost:9999/stats';
+#
+#  Config
+#
+my %CONFIG;
 
 #
-#  The data we'll send to the testing service.
+#  Default server end-point.
 #
-my %data;
-$data{ 'site' } = "http://www.debian-administration.org/";
-
-#
-#  Encode it.
-#
-my $json = encode_json \%data;
+$CONFIG{ 'server' } = "http://localhost:9999/stats/";
 
 
 #
-#  We're going to use a HTTP POST.
+#  Parse our options
 #
-my $req = HTTP::Request->new( 'POST', $uri );
-$req->header( 'Content-Type' => 'application/json' );
-$req->content($json);
+exit if ( !GetOptions( "server=s", \$CONFIG{ 'server' } ) );
+
 
 #
-#  Send the request.
+#  For each named argument
 #
-my $lwp      = LWP::UserAgent->new;
-my $response = $lwp->request($req);
+foreach my $site (@ARGV)
+{
+    my %data;
+    $data{ 'site' } = $site;
 
-#
-#  Show the result
-#
-print $response->code . " " . $response->decoded_content . "\n";
+    print "Looking up stats for : $site\n";
+
+    #
+    #  Encode it.
+    #
+    my $json = encode_json \%data;
+
+    #
+    #  We're going to use a HTTP POST.
+    #
+    my $req = HTTP::Request->new( 'POST', $CONFIG{ 'server' } );
+    $req->header( 'Content-Type' => 'application/json' );
+    $req->content($json);
+
+    #
+    #  Send the request.
+    #
+    my $lwp      = LWP::UserAgent->new;
+    my $response = $lwp->request($req);
+
+    #
+    #  Show the result
+    #
+    print $response->code . " " . $response->decoded_content . "\n";
+}
