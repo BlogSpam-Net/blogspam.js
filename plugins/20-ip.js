@@ -140,9 +140,9 @@ exports.testJSON = function ( obj, spam, ok, next )
                         //
                         //  Does it match the submitters IP?
                         //
-                        console.log( "Testing " + ip + " against " + tmp );
+                        console.log( "CIDR-testing " + ip + " against " + tmp );
                         if ( tmp == ip ) {
-                            console.log( "Matched!" );
+                            console.log( "CIDR-matched!" );
                             match = true ;
                         }
                     }
