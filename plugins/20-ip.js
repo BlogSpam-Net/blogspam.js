@@ -53,6 +53,10 @@ exports.testJSON = function ( obj, spam, ok, next )
     //  Look for "whitelist=IP" | "blacklist=IP"
     //
     var m    = /^(whitelist|blacklist)=(.*)$/;
+
+    //
+    //  The whitelist/blacklist can contain a CIDR range.
+    //
     var cidr = /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+)\/([0-9]+)$/;
 
     //
@@ -81,11 +85,6 @@ exports.testJSON = function ( obj, spam, ok, next )
             if ( cidr_match )
             {
                 //
-                // We get the base value: 1.2.3.4
-                //
-                var base =  cidr_match[1] + "." + cidr_match[2] + "."  + cidr_match[3] + "." + cidr_match[4];
-
-                //
                 // We work out how many wildcard bits there are.
                 //
                 // And how many IPs that range matches.  The biggest
@@ -95,8 +94,13 @@ exports.testJSON = function ( obj, spam, ok, next )
                 var count = 256;
 
                 switch(slash){
+                    //
+                    // People can/will/do submit 192.168.0.0/255
+                    // because they don't understand how CIDR works.
+                    //
                 case "255":
                     count = 256; break;
+
                 case "24":
                     count = 256; break;
                 case "25":
@@ -116,7 +120,7 @@ exports.testJSON = function ( obj, spam, ok, next )
                 case "32":
                     count = 1; break;
                 default:
-                    console.log( "failed to match  " + slash );
+                    console.log( "CIDR - failed to match  " + ipval );
                     count = 0; break;
                 };
 
