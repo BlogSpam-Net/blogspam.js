@@ -339,7 +339,8 @@ var server = http.createServer(function (request, response) {
     else
     {
         //
-        //  We avoid non-POST requests.
+        //  If we reach here we've hit an unrecognized end-point,
+        // or a valid destination but the wrong HTTP-verb.
         //
         //  Happily HTTP 405 is a sane response-code to return.
         //
