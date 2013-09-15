@@ -132,7 +132,6 @@ var server = http.createServer(function (request, response) {
             //
             try {
                 var obj = JSON.parse(data);
-                console.log( obj['ip'] );
 
                 //
                 // Copy all keys/values from this hash, but make sure
