@@ -140,7 +140,7 @@ If you prefer to checkout the code locally run instead:
 Now you've installed the dependencies, by one method or another, you can launch the server.
 In one terminal run the main script:
 
-     node blogspam.js
+     node server.js
 
 In another run the test-cases by running:
 
