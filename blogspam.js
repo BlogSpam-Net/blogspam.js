@@ -58,9 +58,6 @@ var redis = redis_lib.createClient();
 //
 // TODO:
 //
-//    * Create a constructor which takes an array of objects,
-//      e.g. The redis store and the cidr_matching object.
-//
 //    * Test the comments and return a hash.
 //
 //    * Read blogspam.config.json, or similar?
