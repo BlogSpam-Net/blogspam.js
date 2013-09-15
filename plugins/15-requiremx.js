@@ -11,8 +11,9 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var mail   = obj['email']   || ""
-    var regexp = /^([^@]+)@(.*)$/
+    var mail   = obj['email']   || "",
+        regexp = /^([^@]+)@(.*)$/,
+        dns = require('dns');
 
     var match = regexp.exec( mail );
     if ( match )
@@ -26,7 +27,7 @@ exports.testJSON = function ( obj, spam, ok, next )
             }
             else
             {
-                next( "next" );
+                return next( "next" );
             }
         });
     }
@@ -37,7 +38,7 @@ exports.testJSON = function ( obj, spam, ok, next )
         // but if the caller cares they can use the mandatory=email
         // server-options.
         //
-        next( "next" );
+        return next( "next" );
     }
 
 };
@@ -48,5 +49,5 @@ exports.testJSON = function ( obj, spam, ok, next )
 //
 exports.init = function (  )
 {
-    dns = require('dns');
+  return;
 }
