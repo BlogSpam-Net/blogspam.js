@@ -68,7 +68,7 @@ var cidr_match = null;
 // latter solution.  (Easier to see the local code, and easier to deploy via
 // rsync.)
 //
-if ( fs.existsSync("./submodules/async/lib" ) ) {
+if ( fs.existsSync("./submodules/async/lib/async.js" ) ) {
     console.log( "Loading async from git submodule.");
     async = require("./submodules/async/lib/async.js" )
 } else {
@@ -76,7 +76,7 @@ if ( fs.existsSync("./submodules/async/lib" ) ) {
     console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
     async = require('async/lib/async.js');
 }
-if ( fs.existsSync("./submodules/node_redis" ) ) {
+if ( fs.existsSync("./submodules/node_redis/index.js" ) ) {
     console.log( "Loading redis from git submodule.");
     redis_lib =require("./submodules/node_redis/index.js" )
 } else {
