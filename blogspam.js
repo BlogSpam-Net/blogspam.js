@@ -278,9 +278,9 @@ f.load_plugins( "./plugins" );
 // Test a comment-submission
 //
 var comment = {
-    'name': "http://spammer",
+    'name': "Steve Kemp",
     'link': 'http://steve.org.uk/',
-    'email': 'steve@example.org',
+    'email': 'steve@steve.org.uk',
     'comment': 'This is the body of my comment ..',
     'ip': "22.33.21.99",
     '_async': async,
