@@ -25,7 +25,8 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     // Handle to the cidr_match.js library.
     //
-    var cidr    = obj['_cidr'];
+    var cidr = obj['_cidr'];
+    var fs   = require('fs');
 
 
     //
@@ -152,13 +153,5 @@ exports.testJSON = function ( obj, spam, ok, next )
             next("next");
         }
     });
-};
-
-
-//
-// Init method..
-//
-exports.init = function (  )
-{
-    fs = require('fs');
 }
+
