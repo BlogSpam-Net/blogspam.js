@@ -12,6 +12,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     var result = "next";
     var done   = false;
     var redis  = obj['_redis']
+    var http   = require('http');
 
     //
     // Ensure the IP is an IPv4 address.
@@ -77,10 +78,3 @@ exports.testJSON = function ( obj, spam, ok, next )
 };
 
 
-//
-// Init method..
-//
-exports.init = function (  )
-{
-    http = require('http');
-}
