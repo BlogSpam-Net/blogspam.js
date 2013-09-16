@@ -41,13 +41,6 @@ exports.testJSON = function ( obj, spam, ok, next )
         return next( "next" );
     }
 
+    console.log( "I am broken?" );
 };
 
-
-//
-// Init method..
-//
-exports.init = function (  )
-{
-  return;
-}
