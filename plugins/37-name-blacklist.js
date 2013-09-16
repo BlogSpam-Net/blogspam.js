@@ -27,6 +27,7 @@ exports.testJSON = function ( obj, spam, ok, next )
                 "^car\s+insurance\s+quotes",
                 "^buy.*backlinks",
                 "fake.*sale$",
+                "^free.*samples$",
                 "^buy.*fake",
                 "^botanical\\s+slimming",
               ];
