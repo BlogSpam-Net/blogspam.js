@@ -1,4 +1,4 @@
-exports.name    = function() {return "10-mandatory.js" ; };
+exports.name    = function() {return "30-mandatory.js" ; };
 exports.purpose = function() {return "Look for any mandatory fields which might be missing." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
