@@ -1,0 +1,6 @@
+IP: 20.22.129.192
+Name: Cheap Viagra
+Subject: This is a comment
+Expected: SPAM
+
+We've matched a known-bad string in the subject.
