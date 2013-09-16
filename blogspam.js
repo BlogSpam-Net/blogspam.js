@@ -51,39 +51,23 @@ var redis = redis_lib.createClient();
 
 
 
+(function ()
+ {
 
-//
-// BlogSpam object prototype which can be used by `server.js`
-// in the future.
-//
-// TODO:
-//
-//    * Test the comments and return a hash.
-//
-//    * Read blogspam.config.json, or similar?
-//
-//    * Test-code.
-//
-// When this module is complete we can gut the server.js
-// and use this instead.
-//
-//
-function BlogSpam() {
+     //
+     //  Plugins we've loaded.
+     //
+     var plugins = [];
 
-    //
-    //  Plugins we've loaded.
-    //
-    var plugins = [];
-
-    //
-    //  Return a hash of all plugins.
-    //
-    //  This could be used by the get-plugins API-method:
-    //
-    //   http://test.blogspam.net:9999/plugins
-    //
-    //
-    this.get_plugins = function() {
+     //
+     //  Return a hash of all plugins.
+     //
+     //  This could be used by the get-plugins API-method:
+     //
+     //   http://test.blogspam.net:9999/plugins
+     //
+     //
+     this.get_plugins = function() {
         var hash = {};
         plugins.forEach(function(plugin){
 
@@ -102,6 +86,11 @@ function BlogSpam() {
     //
     //
     this.load_plugins = function( path ) {
+
+        if ( plugins.length > 0 )
+        {
+            return;
+        }
 
         //
         // Use sync here to ensure that all is loaded
@@ -154,6 +143,14 @@ function BlogSpam() {
     this.test_comment = function( data ) {
 
         //
+        //  Ensure our plugins are loaded.
+        //
+        if ( plugins.length < 1 )
+        {
+            throw "Plugins not loaded yet!";
+        }
+
+        //
         // The parsed object might contain some options.
         //
         // The options include plugin-names to skip.
@@ -168,6 +165,9 @@ function BlogSpam() {
         var options = data['options'] || "";
         var opts    = options.split( "," );
         var exclude = [];
+
+        data["_redis"] = redis;
+        data["_cidr"]  = cidr_match;
 
         //
         // Populate the exclude array with regexps of plugin-names
@@ -202,7 +202,7 @@ function BlogSpam() {
         var result = {}
 
 
-        data['_async'].eachSeries(plugins, function(plugin, callback) {
+        async.eachSeries(plugins, function(plugin, callback) {
             var skip = false;
 
             exclude.forEach(function(element) {
@@ -255,36 +255,11 @@ function BlogSpam() {
     };
 
 
-};
+     var exports = {};
+     exports.load_plugins = load_plugins;
+     exports.get_plugins  = get_plugins;
+     exports.test_comment = test_comment;
 
+     module.exports = exports;
 
-//
-// Dummy Debug-Code.
-//
-
-
-//
-// Create the object and load the plugins.
-//
-var f = new BlogSpam();
-f.load_plugins( "./plugins" );
-
-
-
-//
-// Test a comment-submission
-//
-var comment = {
-    'name': "Steve Kemp",
-    'link': 'http://steve.org.uk/',
-    'email': 'steve@steve.org.uk',
-    'comment': 'This is the body of my comment ..',
-    'ip': "22.33.21.99",
-    '_async': async,
-    '_redis': redis,
-    '_cidr': cidr_match
-};
-
-var result= f.test_comment( comment );
-console.log( "Result of comment test " +JSON.stringify(result));
-process.exit(0);
+ }());
