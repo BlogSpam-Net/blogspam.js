@@ -13,6 +13,7 @@ exports.testJSON = function ( obj, spam, ok, next )
 {
     var ip    = obj['ip']   || ""
     var redis = obj['_redis']
+    var dns   = require('dns');
 
     //
     // We can only test IPv4 addresses
@@ -52,10 +53,3 @@ exports.testJSON = function ( obj, spam, ok, next )
 };
 
 
-//
-// Init method..
-//
-exports.init = function (  )
-{
-    dns = require('dns');
-}
