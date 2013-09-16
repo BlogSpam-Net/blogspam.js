@@ -199,10 +199,10 @@ var redis = redis_lib.createClient();
         //  A result of next() will allow continuation, otherwise
         // the result value will be populated.
         //
-        var result = {}
-
+        var result = null;
 
         async.eachSeries(plugins, function(plugin, callback) {
+
             var skip = false;
 
             exclude.forEach(function(element) {
@@ -212,8 +212,9 @@ var redis = redis_lib.createClient();
                 }
             });
 
-            if (skip) {
+            if ( skip || ( result ) ) {
                 console.log("Skipping plugin: " + plugin.name());
+                console.log( JSON.stringify( result ) );
                 return callback(null);
             }
 
@@ -230,7 +231,7 @@ var redis = redis_lib.createClient();
                     'blocker': plugin.name(),
                     'version': "2.0"
                 };
-                return;
+                return result;
             }, function(reason) {
                 // ok
                 console.log("\tplugin " + plugin.name() + " said OK" );
@@ -238,7 +239,7 @@ var redis = redis_lib.createClient();
                     'result': "OK",
                     'version': "2.0"
                 };
-                return;
+                return result;
             }, function(txt) {
                 // next
                 console.log("\tplugin " + plugin.name() + " said next : " + txt);
@@ -249,6 +250,7 @@ var redis = redis_lib.createClient();
             if (err) {
                 console.log("Error during processing plugin(s): " + err);
             }
+            return( result );
         });
 
         return( result );
