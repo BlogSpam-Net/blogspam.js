@@ -13,6 +13,9 @@ exports.testJSON = function ( obj, spam, ok, next )
     var comment = obj['comment'] || '';
     var link    = obj['link']    || '';
 
+    var http        = require('http');
+    var querystring = require('querystring');
+
     //
     //  Site seems to be having MySQL issues.
     //
@@ -81,12 +84,3 @@ exports.testJSON = function ( obj, spam, ok, next )
 
 };
 
-
-//
-// Init method..
-//
-exports.init = function (  )
-{
-    http        = require('http');
-    querystring = require('querystring');
-}
