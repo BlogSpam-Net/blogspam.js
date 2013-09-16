@@ -11,10 +11,11 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var comment = obj['comment'] || ""
-    var ip      = obj['ip']      || ""
-    var link    = obj['link']    || ""
-    var redis   = obj['_redis']
+    var comment = obj['comment'] || "";
+    var ip      = obj['ip']      || "";
+    var link    = obj['link']    || "";
+    var redis   = obj['_redis'];
+    var dns     = require('dns');
 
     //
     // Remove newlines.
