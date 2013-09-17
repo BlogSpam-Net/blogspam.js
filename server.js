@@ -321,6 +321,42 @@ var server = http.createServer(function (request, response) {
 
         });
     }
+    else if ( ( request.url == "/classify" || request.url == '/classify/' ) &&
+              ( request.method === 'POST' ) ) {
+        var data = '';
+
+        request.addListener('data', function(chunk) { data += chunk; });
+        request.addListener('end', function() {
+            var parsed;
+
+            //
+            //  Try to parse the JSON body.
+            //
+            try {
+                parsed = JSON.parse(data);
+            } catch ( e ) {
+                response.writeHead(500, {'content-type': 'text/plain' });
+                response.write('Failed to parse JSON submission:' + e);
+                response.end('\n');
+            }
+
+            //
+            // Get the submitted IP.
+            //
+            var ip = parsed['ip'] || "";
+
+            //
+            // Blacklist.
+            //
+            redis.set( "blacklist-" + ip , "Manually trained as SPAM" );
+            redis.expire( "blacklist-" + ip , 60*60*48 );
+
+            response.writeHead(200, {'content-type': 'application/json' });
+            response.end('{"result":"OK", "version":"2.0"}');
+
+            console.log("IP trained as SPAM " + ip);
+        });
+    }
     else if ( ( request.url == "/plugins" || request.url == "/plugins/" )  &&
               request.method === 'GET' ) {
         var hash = {};
