@@ -343,17 +343,20 @@ var server = http.createServer(function (request, response) {
             //
             // Get the submitted IP - the only thing we care about right now.
             //
-            var ip = parsed['ip'] || "";
-            var as = parsed['train'] || "spam";
+            var ip   = parsed['ip']    || "";
+            var site = parsed['site']  || "unknown";
+            var as   = parsed['train'] || "spam";
 
             //
-            // Blacklist.
+            // Blacklist, on a per-site basis.
             //
             if ( as == "spam" )
             {
-                redis.set( "blacklist-" + ip , "Manually trained as SPAM" );
-                redis.expire( "blacklist-" + ip , 60*60*48 );
-                console.log("IP trained as SPAM " + ip);
+                var key = "blacklist-" + site + "-" + ip;
+
+                redis.set( key , "IP blacklisted for " + site );
+                redis.expire( key , 60*60*48 );
+                console.log("IP trained as SPAM " + ip + " for site " + site );
             }
 
             //
