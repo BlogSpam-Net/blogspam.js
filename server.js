@@ -239,7 +239,7 @@ var server = http.createServer(function (request, response) {
                         'version': "2.0"
                     };
 
-                    console.log( "SPAM submission: " + JSON.stringify(data) );
+                    console.log( "SPAM submission: " + plugin.name() + ":" + reason + " ->" + JSON.stringify(data) );
 
                     response.end(JSON.stringify(hash));
                     redis.incr("site-" + site + "-spam");
