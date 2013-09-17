@@ -341,20 +341,27 @@ var server = http.createServer(function (request, response) {
             }
 
             //
-            // Get the submitted IP.
+            // Get the submitted IP - the only thing we care about right now.
             //
             var ip = parsed['ip'] || "";
+            var as = parsed['train'] || "spam";
 
             //
             // Blacklist.
             //
-            redis.set( "blacklist-" + ip , "Manually trained as SPAM" );
-            redis.expire( "blacklist-" + ip , 60*60*48 );
+            if ( as == "spam" )
+            {
+                redis.set( "blacklist-" + ip , "Manually trained as SPAM" );
+                redis.expire( "blacklist-" + ip , 60*60*48 );
+                console.log("IP trained as SPAM " + ip);
+            }
 
+            //
+            //  We've "trained".
+            //
             response.writeHead(200, {'content-type': 'application/json' });
             response.end('{"result":"OK", "version":"2.0"}');
 
-            console.log("IP trained as SPAM " + ip);
         });
     }
     else if ( ( request.url == "/plugins" || request.url == "/plugins/" )  &&
