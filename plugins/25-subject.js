@@ -22,6 +22,10 @@ exports.testJSON = function ( obj, spam, ok, next )
     var bad = [
         "^authentic.*jerseys",
         "^cheap.*wholesale",
+        "^Jordans\\s+for\\s+Cheap",
+        "^Cheap\\s+Jordans",
+        "^cheap\\s+ugg\\s+boots",
+        "^cheap\\s+nfl\\s+jerseys"
     ];
 
     //
