@@ -149,7 +149,6 @@ var server = http.createServer(function (request, response) {
                 parsed["_redis"] = redis;
                 parsed["_cidr"]  = cidr_match;
 
-                console.log( "Received submission: " + data );
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
                 response.write('Failed to parse JSON submission:' + e);
@@ -209,9 +208,10 @@ var server = http.createServer(function (request, response) {
             // per-site SPAM/OK counts.
             //
             var site = parsed['site'] || "unknown";
+            var skip = false;
 
-            async.eachSeries(plugins, function(plugin, callback) {
-                var skip = false;
+            async.eachSeries(plugins.sort(), function(plugin, callback) {
+
 
                 exclude.forEach(function(element) {
                     var name = element.trim();
@@ -229,6 +229,7 @@ var server = http.createServer(function (request, response) {
                 // return will make it go away and jump this part and the callback
                 // will call the next in the series.
                 plugin.testJSON(parsed, function(reason) {
+
                     // spam
                     response.writeHead(200, {'content-type': 'application/json'});
                     var hash = {
@@ -238,14 +239,17 @@ var server = http.createServer(function (request, response) {
                         'version': "2.0"
                     };
 
+                    console.log( "SPAM submission: " + JSON.stringify(data) );
+
                     response.end(JSON.stringify(hash));
-                    console.log(JSON.stringify(hash));
                     redis.incr("site-" + site + "-spam");
                     redis.incr("global-spam");
                     skip = true;
                     return;
                 }, function(reason) {
                     // ok
+                    console.log( "Valid submission: " + JSON.stringify(data) );
+
                     response.writeHead(200, {'content-type': 'application/json'});
                     response.end('{"result":"OK", "version":"2.0"}');
                     redis.incr("site-" + site + "-ok");
@@ -265,11 +269,6 @@ var server = http.createServer(function (request, response) {
                     return response.end("Error processing submission " + e + '\n');
                 }
 
-                response.writeHead(200, {'content-type': 'application/json'});
-                response.end('{"result":"OK", "version":"2.0"}');
-                redis.incr("site-" + site + "-ok");
-                redis.incr("global-ok");
-                return;
             });
         });
     }
