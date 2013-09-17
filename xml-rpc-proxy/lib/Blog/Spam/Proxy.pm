@@ -179,6 +179,15 @@ sub createServer
           code      => sub {$self->getStats(@_)}
         } );
 
+    #
+    # Add our 'getPlugins' method.
+    #
+    $self->{ 'daemon' }->add_method( {
+          name      => 'getPlugins',
+          signature => ['array'],
+          code      => sub {$self->getPlugins(@_)}
+        } );
+
 
 }
 
@@ -251,7 +260,6 @@ sub testComment
     #  Record that so Steve knows when he can turn it off ..
     #
     $obj{ 'method' } = "XML-RPC";
-
 
     #
     #  Log the peer.
@@ -409,5 +417,54 @@ sub getStats
 }
 
 
+
+=begin doc
+
+This method will return the list of loaded plugin names.
+
+=end doc
+
+=cut
+
+sub getPlugins
+{
+    my ( $self, $xmlrpc ) = (@_);
+
+    #
+    #  The URL we'll get the stats from.
+    #
+    my $uri = $self->{ 'json' } . "plugins";
+
+    #
+    #  Submit a request for the plugins.
+    #
+    my $req = HTTP::Request->new( 'GET', $uri );
+    $req->header( 'Content-Type' => 'application/json' );
+
+    #
+    #  Send the request.
+    #
+    my $lwp      = LWP::UserAgent->new;
+    my $response = $lwp->request($req);
+
+    #
+    #  The results which were obtained.
+    #
+    my @all;
+
+    if ( $response->is_success() )
+    {
+        my $json = $response->decoded_content;
+        my $r    = decode_json($json);
+
+        # as per the legacy API we only return the names.
+        foreach my $key ( sort keys %$r )
+        {
+            push( @all, $key );
+        }
+    }
+
+    return ( \@all );
+}
 
 1;
