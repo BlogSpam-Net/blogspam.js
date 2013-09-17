@@ -337,7 +337,7 @@ sub testComment
 
 =begin doc
 
-NOP.
+TODO:  http://blogspam.net/api/2.0/classify.html
 
 =end doc
 
@@ -353,8 +353,7 @@ sub classifyComment
 
 =begin doc
 
-This method will return the SPAM/OK counts either globally or for the
-given site.
+This method will return the SPAM/OK counts for the given site.
 
 =end doc
 
