@@ -27,7 +27,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     // For each bad-subject we've got.
     //
-    subj.forEach(function(spam_str) {
+    bad.forEach(function(spam_str) {
 
         //
         // If we match..
