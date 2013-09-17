@@ -139,7 +139,8 @@ sub testTheFile
         return;
     }
 
-    print "Running test: $file \n";
+    print "Running test: $file \n" if ( $CONFIG{'verbose'} );
+
     #
     #  Params we send to the server.
     #
