@@ -169,11 +169,20 @@ There are a couple of perl utility scripts located beneath `./utils`.  In brief 
    * A simple programming sample, showing how to submit a comment for testing.
    * Other examples are included in the [online code samples area](http://blogspam.net/code/samples/).
 
+
 Current Status
 --------------
 
 The current code is now in production use at http://blogspam.net/ and
 appears to be working very well.
+
+There are a few modules here so to be clear:
+
+* `server.js`
+   * The live, deployed, working code.
+* `blogspam.js` & `server.new.js`
+   * Moving towards a broken-up code-base.
+   * Not functional due to callback-woes.  (e.g. The `15-requiremx.js` plugin returns before the DNS resolution has happened.)
 
 
 Steve
