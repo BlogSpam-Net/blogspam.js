@@ -139,7 +139,7 @@ sub testTheFile
         return;
     }
 
-
+    print "Running test: $file \n";
     #
     #  Params we send to the server.
     #

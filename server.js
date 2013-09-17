@@ -208,10 +208,10 @@ var server = http.createServer(function (request, response) {
             // per-site SPAM/OK counts.
             //
             var site = parsed['site'] || "unknown";
-            var skip = false;
+            var done = false;
 
             async.eachSeries(plugins.sort(), function(plugin, callback) {
-
+                var skip = false;
 
                 exclude.forEach(function(element) {
                     var name = element.trim();
@@ -220,7 +220,7 @@ var server = http.createServer(function (request, response) {
                     }
                 });
 
-                if (skip) {
+                if (skip || done) {
                     console.log("Skipping plugin: " + plugin.name());
                     return callback(null);
                 }
@@ -244,7 +244,7 @@ var server = http.createServer(function (request, response) {
                     response.end(JSON.stringify(hash));
                     redis.incr("site-" + site + "-spam");
                     redis.incr("global-spam");
-                    skip = true;
+                    done = true;
                     return;
                 }, function(reason) {
                     // ok
@@ -254,7 +254,7 @@ var server = http.createServer(function (request, response) {
                     response.end('{"result":"OK", "version":"2.0"}');
                     redis.incr("site-" + site + "-ok");
                     redis.incr("global-ok");
-                    skip = true;
+                    done = true;
                     return;
                 }, function(txt) {
                     // next
@@ -268,7 +268,15 @@ var server = http.createServer(function (request, response) {
                     console.log("Error during processing plugin(s): " + err);
                     return response.end("Error processing submission " + e + '\n');
                 }
-
+                else
+                {
+                    response.writeHead(200, {'content-type': 'application/json'});
+                    response.end('{"result":"OK", "version":"2.0"}');
+                    redis.incr("site-" + site + "-ok");
+                    redis.incr("global-ok");
+                    done = true;
+                    return;
+                }
             });
         });
     }
