@@ -13,28 +13,44 @@ exports.testJSON = function ( obj, spam, ok, next)
     var comment = obj['comment'] || '';
 
     //
-    //  Regexps to find links of different forms
+    // Count of linking-methods.
     //
-    //
-    //
-    //  So we have a max-links count.  We need to count the links
-    //
-    var ahref = comment.match(/href=['"]https?:\/\//gi);
-    var url   = comment.match(/url=['"]?https?:\/\//gi);
-    var link  = comment.match(/link=['"]?https?:\/\//gi);
+    var methods = 0;
 
-    if ( ( ahref != null && ahref.length > 0 ) &&
-         ( url != null &&  url.length > 0 ) &&
-         ( link != null && link.length > 0 ) )
+    //
+    // Naive identification of the different linking methods.
+    //
+    var stratergies = [ /<a href="https?:/i,
+                        /\[?url=https?:/i,
+                        /\[?link=https?:/i,
+                        /\s+https?:/i  ]
+
+    //
+    // For each method.
+    //
+    stratergies.forEach(function(regexp){
+        if ( comment.match( regexp ) )
+        {
+            console.log( "Matched linking stratergy regexp: " + regexp );
+            methods += 1;
+        }
+    });
+
+
+    //
+    // Block on too many.
+    //
+    if ( methods >= 3 )
     {
         spam( "Multiple linking stratergies" );
     }
-
-
-    //
-    //  We passed this plugin.
-    //
-    next("next");
+    else
+    {
+        //
+        //  We passed this plugin.
+        //
+        next("next");
+    }
 };
 
 

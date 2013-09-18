@@ -1,10 +1,12 @@
-IP: 4.3.4.3
+IP: 1.2.0.9
 Agent: Mozilla ...
 Email: steve@steve.org.uk
 Subject: This is my comment
 Expected: SPAM
 
 
-[URL=http://steve.org.uk/]test[/url]
-[LINK=http://example.com/]test[/link]
-<a href="http://example.com/">Test</a>
+[URL=http://example.org/]test[/url]
+[LINK=http://steve.com/]test[/link]
+<a href="http://steve.org/">Test</a>
+
+More test.
