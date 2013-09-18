@@ -32,6 +32,8 @@ exports.testJSON = function ( obj, spam, ok, next )
                 "^botanical\\s+slimming",
                 "^vintage\\s+casino",
                 "casion\\s+poker$",
+                "^Oakley\\s+Sunglasses$",
+                "^gucci\\s+outlet\\s+stores",
               ];
 
     //
