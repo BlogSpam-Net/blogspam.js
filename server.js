@@ -470,3 +470,15 @@ server.on('error', function(e) {
 // Start the server listening on both all IPv4 & all IPv6 addresses.
 //
 server.listen(9999, '::');
+
+
+//
+// Every five minutes show we're alive.
+//
+function alive()
+{
+    var now = new Date();
+    console.log("Server alive " + Data );
+}
+setInterval(alive, ( 5 * 60) * 1000);
+
