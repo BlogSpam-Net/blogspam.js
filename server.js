@@ -478,7 +478,7 @@ server.listen(9999, '::');
 function alive()
 {
     var now = new Date();
-    console.log("Server alive " + Data );
+    console.log("Server alive " + now );
 }
 setInterval(alive, ( 5 * 60) * 1000);
 
