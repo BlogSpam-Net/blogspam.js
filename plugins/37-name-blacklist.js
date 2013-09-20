@@ -39,6 +39,7 @@ exports.testJSON = function ( obj, spam, ok, next )
                 "handbags\\s+outlet",
                 "^cheap.*for\\s+sale$",
                 "^best\\s+insurance\\s+quotes",
+                "Generic\\s+viagra",
               ];
 
     //
