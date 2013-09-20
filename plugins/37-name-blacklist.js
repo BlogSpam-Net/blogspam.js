@@ -21,6 +21,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     var bad = [ "Nike\\s+Air.*Sale",
                 "cheap\\s+viagra",
+                "generic\\s+cialis",
                 "^cheap.*insurance",
                 "erectile\s+dysfunction",
                 "^wholesale\s+iphone",
