@@ -241,6 +241,12 @@ var server = http.createServer(function (request, response) {
 
                     console.log( "SPAM submission: " + plugin.name() + ":" + reason + " ->" + JSON.stringify(data) );
 
+                    //
+                    //  Log in a rotating buffer.
+                    //
+                    redis.lpush( "recent-comments-spam", JSON.stringify(data));
+                    redis.ltrim( "recent-comments-spam", 0, 100 );
+
                     response.end(JSON.stringify(hash));
                     redis.incr("site-" + site + "-spam");
                     redis.incr("global-spam");
@@ -249,6 +255,12 @@ var server = http.createServer(function (request, response) {
                 }, function(reason) {
                     // ok
                     console.log( "Valid submission: " + JSON.stringify(data) );
+
+                    //
+                    //  Log in a rotating buffer.
+                    //
+                    redis.lpush( "recent-comments-ok", JSON.stringify(data));
+                    redis.ltrim( "recent-comments-ok", 0, 100 );
 
                     response.writeHead(200, {'content-type': 'application/json'});
                     response.end('{"result":"OK", "version":"2.0"}');
