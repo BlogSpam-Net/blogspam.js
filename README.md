@@ -180,9 +180,6 @@ There are a few modules here so to be clear:
 
 * `server.js`
    * The live, deployed, working code.
-* `blogspam.js` & `server.new.js`
-   * Moving towards a broken-up code-base.
-   * Not functional due to callback-woes.  (e.g. The `15-requiremx.js` plugin returns before the DNS resolution has happened.)
 
 
 Steve
