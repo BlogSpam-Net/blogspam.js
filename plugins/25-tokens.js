@@ -32,7 +32,9 @@ exports.testJSON = function ( obj, spam, ok, next)
         //
         //  If this is the longest string, then we store it.
         //
-        if ( l > max ) {
+        if ( ( l > max ) &&
+             ( /^https?:\/\//.test( s ) != true ) )
+        {
             max = l;
             str = s;
         }
