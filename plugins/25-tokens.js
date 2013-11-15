@@ -18,9 +18,40 @@ exports.testJSON = function ( obj, spam, ok, next)
     var comment = obj['comment'] || '';
 
     //
-    //  We passed this plugin.
+    // Split.
     //
-    next("next");
+    var array = comment.match(/[^\s]+/g);
+
+    var max = 0;
+    var str = "";
+
+    for( var i = 0; i < array.length; ++i ) {
+        var s = array[i];
+        var l = array[i].length;
+
+        //
+        //  If this is the longest string, then we store it.
+        //
+        if ( l > max ) {
+            max = l;
+            str = s;
+        }
+    }
+
+    //
+    // If the token is too long ..
+    //
+    if ( max >= 40 )
+    {
+        spam( "Single-word too long: '" + str + "'" );
+    }
+    else
+    {
+        //
+        //  We passed this plugin.
+        //
+        next("next");
+    }
 };
 
 
