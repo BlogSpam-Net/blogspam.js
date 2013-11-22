@@ -170,6 +170,22 @@ var server = http.createServer(function (request, response) {
             }
 
             //
+            // I've seen a lot of sites behind mod_proxy, or similar,
+            // which submit IP addresses of the form:
+            //
+            //   1.2.3.4:678
+            //
+            //
+            // Strip out the suffix if present.
+            //
+            var strip_port = /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+):([0-9]+)$/;
+            var p_match    = strip_port.exec( parsed['ip'] )
+            if ( p_match )
+            {
+                parsed['ip'] = p_match[1] + "." + p_match[2]  + "." + p_match[3]  + "." + p_match[4];
+            }
+
+            //
             // The parsed object might contain some options.
             //
             // The options include plugin-names to skip.
