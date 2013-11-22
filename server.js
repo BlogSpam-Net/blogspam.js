@@ -261,7 +261,7 @@ var server = http.createServer(function (request, response) {
                     //  Log in a rotating buffer.
                     //
                     redis.lpush( "recent-comments-spam", JSON.stringify(data));
-                    redis.ltrim( "recent-comments-spam", 0, 100 );
+                    redis.ltrim( "recent-comments-spam", 0, 1000 );
 
                     response.end(JSON.stringify(hash));
                     redis.incr("site-" + site + "-spam");
@@ -276,7 +276,7 @@ var server = http.createServer(function (request, response) {
                     //  Log in a rotating buffer.
                     //
                     redis.lpush( "recent-comments-ok", JSON.stringify(data));
-                    redis.ltrim( "recent-comments-ok", 0, 100 );
+                    redis.ltrim( "recent-comments-ok", 0, 1000 );
 
                     response.writeHead(200, {'content-type': 'application/json'});
                     response.end('{"result":"OK", "version":"2.0"}');
