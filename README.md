@@ -57,7 +57,7 @@ The [API is documented online](http://blogspam.net/api/2.0), and contains three
 end-points:
 
 * A location for SPAM testing incoming JSON-encoded data.
-* A locaiton for retrieving statistics.
+* A location for retrieving statistics.
 * A location for retrieving plugin-names/data.
 
 The main API is the spam-testing one, and that is the only one documented here.
