@@ -44,12 +44,12 @@ exports.testJSON = function ( obj, spam, ok, next )
         if ( subj.match( new RegExp( spam_str, "i" ) ) )
         {
             //
-            // Blacklist for 12 hours.
+            // Blacklist for 48 hours.
             //
             var res = "Blacklisted subject";
 
             redis.set(    "blacklist-" + ip , res );
-            redis.expire( "blacklist-" + ip , 60*60*12 );
+            redis.expire( "blacklist-" + ip , 60*60*48 );
 
             spam( res );
             return;
