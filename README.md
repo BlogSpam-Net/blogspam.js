@@ -7,11 +7,10 @@ This service is a node.js re-implementation of the [BlogSpam.net service](http:/
 The original blogspam service was written in Perl and used XML::RPC for the
 transport mechanism, that code is available [on CPAN](http://search.cpan.org/dist/Blog-Spam/).
 
-This `node.js` service is being developed with the intention of replacing the legacy system.
-Rather than receiving comment-submissions via XML-RPC it will accept HTTP POST requests containing
-JSON.  Those requests will then be tested, and the result will be returned as a JSON hash containing
-a results key declaring "`SPAM`" or "`OK`".  There may be other keys in the result, such as "`reason`"
-which declares the reason for a SPAM result however these are optional.
+This `node.js` service has been developed to replace the legacy system, and
+now offers the blogspam v2 API.
+
+> Comment-submissions are accepted via JSON-encoded submissions over HTTP.  Those submission will be tested, and the result will be returned as a JSON hash containing a results key declaring "`SPAM`" or "`OK`".  There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result however these are optional.
 
 
 
@@ -21,9 +20,9 @@ History
 I started the http://blogspam.net/ service a few years ago to handle the spammy
 comments which were received upon the [Debian Administration](http://www.debian-administration.org/) website.
 
-The comments that were spammy were a pain to deal with, but at the same time they
-weren't really specific to the site.  The idea of abstracting away the spam
-testing from the site was appealing.
+The comments that were spammy were a pain to deal with, but at the same
+time they weren't really specific to the site.  The idea of abstracting
+away the spam testing from the site was appealing.
 
 Since then I've added support for the remote service to many other of my sites,
 and also made it generally available to the internet at large.  The service is
@@ -35,9 +34,12 @@ pretty good, but hard to maintain for two reasons:
    * This causes 1/1000 messages to crash the server.
    * Again I hope node.js will sidestep this issue.
 
-This javascript port of the service is aimed at replacing the existing XML::RPC
-interface in time.  (The XML::RPC method will have to remain for backward compatibility
-but it will become a mere shim/proxy around the node.js version.)
+This javascript port of the service replaces the legacy API and suffers
+from none of the drawbacks.  For compatibility there exists an XML::RPC
+proxy which accepts legacy-submissions and proxies them to the new API:
+
+* https://github.com/skx/blogspam-xml-rpc-proxy
+
 
 
 Wordpress Plugin
@@ -97,8 +99,7 @@ methods it receives:
 * `next`
    * The comment is undecided, keep processing by invoking all remaining plugins.
 
-A spam or ham result terminates the processing, avoiding later plugins.  **NOTE**: This means
-you **must** have 99-ok.js, or similar plugin, so that the final result is OK.
+A spam or ham result terminates the processing, avoiding later plugins.  **NOTE**: This means you **must** have 99-ok.js, or similar plugin, so that the final result is OK.
 
 The actual result of the testing will be returned to the caller in the form of :
 
