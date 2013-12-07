@@ -441,15 +441,23 @@ function load_plugins( dirs )
         //
         // Foreach file.
         //
-        var files = fs.readdirSync(dir_name);
-        files.forEach(function(dirent) {
+        try {
+            var files = fs.readdirSync(dir_name);
+            files.forEach(function(dirent) {
+                //
+                // Save it if it is a plugin.  i.e. ".js" suffix.
+                //
+                if ( dirent.match( /.js$/ ) ) {
+                    combined.push( dir_name + dirent );
+                }
+            });
+        } catch ( e ) {
             //
-            // Save it if it is a plugin.  i.e. ".js" suffix.
+            //  If a directory doesn't exist - as plugins.local
+            // wouldn't by default - then we just don't care.
             //
-            if ( dirent.match( /.js$/ ) ) {
-                combined.push( dir_name + dirent );
-            }
-        });
+        };
+
     });
 
     //
