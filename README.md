@@ -16,10 +16,11 @@ In brief:
 * Comment-submissions are accepted via JSON-encoded submissions over HTTP.
 * Those submission will be tested by a series of plugins.
 * The result will be returned as a JSON hash containing a results key declaring "`SPAM`" or "`OK`".
-* There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result, however these are optional.
+    * There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result, however these are optional.
 
 There is [a proxy](https://github.com/skx/blogspam-xml-rpc-proxy) which will translate between the old API and the new one, which allows legacy clients to continue to operate.
 
+Finally there is a [wordpress plugin](https://github.com/skx/blogspam-wordpress-plugin) which makes use of this API to allow simple filtering to users of Wordpress.
 
 History
 -------
