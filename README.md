@@ -119,28 +119,12 @@ Deployment
 
 The code is designed to run directly from a git checkout, with no need to install it system-wide.  The only service dependency is an instance of the [redis](http://redis.io) which is assumed to run on the localhost.
 
-However we do rely upon a couple of external `node.js` libraries, and there are two ways you can
-install these:
-
-1.  Using the `npm` tool.
-2.  Using git submodules.
-
-If you wish to use `npm` just run the following after cloning the `blogspam.js` repository:
+However we do rely upon a small number of `node.js` libraries, which you can
+install via:
 
       $ npm install
 
-If you prefer to checkout the code locally run instead:
-
-      $ git submodule init
-      Submodule 'submodules/async' () registered for path 'submodules/async'
-      Submodule 'submodules/node_redis' () registered for path 'submodules/node_redis'
-      ..
-
-      $ git submodule update
-      ..
-      ..
-
-Now you've installed the dependencies, by one method or another, you can launch the server.
+Now you've installed the dependencies  you can launch the server.
 In one terminal run the main script:
 
      node server.js

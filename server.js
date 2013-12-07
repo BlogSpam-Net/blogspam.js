@@ -22,8 +22,8 @@
  * ------------
  *
  * You need a redis-server running on the localhost to store state, otherwise
- * the only dependency is node.js, and the redis-client library which is included
- * as a git-submodule.
+ * the only dependency is node.js, and the various node libraries which are
+ * documented in `packages.json`.
  *
  *
  * API Endpoints
@@ -53,45 +53,13 @@ var cidr_match = null;
 
 
 //
-//  This code is nasty because I want to allow the service to run without
-// run without the user having to update the environmental variable NODE_PATH,
-// and setting that in code doesn't work.
+//  These are the external dependencies, which can be installed by running:
 //
-//  The intention is that the user can install the required dependencies
-// either via:
+//     $ npm install
 //
-//    1. `npm install`
-//
-//    2.  Using the git submodules.
-//
-//  Either solution should work equally well, although I personally prefer the
-// latter solution.  (Easier to see the local code, and easier to deploy via
-// rsync.)
-//
-if ( fs.existsSync("./submodules/async/lib/async.js" ) ) {
-    console.log( "Loading async from git submodule.");
-    async = require("./submodules/async/lib/async.js" )
-} else {
-    console.log( "Loading async from beneath ./node_modules/");
-    console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
-    async = require('async/lib/async.js');
-}
-if ( fs.existsSync("./submodules/node_redis/index.js" ) ) {
-    console.log( "Loading redis from git submodule.");
-    redis_lib =require("./submodules/node_redis/index.js" )
-} else {
-    console.log( "Loading redis from beneath ./node_modules/");
-    console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
-    redis_lib =require('redis/index.js');
-}
-if ( fs.existsSync("./submodules/cidr_match.js/cidr_match.js" ) ) {
-    console.log( "Loading cidr_match from git submodule.");
-    cidr_match = require("./submodules/cidr_match.js/cidr_match.js" )
-} else {
-    console.log( "Loading cidr_match from beneath ./node_modules/");
-    console.log( "If this fails install all dependencies by running:\n\t$ npm install" );
-    cidr_match = require('cidr_match');
-}
+var async      = require('async/lib/async.js');
+var redis_lib  = require('redis/index.js');
+var cidr_match = require('cidr_match');
 
 
 /**
