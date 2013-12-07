@@ -1,0 +1,31 @@
+#!/bin/sh
+#
+# Run our v2 API - restarting on failure.
+#
+
+
+#
+#  Steve deploys node beneath /opt/node
+#
+if [ -d /opt/node ]; then
+    export PATH=/opt/node/bin:$PATH
+fi
+
+
+#
+# Ensure we're current.
+#
+git pull --update --quiet
+
+
+#
+# Install missing modules, if we should
+#
+if [ -e "packages.json" ]; then
+    npm install
+fi
+
+#
+#  Finally launch the service, with suitable logging.
+#
+exec node server.js 2>&1 >> /var/log/blogspam.log
