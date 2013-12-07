@@ -407,42 +407,91 @@ var server = http.createServer(function (request, response) {
 });
 
 
-/**
- * Load our plugins.
- */
-fs.readdir("./plugins", function(err, entries)  {
-    var dirs = [];
-    entries = entries || [];
-    entries.sort(function(a, b) {
-        return a < b ? -1 : 1;
-    }).forEach(function(entry) {
+//
+//  Given an array of directory names load plugins beneath each of them
+//
+//  This function is clever enough to process all the directories combined
+// which means loading:
+//
+//     plugins/
+//     plugins/01-first.js
+//     plugins/99-last.js
+//     ..
+//     plugins.local/
+//     plugins.local/50-middle.js
+//
+//  Will result in "01-first.s", then "50-middle.js", and then
+// "99-last.js" being initialized - in that order.
+//
+function load_plugins( dirs )
+{
+    //
+    // The plugins from all named directories.
+    //
+    // We need to store them here so that we can sort them based on
+    // the *filename* and not the *path*.
+    //
+    var combined = [];
 
-        var plugin = "./plugins/" + entry;
-        if ( plugin.match( /.js$/ ) )
-        {
-            v = require(plugin);
+    //
+    // Foreach directory.
+    //
+    dirs.forEach(function(dir_name){
 
+        //
+        // Foreach file.
+        //
+        var files = fs.readdirSync(dir_name);
+        files.forEach(function(dirent) {
             //
-            //  If the plugin has an init method, call it.
+            // Save it if it is a plugin.  i.e. ".js" suffix.
             //
-            if(typeof v.init === 'function') {
-                v.init();
-            };
-
-            //
-            //  If the plugin has a .testJSON method
-            // we'll add it to the plugin list.
-            //
-            if(typeof v.testJSON === 'function') {
-                plugins.push( v );
-                console.log( "\tLoaded plugin  : " + plugin );
-            } else {
-                console.log( "\tIgnored plugin : " + plugin );
+            if ( dirent.match( /.js$/ ) ) {
+                combined.push( dir_name + dirent );
             }
-        }
-
+        });
     });
-});
+
+    //
+    // Given all possible plugins sort them, based on the basename
+    // rather than the path.
+    //
+    // This allows explicit ordering, even with different plugin
+    // directories.
+    //
+    combined.sort(function(a, b) {
+        return path.basename(a) < path.basename(b) ? -1 : 1;
+    }).forEach(function(plugin){
+
+        //
+        // Actually load the plugin.
+        //
+        v = require(plugin);
+
+        //
+        //  If the plugin has an init method, call it.
+        //
+        if(typeof v.init === 'function') {
+            v.init();
+        };
+
+        //
+        //  If the plugin has a .testJSON method
+        // we'll add it to the plugin list.
+        //
+        if(typeof v.testJSON === 'function') {
+            plugins.push( v );
+            console.log( "\tLoaded plugin  : " + plugin );
+        } else {
+            console.log( "\tIgnored plugin : " + plugin );
+        }
+    });
+}
+
+//
+//  Load the plugins from the two possible plugin-paths.
+//
+load_plugins( [ "./plugins/", "./plugins.local/" ] );
 
 
 
