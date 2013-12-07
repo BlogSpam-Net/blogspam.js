@@ -21,7 +21,7 @@ git pull --update --quiet
 #
 # Install missing modules, if we should
 #
-if [ -e "packages.json" ]; then
+if [ -e "package.json" ]; then
     npm install
 fi
 
