@@ -8,7 +8,7 @@ The original blogspam service was written in Perl and used XML::RPC for the
 transport mechanism, that code is available [on CPAN](http://search.cpan.org/dist/Blog-Spam/).
 
 This `node.js` service has been developed to replace the legacy system, and
-now offers the blogspam v2 API.
+now offers the blogspam v2 API:
 
 > Comment-submissions are accepted via JSON-encoded submissions over HTTP.  Those submission will be tested, and the result will be returned as a JSON hash containing a results key declaring "`SPAM`" or "`OK`".  There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result however these are optional.
 
@@ -25,14 +25,14 @@ time they weren't really specific to the site.  The idea of abstracting
 away the spam testing from the site was appealing.
 
 Since then I've added support for the remote service to many other of my sites,
-and also made it generally available to the internet at large.  The service is
-pretty good, but hard to maintain for two reasons:
+and also made it generally available to the internet at large.  The service was
+pretty good, but became hard to maintain for two main reasons:
 
 * The XML::RPC server is very heavy-weight.
-   * I'd hope that node.js will be more efficient.
+   * The node.js replacement performs significantly better.
 * The XML::RPC server has "issues" with UTF-8.
    * This causes 1/1000 messages to crash the server.
-   * Again I hope node.js will sidestep this issue.
+   * In practice the node.js replacement has sidestepped this issue completely.
 
 This javascript port of the service replaces the legacy API and suffers
 from none of the drawbacks.  For compatibility there exists an XML::RPC
@@ -99,7 +99,9 @@ methods it receives:
 * `next`
    * The comment is undecided, keep processing by invoking all remaining plugins.
 
-A spam or ham result terminates the processing, avoiding later plugins.  **NOTE**: This means you **must** have 99-ok.js, or similar plugin, so that the final result is OK.
+A spam or ham result terminates the processing, avoiding later plugins.
+
+> **NOTE**: This means you **must** have 99-ok.js, or similar plugin, so that the final result is OK.
 
 The actual result of the testing will be returned to the caller in the form of :
 
