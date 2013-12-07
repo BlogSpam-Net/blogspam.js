@@ -2,16 +2,23 @@
 JSON BlogSpam Service
 ---------------------
 
-This service is a node.js re-implementation of the [BlogSpam.net service](http://blogspam.net), which is designed to test whether incoming blog-comments are spam or not in real-time.
+This node.js server implements the [BlogSpam.net](http://blogspam.net) v2 API.
 
-The original blogspam service was written in Perl and used XML::RPC for the
-transport mechanism, that code is available [on CPAN](http://search.cpan.org/dist/Blog-Spam/).
+The blogspam API & service allows site-owners to test incoming blog/forum comments for SPAM in real-time.
 
-This `node.js` service has been developed to replace the legacy system, and
-now offers the blogspam v2 API:
+The original (v1) blogspam API was written in Perl and used XML::RPC as the
+transport mechanism, that code is available
+[on CPAN](http://search.cpan.org/dist/Blog-Spam/), but has been depreciated
+and replaced by this new API/implementation.
 
-> Comment-submissions are accepted via JSON-encoded submissions over HTTP.  Those submission will be tested, and the result will be returned as a JSON hash containing a results key declaring "`SPAM`" or "`OK`".  There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result however these are optional.
+In brief:
 
+* Comment-submissions are accepted via JSON-encoded submissions over HTTP.
+* Those submission will be tested by a series of plugins.
+* The result will be returned as a JSON hash containing a results key declaring "`SPAM`" or "`OK`".
+* There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result, however these are optional.
+
+There is [a proxy](https://github.com/skx/blogspam-xml-rpc-proxy) which will translate between the old API and the new one, which allows legacy clients to continue to operate.
 
 
 History
@@ -88,6 +95,12 @@ Permitted hash fields are:
 
 The server will load a series of plugins on-startup, and each submission will be
 passed through the loaded plugins in turn.
+
+Plugins are loaded when the server starts up from beneath:
+
+* `plugins/`
+* `plugins.local/`
+   * If this directory exists.
 
 The individual plugins can handle the results by calling one of the three call-back
 methods it receives:
