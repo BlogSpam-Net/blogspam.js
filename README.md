@@ -179,10 +179,12 @@ Current Status
 The current code is now in production use at http://blogspam.net/ and
 appears to be working very well.
 
-There are a few modules here so to be clear:
+There are two repositories/services deployed:
 
-* `server.js`
-   * The live, deployed, working code.
+* [blogspam.js](https://github.com/skx/blogspam.js)
+    * The server which implements the JSON-based v2 API.
+* [blogspam-xml-rpc-proxy](https://github.com/skx/blogspam-xml-rpc-proxy)
+    * A proxy to transform legacy XML-RPC requests into JSON versions.
 
 
 Steve
