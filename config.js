@@ -1,10 +1,26 @@
+//
+//  This is the configuratin file for the blogspam.js server.
+//
+//  It contains settings which are loaded by plugins, and isn't
+// used to control how the server operates in any other fashion.
+//
+//         i.e. The config is only loaded by (some) plugins
+//              not by the server.
+//
+//
+// Steve
+// --
+//
+
+
+
 
 var config = {}
 
 //
+//
 //  Blacklisted Names
 //
-//  We don't want to be too strict here, but even so ..
 //
 config.name_blacklist = [
     "Nike\\s+Air.*Sale",
@@ -53,7 +69,7 @@ config.name_blacklist = [
 
 
 //
-//  We don't want to be too strict here, but even so ..
+//  Blacklisted subjects.
 //
 config.subject_blacklist = [
     "^authentic.*jerseys",
@@ -69,10 +85,9 @@ config.subject_blacklist = [
     "factory\\s+outlet",
 ];
 
+
 //
 //  Module stuffs
 //
 module.exports = config;
 
-
-console.log( "LOADED CONFIG");
