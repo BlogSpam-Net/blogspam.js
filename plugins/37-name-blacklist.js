@@ -12,8 +12,7 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 var config  = require( "../config.js" );
 
 //
-//  Many times I've seen strings in the name-field which are always
-// spam.
+// Blacklist any host which submits a known-bad name.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
@@ -27,7 +26,15 @@ exports.testJSON = function ( obj, spam, ok, next )
     config.name_blacklist.forEach(function(spam_str){
         if ( name.match( new RegExp( spam_str, "i" ) ) )
         {
-            spam( "Bad name" );
+            //
+            // Blacklist for 48 hours.
+            //
+            var res = "Blacklisted name";
+
+            redis.set(    "blacklist-" + ip , res );
+            redis.expire( "blacklist-" + ip , 60*60*48 );
+
+            spam( res );
             return;
         }
     });
