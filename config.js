@@ -79,6 +79,7 @@ config.name_blacklist = [
     "cheap\\s+viagra",
     "viagra\\s+online",
     "^cheap\\s+",
+    "^uggs\\s+",
 ];
 
 
