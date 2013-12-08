@@ -11,8 +11,7 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 var config  = require( "../config.js" );
 
 //
-//  Many times I've seen strings in the name-field which are always
-// spam.
+// Blacklist any host which submits a known-bad subject.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
