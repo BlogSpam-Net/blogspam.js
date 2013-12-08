@@ -35,7 +35,6 @@ config.name_blacklist = [
     "Vuitton",
     "insurance",
     "online\\s+casino",
-    "fake.*sale$",
     "^Cheap\\s+Fake",
     "air\\s+jordan",
     "cheap\\s+sneakers",
@@ -44,7 +43,6 @@ config.name_blacklist = [
     "moncler\\s+outlet",
     "moncler\\s+sale",
     "black\\s+friday",
-    "Fake\\s+Oakley",
     "Canada\\s+Goose",
     "cheap\\s+nfl",
     "nfl\\s+jersey",
@@ -60,11 +58,15 @@ config.name_blacklist = [
     "casion\\s+poker$",
     "^Oakley\\s+Sunglasses$",
     "^gucci\\s+outlet\\s+stores",
-    "handbags\\s+outlet",
     "^cheap.*for\\s+sale$",
     "^best\\s+insurance\\s+quotes",
     "Generic\\s+viagra",
     "\\s+Outlet\\s+Store$",
+    "clearance\\s+sale",
+    "sale\\s+for\\s+cheap",
+    "^fake\\s+",
+    "louis\\s+vuitton",
+    "\\s+outlet$",
 ];
 
 
@@ -83,6 +85,13 @@ config.subject_blacklist = [
     "kids ugg boots on clearance",
     "^ugg\\s+classic",
     "factory\\s+outlet",
+    "Canada\\s+Goose",
+    "clearance\\s+sale",
+    "sale\\s+for\\s+cheap",
+    "^fake\\s+",
+    "louis\\s+vuitton",
+    "\\s+outlet$",
+
 ];
 
 
