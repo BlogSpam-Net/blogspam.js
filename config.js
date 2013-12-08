@@ -31,8 +31,16 @@ config.name_blacklist = [
     "^wholesale\s+iphone",
     "^buy.*backlinks",
     "Vuitton",
+    "online\\s+pharmacy",
+    "viagra\\s+online",
+    "\\s+viagra",
+    "cialis\\s+online",
+    "\\s+cialis",
+    "\\s+handbags",
+    "^good\\s+info$",
     "insurance",
     "online\\s+casino",
+    "^Cheap\\s+Fake",
     "^Cheap\\s+Fake",
     "air\\s+jordan",
     "Jordans\\s+cheap",
@@ -70,6 +78,7 @@ config.name_blacklist = [
     "cialis\\s+online",
     "cheap\\s+viagra",
     "viagra\\s+online",
+    "^cheap\\s+",
 ];
 
 
