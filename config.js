@@ -23,6 +23,7 @@ var config = {}
 //
 //
 config.name_blacklist = [
+    "beats\\s+by\\s+dr",
     "Nike\\s+Air.*Sale",
     "cheap\\s+viagra",
     "rolex\\s+watch",
