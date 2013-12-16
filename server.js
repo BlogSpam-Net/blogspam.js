@@ -191,7 +191,17 @@ var server = http.createServer(function (request, response) {
             // to be made - this will allow us to keep track of
             // per-site SPAM/OK counts.
             //
-            var site = parsed['site'] || "unknown";
+            var site = parsed['site'];
+
+            if ( ! site )
+            {
+                response.writeHead(200, {'content-type': 'application/json'});
+                response.end('{"result":"ERROR", "reason":"You did not submit the mandatory site-paramater", "version":"2.0"}');
+                done = true;
+                return;
+            }
+
+
             var done = false;
 
             async.eachSeries(plugins.sort(), function(plugin, callback) {
