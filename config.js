@@ -81,6 +81,8 @@ config.name_blacklist = [
     "viagra\\s+online",
     "^cheap\\s+",
     "^uggs\\s+",
+    "weight\\s+loss",
+    "child\\s+porn",
 ];
 
 
