@@ -27,7 +27,6 @@ config.name_blacklist = [
     "Nike\\s+Air.*Sale",
     "cheap\\s+viagra",
     "rolex\\s+watch",
-    "generic\\s+cialis",
     "erectile\s+dysfunction",
     "^wholesale\s+iphone",
     "^buy.*backlinks",
@@ -35,8 +34,8 @@ config.name_blacklist = [
     "online\\s+pharmacy",
     "viagra\\s+online",
     "\\s+viagra",
-    "cialis\\s+online",
     "\\s+cialis",
+    "cialis\\s+",
     "\\s+handbags",
     "^good\\s+info$",
     "insurance",
@@ -67,7 +66,8 @@ config.name_blacklist = [
     "^Oakley\\s+Sunglasses$",
     "^gucci\\s+outlet\\s+stores",
     "^cheap.*for\\s+sale$",
-    "Generic\\s+viagra",
+    "\\s+viagra",
+    "viagra\\s+",
     "\\s+Outlet\\s+Store$",
     "clearance\\s+sale",
     "sale\\s+for\\s+cheap",
@@ -75,10 +75,6 @@ config.name_blacklist = [
     "louis\\s+vuitton",
     "\\s+outlet$",
     "\\s+Ugg\\s+Boots",
-    "buy\\s+cialis",
-    "cialis\\s+online",
-    "cheap\\s+viagra",
-    "viagra\\s+online",
     "^cheap\\s+",
     "^uggs\\s+",
     "weight\\s+loss",
@@ -108,7 +104,7 @@ config.subject_blacklist = [
     "^fake\\s+",
     "louis\\s+vuitton",
     "\\s+outlet$",
-
+    "viagra",
 ];
 
 
