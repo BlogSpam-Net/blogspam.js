@@ -1,8 +1,0 @@
-IP: 4.3.4.3
-Agent: Mozilla ...
-Email: steve@steve.org.uk
-Subject: This is my comment
-Expected: SPAM
-
-http://steve.org.uk/ is a link which is not listed.
-http://wohngebaeudeversicherungvergleich24.de/ is a link, which is listed.
