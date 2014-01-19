@@ -174,8 +174,7 @@ There are a couple of perl utility scripts located beneath `./utils`.  In brief 
 Current Status
 --------------
 
-The current code is now in production use at http://blogspam.net/ and
-appears to be working very well.
+The code here is in production use, handling real-time SPAM-detection for over five hundred domains.
 
 There are two repositories/services deployed:
 
