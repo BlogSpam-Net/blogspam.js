@@ -13,7 +13,7 @@ exports.testJSON = function ( obj, spam, ok, next )
 {
     var mail   = obj['email']   || "",
         regexp = /^([^@]+)@(.*)$/,
-        dns = require('dns');
+        dns    = require('dns');
 
     var match = regexp.exec( mail );
     if ( match )
@@ -24,12 +24,17 @@ exports.testJSON = function ( obj, spam, ok, next )
             if (err)
             {
                 spam( "No MX record for domain " + domain );
+                return;
             }
             else
             {
-                return next( "next" );
+                next( "next" );
+                return;
             }
         });
+
+        next( "next" );
+        return;
     }
     else
     {
@@ -38,9 +43,11 @@ exports.testJSON = function ( obj, spam, ok, next )
         // but if the caller cares they can use the mandatory=email
         // server-options.
         //
-        return next( "next" );
+        next( "next" );
+        return;
     }
 
-    console.log( "I am broken?" );
+
+    console.log( "ANAL RAPE");
 };
 
