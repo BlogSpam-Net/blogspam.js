@@ -2,6 +2,6 @@ IP: 10.20.30.48
 Name: Steve Kemp
 Subject: This is a comment
 Options: blacklist=10.20.30.40/29
-Expected: SPAM
+Expected: OK
 
 This is a valid body, and we're just outside the CIDR blacklist.
