@@ -139,14 +139,17 @@ sub testTheFile
         return;
     }
 
-    print "Running test: $file \n" if ( $CONFIG{'verbose'} );
+    print "Running test: $file \n" if ( $CONFIG{ 'verbose' } );
 
     #
     #  Params we send to the server.
     #
     #  Note we send "test" so that the spam isn't logged.
     #
-    my %params = ( 'test' => '1' );
+    #  We hard-wire a site-name, since this is requried.
+    #
+    my %params = ( 'test' => '1',
+                   'site' => 'http://example.com' );
     my $expected_result = "OK";
 
     #
