@@ -5,6 +5,11 @@ exports.name    = function() {return "75-surbl.js" ; };
 exports.purpose = function() {return "Test links in messages against surbl.org." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
+//
+// Load a configuration file of blacklisted domains.
+//
+var config  = require( "../config.js" );
+
 
 //
 //  Look for the domains included in a body being listed in surbl.org
@@ -67,6 +72,25 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             entry = entry.substr( entry.indexOf( "//" ) + 2 );
             entry = entry.replace(/\//gm,"");
+
+            //
+            //  Look for blacklisted entries.
+            //
+            config.domain_blacklist.forEach(function(spam_str){
+                if ( entry == spam_str )
+                {
+                    //
+                    // Blacklist for 48 hours.
+                    //
+                    var res = "Domain is blacklisted: " + entry;
+                    redis.set(    "blacklist-" + ip , res );
+                    redis.expire( "blacklist-" + ip , 60*60*48 );
+
+                    console.log( res );
+                    spam( res );
+                    return;
+                }
+            });
 
             //
             //  The complete name we're looking up.

@@ -17,6 +17,12 @@
 
 var config = {}
 
+config.domain_blacklist = [
+    "xberi.net",
+    "zzggx.com"
+];
+
+
 //
 //
 //  Blacklisted Names
