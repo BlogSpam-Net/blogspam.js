@@ -19,7 +19,8 @@ var config = {}
 
 config.domain_blacklist = [
     "xberi.net",
-    "zzggx.com"
+    "zzggx.com",
+    "xlov.info"
 ];
 
 

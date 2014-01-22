@@ -47,7 +47,5 @@ exports.testJSON = function ( obj, spam, ok, next )
         return;
     }
 
-
-    console.log( "ANAL RAPE");
 };
 
