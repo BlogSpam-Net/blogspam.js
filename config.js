@@ -85,6 +85,8 @@ config.name_blacklist = [
     "^uggs\\s+",
     "weight\\s+loss",
     "child\\s+porn",
+    "^horny$",
+    "Internet\\s+Marketing$",
 ];
 
 
