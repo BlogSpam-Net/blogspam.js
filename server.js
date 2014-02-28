@@ -195,8 +195,10 @@ var server = http.createServer(function (request, response) {
 
             if ( ! site )
             {
+                redis.incr("global-dropped");
+
                 response.writeHead(200, {'content-type': 'application/json'});
-                response.end('{"result":"ERROR", "reason":"You did not submit the mandatory site-paramater", "version":"2.0"}');
+                response.end('{"result":"ERROR", "reason":"You did not submit the mandatory \'site\' paramater.", "version":"2.0"}');
                 done = true;
                 return;
             }
