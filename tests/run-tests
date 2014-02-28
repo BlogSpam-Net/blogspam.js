@@ -196,6 +196,10 @@ sub testTheFile
         {
             $params{ 'options' } = $1;
         }
+        elsif ( $line =~ /^No-([a-z]+): (.*)/i )
+        {
+            $params{ $1 } = undef;
+        }
         else
         {
             $params{ 'comment' } .= $line;
