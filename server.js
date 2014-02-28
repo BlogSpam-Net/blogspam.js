@@ -144,7 +144,7 @@ var server = http.createServer(function (request, response) {
             //   1.2.3.4:678
             //
             //
-            // Strip out the suffix if present.
+            // Strip out the port if present.
             //
             var strip_port = /^([0-9]+)\.([0-9]+)\.([0-9]+)\.([0-9]+):([0-9]+)$/;
             var p_match    = strip_port.exec( parsed['ip'] )
