@@ -19,6 +19,7 @@ var config = {}
 
 config.domain_blacklist = [
     "xberi.net",
+    "xbob.info",
     "zzggx.com",
     "xlov.info",
     "xsoxo.net",
@@ -39,6 +40,7 @@ config.name_blacklist = [
     "^wholesale\s+iphone",
     "^buy.*backlinks",
     "Vuitton",
+    "^seo\\s+plugin$",
     "online\\s+pharmacy",
     "\\s+cialis",
     "cialis\\s+",
@@ -69,6 +71,7 @@ config.name_blacklist = [
     "^botanical\\s+slimming",
     "^vintage\\s+casino",
     "casion\\s+poker$",
+    "casion\\s+affiliate$",
     "^Oakley\\s+Sunglasses$",
     "^gucci\\s+outlet\\s+stores",
     "^cheap.*for\\s+sale$",
@@ -113,6 +116,7 @@ config.subject_blacklist = [
     "louis\\s+vuitton",
     "\\s+outlet$",
     "viagra",
+    "^seo\\s+plugin$",
 ];
 
 
