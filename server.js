@@ -47,9 +47,6 @@
 var fs         = require('fs');
 var http       = require('http')
 var path       = require('path');
-var async      = null;
-var redis_lib  = null;
-var cidr_match = null;
 
 
 //
@@ -60,6 +57,11 @@ var cidr_match = null;
 var async      = require('async/lib/async.js');
 var redis_lib  = require('redis/index.js');
 var cidr_match = require('cidr_match');
+
+//
+//  A configuration file containing per-plugin configuration options.
+//
+var config = require('./config');
 
 
 /**
@@ -111,11 +113,16 @@ var server = http.createServer(function (request, response) {
                 })
 
                 //
-                //  Make our CIDR-matching library, and redis-handle
-                // available to all plugins.
+                // Add some extra object-handles to our
+                // testing object.
                 //
-                parsed["_redis"] = redis;
-                parsed["_cidr"]  = cidr_match;
+                // This allows plugins to make use of them
+                // directly.
+                //
+                //
+                parsed["_redis"]  = redis;
+                parsed["_cidr"]   = cidr_match;
+                parsed["_config"] = config;
 
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });
@@ -420,7 +427,7 @@ var server = http.createServer(function (request, response) {
 
 
 //
-//  Given an array of directory names load plugins beneath each of them
+//  Given an array of directory names load plugins from beneath each of them
 //
 //  This function is clever enough to process all the directories combined
 // which means loading:
@@ -534,7 +541,8 @@ server.on('error', function(e) {
 //
 // Start the server listening on both all IPv4 & all IPv6 addresses.
 //
-server.listen(9999, '::');
+var port = config.server_port || 9999;
+server.listen(port, '::');
 
 
 //

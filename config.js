@@ -1,12 +1,7 @@
 //
-//  This is the configuratin file for the blogspam.js server.
-//
-//  It contains settings which are loaded by plugins, and isn't
-// used to control how the server operates in any other fashion.
-//
-//         i.e. The config is only loaded by (some) plugins
-//              not by the server.
-//
+//  This is a configuration file which contains several
+// global settings and configuration values which are used
+// by some of the plugins.
 //
 // Steve
 // --
@@ -118,6 +113,13 @@ config.subject_blacklist = [
     "viagra",
     "^seo\\s+plugin$",
 ];
+
+
+
+//
+//  The port number the server will use.
+//
+config.server_port = 9990;
 
 
 //
