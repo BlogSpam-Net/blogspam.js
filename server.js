@@ -59,21 +59,49 @@ var redis_lib  = require('redis/index.js');
 var cidr_match = require('cidr_match');
 
 //
-//  A configuration file containing per-plugin configuration options.
+//  A configuration file a collection of global and per-plugin
+// configuration options.
 //
 var config = require('./config');
 
 
-/**
- * Our redis-connection.
- */
-var redis = redis_lib.createClient();
+//
+// Lookup the redis connection details.
+//
+var redis_host = config.redis_host || "127.0.0.1";
+var redis_port = config.redis_port || 6379;
+
+
+//
+// Open our connection to redis.
+//
+var redis = redis_lib.createClient( redis_port, redis_host );
+
+
+//
+// Log errors with Redis server.
+//
+// Given our need for redis any errors are fatal.
+//
+redis.on("error", function (err) {
+    if ( err.errno =~ /ECONNREFUSED/ ) {
+        console.log( "Redis: Connection refused talking to redis (" + redis_host + ":" + redis_port + ")" );
+    }
+    else {
+        console.log( "Redis: Error talking to redis-server: " + err);
+    }
+    process.exit( 0 );
+});
+
+
 
 
 /**
  * Our plugins.
  */
 var plugins = []
+
+
 
 
 /**

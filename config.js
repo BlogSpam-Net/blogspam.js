@@ -123,6 +123,13 @@ config.server_port = 9999;
 
 
 //
+//  The details of our redis-server
+//
+config.redis_host = "127.0.0.1";
+config.redis_port = 6379;
+
+
+//
 //  Module stuffs
 //
 module.exports = config;
