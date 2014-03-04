@@ -228,6 +228,11 @@ var server = http.createServer(function (request, response) {
             //
             var site = parsed['site'];
 
+            //
+            //  If there is no site-parameter submitted then the
+            // remote client is malformed and we will drop the
+            // test here.
+            //
             if ( ! site )
             {
                 redis.incr("global-dropped");
