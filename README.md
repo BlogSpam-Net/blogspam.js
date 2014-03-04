@@ -133,12 +133,14 @@ Deployment
 
 The code is designed to run directly from a git checkout, with no need to install it system-wide.  The only service dependency is an instance of the [redis](http://redis.io) which is assumed to run on the localhost.
 
-However we do rely upon a small number of `node.js` libraries, which you can
-install via:
+> **NOTE**: You can specify the address of your redis-server in the `config.js` file if it runs on a different host/port.
+
+The server relies upon a small number of `node.js` libraries, which you can install with:
 
       $ npm install
 
 Now you've installed the dependencies  you can launch the server.
+
 In one terminal run the main script:
 
      node server.js
