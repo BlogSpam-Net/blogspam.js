@@ -6,19 +6,16 @@ exports.name    = function() {return "37-name-blacklist.js" ; };
 exports.purpose = function() {return "Known-bad names." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
-//
-// Load a configuration file of blacklisted names.
-//
-var config  = require( "../config.js" );
 
 //
 // Blacklist any host which submits a known-bad name.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var ip      = obj['ip']      || ""
-    var name    = obj['name']    || ""
-    var redis   = obj['_redis']
+    var ip     = obj['ip']      || ""
+    var name   = obj['name']    || ""
+    var redis  = obj['_redis']
+    var config = obj['_config']
 
     //
     // For each bad-name.

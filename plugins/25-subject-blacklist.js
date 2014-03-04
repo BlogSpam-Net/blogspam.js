@@ -5,19 +5,16 @@ exports.name    = function() {return "25-subject.js" ; };
 exports.purpose = function() {return "Known-bad subjects." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
-//
-// Load a configuration file of blacklisted names.
-//
-var config  = require( "../config.js" );
 
 //
 // Blacklist any host which submits a known-bad subject.
 //
 exports.testJSON = function ( obj, spam, ok, next )
 {
-    var ip    = obj['ip']      || ""
-    var subj  = obj['subject'] || ""
-    var redis = obj['_redis']
+    var ip     = obj['ip']      || ""
+    var subj   = obj['subject'] || ""
+    var redis  = obj['_redis']
+    var config = obj['_config']
 
     //
     // For each bad-subject we've got.

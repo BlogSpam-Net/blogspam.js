@@ -5,11 +5,6 @@ exports.name    = function() {return "75-surbl.js" ; };
 exports.purpose = function() {return "Test links in messages against surbl.org." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
-//
-// Load a configuration file of blacklisted domains.
-//
-var config  = require( "../config.js" );
-
 
 //
 //  Look for the domains included in a body being listed in surbl.org
@@ -20,6 +15,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     var ip      = obj['ip']      || "";
     var link    = obj['link']    || "";
     var redis   = obj['_redis'];
+    var config  = obj['_config']
     var dns     = require('dns');
 
     //
