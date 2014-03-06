@@ -32,7 +32,7 @@ config.name_blacklist = [
     "Nike\\s+Air.*Sale",
     "rolex\\s+watch",
     "erectile\s+dysfunction",
-    "^wholesale\s+iphone",
+    "^wholesale\\s+",
     "^buy.*backlinks",
     "Vuitton",
     "^seo\\s+plugin$",
@@ -94,6 +94,7 @@ config.name_blacklist = [
 config.subject_blacklist = [
     "^authentic.*jerseys",
     "^cheap.*wholesale",
+    "^wholesale\\s+",
     "^Jordans\\s+for\\s+Cheap",
     "^Cheap\\s+Jordans",
     "Jordans\\s+cheap",
