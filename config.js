@@ -40,6 +40,7 @@ config.name_blacklist = [
     "online\\s+pharmacy",
     "\\s+cialis",
     "cialis\\s+",
+    "^cialis$",
     "\\s+handbags",
     "^good\\s+info$",
     "insurance",
