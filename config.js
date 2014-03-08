@@ -18,6 +18,7 @@ config.domain_blacklist = [
     "zzggx.com",
     "xlov.info",
     "xsoxo.net",
+    "da-r.com",
 ];
 
 
@@ -30,12 +31,12 @@ config.name_blacklist = [
     "cash\\s+advance",
     "beats\\s+by\\s+dr",
     "Nike\\s+Air.*Sale",
+    "barbour\\s+jacket",
     "rolex\\s+watch",
     "erectile\s+dysfunction",
     "^wholesale\\s+",
     "^buy\\s+",
     "Vuitton",
-    "^seo\\s+plugin$",
     "online\\s+pharmacy",
     "\\s+cialis",
     "cialis\\s+",
@@ -62,6 +63,7 @@ config.name_blacklist = [
     "^free.*samples$",
     "Ralph\\s+Lauren",
     "Beats\\s+By\\s+Dre",
+    "monster\\s+beats",
     "^botanical\\s+slimming",
     "^vintage\\s+casino",
     "casion\\s+poker$",
@@ -84,6 +86,8 @@ config.name_blacklist = [
     "child\\s+porn",
     "^horny$",
     "Internet\\s+Marketing$",
+    "^seo\\s+",
+    "^seo$",
 ];
 
 
@@ -104,6 +108,7 @@ config.subject_blacklist = [
     "^uggs\\s+boots\\s+",
     "kids ugg boots on clearance",
     "^ugg\\s+classic",
+    "monster\\s+beats",
     "factory\\s+outlet",
     "Canada\\s+Goose",
     "clearance\\s+sale",
@@ -112,7 +117,9 @@ config.subject_blacklist = [
     "louis\\s+vuitton",
     "\\s+outlet$",
     "viagra",
-    "^seo\\s+plugin$",
+    "^seo\\s+",
+    "^seo$",
+    "barbour\\s+jacket",
 ];
 
 
