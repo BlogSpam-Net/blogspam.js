@@ -23,6 +23,7 @@ git pull --update --quiet
 #
 if [ -e "package.json" ]; then
     npm install
+    npm update
 fi
 
 #
