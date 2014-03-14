@@ -28,6 +28,8 @@ config.domain_blacklist = [
 //
 //
 config.name_blacklist = [
+    "program\\s+pit",
+    "pit\\s+program",
     "payday\\s+loans",
     "cash\\s+advance",
     "beats\\s+by\\s+dr",
@@ -39,9 +41,13 @@ config.name_blacklist = [
     "^buy\\s+",
     "Vuitton",
     "online\\s+pharmacy",
+    "pharmacy\\s+online",
     "\\s+cialis",
     "cialis\\s+",
     "^cialis$",
+    "\\s+xanax",
+    "xanax\\s+",
+    "^xanax$",
     "\\s+handbags",
     "^good\\s+info$",
     "insurance",
@@ -83,6 +89,7 @@ config.name_blacklist = [
     "sale\\s+for\\s+cheap",
     "^fake\\s+",
     "louis\\s+vuitton",
+    "christian\\s+louboutin",
     "\\s+outlet$",
     "\\s+Ugg\\s+Boots",
     "^cheap\\s+",
