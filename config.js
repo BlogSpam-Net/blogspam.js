@@ -19,6 +19,7 @@ config.domain_blacklist = [
     "xlov.info",
     "xsoxo.net",
     "da-r.com",
+    "buytrazodone.info",
 ];
 
 
