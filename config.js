@@ -109,6 +109,7 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "^Add\\s+new\\s+comment",
     "^authentic.*jerseys",
     "^cheap.*wholesale",
     "^buy\\s+",
