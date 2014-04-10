@@ -16,6 +16,7 @@ var config = {}
 config.anchor_blacklist = [
     "cialis",
     "levitra",
+    "factory outlet",
     "no prescription",
     "ray ban",
     "insurance",
