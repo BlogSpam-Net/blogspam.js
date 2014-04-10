@@ -26,6 +26,7 @@ config.anchor_blacklist = [
     "discount chanel",
     "discount ibuprofen",
     "factory outlet",
+    "Hollister",
     "insurance",
     "levitra",
     "neurontin",
