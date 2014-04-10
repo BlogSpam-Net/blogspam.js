@@ -12,6 +12,16 @@
 
 var config = {}
 
+
+config.anchor_blacklist = [
+    "cialis",
+    "levitra",
+    "no prescription",
+    "ray ban",
+    "insurance",
+    "viagra",
+];
+
 config.domain_blacklist = [
     "xberi.net",
     "xbob.info",
