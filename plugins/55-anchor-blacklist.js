@@ -15,7 +15,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     //
     // Naive identification of the different linking methods.
     //
-    var anchor = /href="([^"]+)">([^<]+)<\/a>/gi
+    var anchor = /<a([^>]+)>([^<]+)<\/a>/gi
 
     var m;
 
@@ -23,7 +23,8 @@ exports.testJSON = function ( obj, spam, ok, next)
     {
         if (m && m[2] ) {
             a = m[2]
-            console.log( "Found anchor " + m[1] + " -> " + m[2] );
+            console.log( "Anchor '" + m[2] + "' -> URL: " + m[1] );
+
             config.anchor_blacklist.forEach(function(spam_str) {
                 if ( a.match( new RegExp( spam_str, "i" ) ) )
                 {
@@ -33,6 +34,7 @@ exports.testJSON = function ( obj, spam, ok, next)
                     redis.set(    "blacklist-" + ip , res );
                     redis.expire( "blacklist-" + ip , 60*60*48 );
 
+                    console.log( "Anchor - blacklisting: " + ip );
                     spam( res );
 
                 }
