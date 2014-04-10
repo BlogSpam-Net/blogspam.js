@@ -8,7 +8,9 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 exports.testJSON = function ( obj, spam, ok, next)
 {
     var comment = obj['comment'] || '';
-    var config = obj['_config']
+    var ip      = obj['ip']      || ""
+    var redis   = obj['_redis']
+    var config  = obj['_config']
 
     //
     // Naive identification of the different linking methods.
@@ -26,7 +28,13 @@ exports.testJSON = function ( obj, spam, ok, next)
                 if ( a.match( new RegExp( spam_str, "i" ) ) )
                 {
                     console.log( "Anchor '" + a + "' matches pattern '" + spam_str + "'" );
-                    spam( "Anchor text matches pattern: " + spam_str );
+                    var res = "Anchor text matches pattern: " + spam_str;
+
+                    redis.set(    "blacklist-" + ip , res );
+                    redis.expire( "blacklist-" + ip , 60*60*48 );
+
+                    spam( res );
+
                 }
 
             });
