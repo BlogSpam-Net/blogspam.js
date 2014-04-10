@@ -19,6 +19,11 @@ config.anchor_blacklist = [
     "factory outlet",
     "no prescription",
     "ray ban",
+    "replica handbag",
+    "chanel bag",
+    "tramadol",
+    "discount ibuprofen",
+    "neurontin",
     "insurance",
     "viagra",
 ];
