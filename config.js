@@ -15,6 +15,17 @@ var config = {}
 
 config.anchor_blacklist = [
     " sex tape",
+    "air max",
+    "investment",
+    "elite jersey",
+    "cheap mulberry",
+    "mulberry bag",
+    "xanax",
+    "propecia",
+    "coach factory",
+    "factory purses",
+    "coach online",
+    "online outlet",
     "Ambien",
     "Canada Goose",
     "Ed pills",
