@@ -16,6 +16,11 @@ var config = {}
 config.anchor_blacklist = [
     "avelox",
     "cephalexin",
+    "oakley.*glasses",
+    "famciclovir",
+    "toprol",
+    "famvir",
+    "methotrexate",
     " sex tape",
     "shoes outlet",
     "outlet factory",
@@ -114,6 +119,7 @@ config.domain_blacklist = [
     "da-r.com",
     "buytrazodone.info",
     "buyzyban.info",
+    "cis.se",
 ];
 
 
