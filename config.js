@@ -14,6 +14,8 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "avelox",
+    "cephalexin",
     " sex tape",
     "shoes outlet",
     "outlet factory",
