@@ -16,7 +16,11 @@ var config = {}
 config.anchor_blacklist = [
     " sex tape",
     "Ambien",
+    "Canada Goose",
     "Ed pills",
+    "nike free run",
+    "vendita",
+    "timberland outlet",
     "Hollister",
     "Jerseys From China",
     "Louis Vuitton ",
