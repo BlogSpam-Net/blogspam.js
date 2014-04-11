@@ -14,7 +14,10 @@ var config = {}
 
 
 config.anchor_blacklist = [
-"vivienne westwood",
+    "atenolol",
+    "tadacip",
+    "xenical",
+    "vivienne westwood",
     "polo lacoste",
     "ladies.*watch",
     "mens.*watch",
