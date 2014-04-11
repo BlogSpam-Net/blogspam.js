@@ -22,13 +22,13 @@ exports.testJSON = function ( obj, spam, ok, next)
         config.anchor_blacklist.forEach(function(spam_str) {
             if ( item['text'].match( new RegExp( spam_str, "i" ) ) )
             {
-                console.log( "Anchor '" + item['text'] + "' matches pattern '" + spam_str + "'" );
+                console.log( "Anchor '" + item['text'] + "' matches pattern '" + spam_str + "' blacklisting:" + ip );
+
                 var res = "Anchor text matches pattern: " + spam_str;
 
                 redis.set(    "blacklist-" + ip , res );
                 redis.expire( "blacklist-" + ip , 60*60*48 );
 
-                console.log( "Anchor - blacklisting: " + ip );
                 spam( res );
             }
         });
