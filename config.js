@@ -20,6 +20,7 @@ config.anchor_blacklist = [
     "zithromax",
     "fluticasone",
     "plendil",
+    "valium",
     "tylenol",
     "voltaren",
     "keflex",
