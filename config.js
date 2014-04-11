@@ -18,6 +18,7 @@ config.anchor_blacklist = [
     "Ed pills",
     "Sildenafil",
     "bags outlet",
+    "bags for sale",
     "burberry handbags",
     "burberry bag",
     "prada handbags",
@@ -34,6 +35,7 @@ config.anchor_blacklist = [
     "Hollister",
     "insurance",
     "levitra",
+    "leather bags",
     "neurontin",
     "no prescription",
     "online coach",
@@ -45,6 +47,8 @@ config.anchor_blacklist = [
     "tramadol",
     "tury burch",
     "viagra",
+    "Wholesale Jerseys",
+    "Jerseys From China",
 ];
 
 config.domain_blacklist = [
