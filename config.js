@@ -15,6 +15,15 @@ var config = {}
 
 config.anchor_blacklist = [
     " sex tape",
+    "fluticasone",
+    "plendil",
+    "voltaren",
+    "keflex order",
+    " 25mg",
+    " 50mg",
+    "meloxicam",
+    "cleocin",
+    "vigora",
     "air max",
     "investment",
     "elite jersey",
