@@ -86,7 +86,7 @@ config.anchor_blacklist = [
     "payday loan",
     "prada bag",
     "prada handbags",
-    "ralph lauren outlet",
+    "ralph lauren",
     "ray ban",
     "replica handbag",
     "shoes uk",
