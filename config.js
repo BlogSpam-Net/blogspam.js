@@ -15,6 +15,9 @@ var config = {}
 
 config.anchor_blacklist = [
     " sex tape",
+    "shoes outlet",
+    "outlet factory",
+    "zithromax",
     "fluticasone",
     "plendil",
     "tylenol",
