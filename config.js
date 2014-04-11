@@ -14,6 +14,19 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "aldactone",
+    "nizagara",
+    "debt consolidation",
+    "consolidate loans",
+    "atarax",
+    "tetracycline",
+    "generic .* capsules",
+    "tenormin",
+    "doxycycline",
+    "finpecia",
+    "cipro",
+    "propranolol",
+    "cipro",
     "avelox",
     "tenormin",
     "atarax",
