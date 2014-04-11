@@ -15,6 +15,9 @@ var config = {}
 
 config.anchor_blacklist = [
     "avelox",
+    "tenormin",
+    "atarax",
+    "debt consolidation",
     "cephalexin",
     "oakley.*glasses",
     "famciclovir",
