@@ -16,8 +16,8 @@ var config = {}
 config.anchor_blacklist = [
 "vivienne westwood",
     "polo lacoste",
-    "ladies.*watch"
-    "mens.*watch"
+    "ladies.*watch",
+    "mens.*watch",
     " sex tape",
     "Ambien",
     "Canada Goose",
