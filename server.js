@@ -54,9 +54,10 @@ var path       = require('path');
 //
 //     $ npm install
 //
-var async      = require('async/lib/async.js');
-var redis_lib  = require('redis/index.js');
-var cidr_match = require('cidr_match');
+var async          = require('async/lib/async.js');
+var redis_lib      = require('redis/index.js');
+var cidr_match     = require('cidr_match');
+var link_extractor = require( 'link_extractor');
 
 //
 //  A configuration file a collection of global and per-plugin
@@ -148,9 +149,10 @@ var server = http.createServer(function (request, response) {
                 // directly.
                 //
                 //
-                parsed["_redis"]  = redis;
-                parsed["_cidr"]   = cidr_match;
-                parsed["_config"] = config;
+                parsed["_redis"]          = redis;
+                parsed["_cidr"]           = cidr_match;
+                parsed["_config"]         = config;
+                parsed["_link_extractor"] = link_extractor;
 
             } catch ( e ) {
                 response.writeHead(500, {'content-type': 'text/plain' });

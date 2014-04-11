@@ -11,37 +11,29 @@ exports.testJSON = function ( obj, spam, ok, next)
     var ip      = obj['ip']      || ""
     var redis   = obj['_redis']
     var config  = obj['_config']
+    var le   = obj['_link_extractor'];
 
-    //
-    // Naive identification of the different linking methods.
-    //
-    var anchor = /<a([^>]+)>([^<]+)<\/a>/gi
+    var links = le.extract(comment);
 
-    var m;
+    links.forEach(function(item) {
+        console.log( "Anchor '" + item['text'] + "' -> URL: " + item['link'] );
 
-    while( m = anchor.exec(comment) )
-    {
-        if (m && m[2] ) {
-            a = m[2]
-            console.log( "Anchor '" + m[2] + "' -> URL: " + m[1] );
 
-            config.anchor_blacklist.forEach(function(spam_str) {
-                if ( a.match( new RegExp( spam_str, "i" ) ) )
-                {
-                    console.log( "Anchor '" + a + "' matches pattern '" + spam_str + "'" );
-                    var res = "Anchor text matches pattern: " + spam_str;
+        config.anchor_blacklist.forEach(function(spam_str) {
+            if ( item['text'].match( new RegExp( spam_str, "i" ) ) )
+            {
+                console.log( "Anchor '" + item['text'] + "' matches pattern '" + spam_str + "'" );
+                var res = "Anchor text matches pattern: " + spam_str;
 
-                    redis.set(    "blacklist-" + ip , res );
-                    redis.expire( "blacklist-" + ip , 60*60*48 );
+                redis.set(    "blacklist-" + ip , res );
+                redis.expire( "blacklist-" + ip , 60*60*48 );
 
-                    console.log( "Anchor - blacklisting: " + ip );
-                    spam( res );
+                console.log( "Anchor - blacklisting: " + ip );
+                spam( res );
+            }
+        });
+    });
 
-                }
-
-            });
-        }
-    }
 
     //
     //  We passed this plugin.
