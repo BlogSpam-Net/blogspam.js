@@ -14,7 +14,7 @@ var config = {}
 
 
 config.anchor_blacklist = [
-    "Ambien"
+    "Ambien",
     "best oakley",
     "fake oakley",
     " sex tape",
