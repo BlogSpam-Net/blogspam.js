@@ -38,6 +38,7 @@ config.anchor_blacklist = [
     "cialis",
     "citrate",
     "coach factory",
+    "diflucan",
     "discount chanel",
     "discount ibuprofen",
     "factory outlet",
@@ -63,6 +64,7 @@ config.anchor_blacklist = [
     "tramadol",
     "tury burch",
     "viagra",
+    "wellbutrin",
     "wholesale NFL",
     "wholesale golf",
 ];
