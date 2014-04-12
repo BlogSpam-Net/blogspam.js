@@ -18,6 +18,7 @@ config.anchor_blacklist = [
     "tadacip",
     "xenical",
     "vivienne westwood",
+    "download.*movie",
     "polo lacoste",
     "ladies.*watch",
     "mens.*watch",
