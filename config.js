@@ -100,6 +100,7 @@ config.anchor_blacklist = [
     "nike free run",
     "nizagara",
     "no prescription",
+    "non prescription",
     "oakley.*glasses",
     "online coach",
     "online outlet",
