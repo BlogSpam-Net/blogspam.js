@@ -14,6 +14,11 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "genuine ugg",
+    "ugg boot",
+    "cheap jerseys",
+    "jersey.*china",
+    "authentic.*outlet",
     "atenolol",
     "tadacip",
     "xenical",
