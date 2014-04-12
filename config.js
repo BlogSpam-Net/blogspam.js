@@ -15,6 +15,9 @@ var config = {}
 
 config.anchor_blacklist = [
     "genuine ugg",
+    "sugar daddy",
+    "escort",
+    "movie download",
     "ugg boot",
     "cheap jerseys",
     "jersey.*china",
@@ -23,6 +26,7 @@ config.anchor_blacklist = [
     "tadacip",
     "xenical",
     "vivienne westwood",
+    "vytorin",
     "download.*movie",
     "polo lacoste",
     "ladies.*watch",
