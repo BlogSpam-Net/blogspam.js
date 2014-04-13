@@ -248,7 +248,7 @@ var server = http.createServer(function (request, response) {
 
             var done = false;
 
-            async.eachSeries(plugins.sort(), function(plugin, callback) {
+            async.eachSeries(plugins, function(plugin, callback) {
                 var skip = false;
 
                 exclude.forEach(function(element) {
