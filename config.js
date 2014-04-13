@@ -15,6 +15,7 @@ var config = {}
 
 config.anchor_blacklist = [
     "genuine ugg",
+    "klonopin",
     "sugar daddy",
     "escort",
     "movie download",
