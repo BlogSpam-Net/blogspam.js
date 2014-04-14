@@ -15,6 +15,7 @@ var config = {}
 
 config.anchor_blacklist = [
 "tiffany",
+    "cigarette",
     "divorce",
     "nike run",
     "pour femme",
