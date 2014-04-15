@@ -14,6 +14,7 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "vibram five fingers",
     "tiffany",
     "levonorgestrel",
     "\\s+tablets?\\s+",
