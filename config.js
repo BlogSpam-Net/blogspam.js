@@ -176,6 +176,7 @@ config.domain_blacklist = [
     "buytrazodone.info",
     "buyzyban.info",
     "cis.se",
+    "allalla.com",
 ];
 
 
