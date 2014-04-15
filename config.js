@@ -15,6 +15,7 @@ var config = {}
 
 config.anchor_blacklist = [
     "tiffany",
+    "levonorgestrel",
     "\\s+tablets?\\s+",
     "foasmax",
     "cipralex",
