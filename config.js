@@ -15,6 +15,12 @@ var config = {}
 
 config.anchor_blacklist = [
     "tiffany",
+    "\\s+tablets?\\s+",
+    "foasmax",
+    "cipralex",
+    "grifulvin",
+    "flash to avi",
+    "swf to avi",
     "academic writing",
     "free.*essay",
     "^nike\\s+",
