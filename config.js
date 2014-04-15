@@ -14,7 +14,8 @@ var config = {}
 
 
 config.anchor_blacklist = [
-"tiffany",
+    "tiffany",
+    "^nike\\s+",
     "cigarette",
     "divorce",
     "nike run",
