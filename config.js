@@ -134,6 +134,7 @@ config.anchor_blacklist = [
     "neurontin",
     "nike free run",
     "nizagara",
+    "zaditor",
     "no prescription",
     "non prescription",
     "oakley.*glasses",
