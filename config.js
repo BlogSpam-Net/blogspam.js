@@ -16,6 +16,9 @@ var config = {}
 config.anchor_blacklist = [
     "vibram five fingers",
     "slot machine",
+    "movie download",
+    "full movie",
+    "illegal.*download",
     "casino\\s+",
     "\\s+casino",
     "\\s+bingo",
