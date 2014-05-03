@@ -189,6 +189,7 @@ config.anchor_blacklist = [
 
 config.domain_blacklist = [
     "xberi.net",
+    "xomo.info",
     "xbob.info",
     "zzggx.com",
     "xlov.info",
