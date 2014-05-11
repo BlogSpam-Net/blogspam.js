@@ -17,6 +17,9 @@ config.anchor_blacklist = [
     "vibram five fingers",
     "slot machine",
     "movie download",
+    "phone.*spy",
+    "android.*spy",
+    "spy.*phone",
     "full movie",
     "illegal.*download",
     "casino\\s+",
@@ -291,6 +294,7 @@ config.name_blacklist = [
 //
 config.subject_blacklist = [
     "^Add\\s+new\\s+comment",
+    "forever\\s+treatment",
     "^authentic.*jerseys",
     "^cheap.*wholesale",
     "^buy\\s+",
