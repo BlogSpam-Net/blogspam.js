@@ -295,6 +295,7 @@ config.name_blacklist = [
 config.subject_blacklist = [
     "^Add\\s+new\\s+comment",
     "mulberry.*outlet",
+    "forever.*recovery",
     "forever\\s+treatment",
     "^authentic.*jerseys",
     "^cheap.*wholesale",
