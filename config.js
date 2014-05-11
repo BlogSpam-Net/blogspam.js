@@ -214,6 +214,8 @@ config.domain_blacklist = [
 //
 //
 config.name_blacklist = [
+    "forever.*recovery",
+    "forever\\s+treatment",
     "program\\s+pit",
     "pit\\s+program",
     "payday\\s+loans",
