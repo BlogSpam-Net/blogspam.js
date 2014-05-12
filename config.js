@@ -15,6 +15,7 @@ var config = {}
 
 config.anchor_blacklist = [
     "vibram five fingers",
+    "\\s+shoes\\s+",
     "slot machine",
     "movie download",
     "phone.*spy",
@@ -84,8 +85,6 @@ config.anchor_blacklist = [
     "Sunglasses",
     "Wholesale Jerseys",
     "air max",
-    "toms shoes",
-    "shoes outlet",
     "aldactone",
     "amitriptyline",
     "atarax",
@@ -309,6 +308,7 @@ config.subject_blacklist = [
     "forever\\s+treatment",
     "^authentic.*jerseys",
     "^cheap.*wholesale",
+    "\\s+shoes\\s+",
     "^buy\\s+",
     "^wholesale\\s+",
     "^Jordans\\s+for\\s+Cheap",
