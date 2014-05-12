@@ -21,6 +21,7 @@ config.anchor_blacklist = [
     "phone.*spy",
     "android.*spy",
     "spy.*phone",
+    "spy\\s+software",
     "full movie",
     "illegal.*download",
     "casino\\s+",
