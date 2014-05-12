@@ -148,7 +148,7 @@ config.anchor_blacklist = [
     "mulberry briefcase",
     "mulberry for men",
     "neurontin",
-    "nike free run",
+    "nike\\s+free\\s+run",
     "nizagara",
     "zaditor",
     "no prescription",
@@ -205,6 +205,14 @@ config.domain_blacklist = [
     "buyzyban.info",
     "cis.se",
     "allalla.com",
+];
+
+
+//
+// Blacklisted body
+//
+config.body_blacklist = [
+    "New York Electrician, 94 Chambers St",
 ];
 
 
