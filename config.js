@@ -218,6 +218,10 @@ config.domain_blacklist = [
 //
 config.body_blacklist = [
     "New York Electrician, 94 Chambers St",
+    "300 targeted visitors to day to my site",
+    "POWERFUL and PRIVATE",
+    "PRIVATE and POWERFUL",
+    "website traffic service",
 ];
 
 
