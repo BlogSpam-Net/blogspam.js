@@ -15,6 +15,7 @@ var config = {}
 
 config.anchor_blacklist = [
     "\\s+seo",
+    "\\s+day\\s+cream",
     "michael-kors-",
     "bags-outlet",
     "vibram five fingers",
