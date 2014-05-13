@@ -14,6 +14,7 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "\\s+seo",
     "michael-kors-",
     "bags-outlet",
     "vibram five fingers",
@@ -225,6 +226,9 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "\\s+shoes\\s+",
+    "shoes\\s+",
+    "\\s+shoes",
     "forever.*recovery",
     "forever\\s+treatment",
     "program\\s+pit",
@@ -307,6 +311,7 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "\\s+seo",
     "^Add\\s+new\\s+comment",
     "mulberry.*outlet",
     "forever.*recovery",
@@ -315,6 +320,9 @@ config.subject_blacklist = [
     "\\s+ray\\s+ban",
     "^cheap.*wholesale",
     "\\s+shoes\\s+",
+    "\\s+seo",
+    "shoes\\s+",
+    "\\s+shoes",
     "^buy\\s+",
     "^wholesale\\s+",
     "^Jordans\\s+for\\s+Cheap",
