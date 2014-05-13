@@ -14,6 +14,8 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "michael-kors-",
+    "bags-outlet",
     "vibram five fingers",
     "Phytoceramides",
     "\\s+shoes\\s+",
@@ -79,7 +81,7 @@ config.anchor_blacklist = [
     "Louis Vuitton ",
     "Louboutin",
     "^cheap\\s+",
-    "Michael Kors",
+    "Michael\\s+Kors",
     "NFL Jersey",
     "Prada Bags",
     "Shoulder Bags",
