@@ -14,6 +14,7 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "credit\\s+report",
     "\\s+seo",
     "\\s+day\\s+cream",
     "michael-kors-",
@@ -222,6 +223,8 @@ config.body_blacklist = [
     "POWERFUL and PRIVATE",
     "PRIVATE and POWERFUL",
     "website traffic service",
+    "muscle building supplement",
+
 ];
 
 
