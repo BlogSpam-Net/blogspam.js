@@ -14,6 +14,7 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "outlet$",
     "credit\\s+report",
     "\\s+seo",
     "\\s+day\\s+cream",
