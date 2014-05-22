@@ -225,7 +225,7 @@ config.body_blacklist = [
     "PRIVATE and POWERFUL",
     "website traffic service",
     "muscle building supplement",
-
+    "weight\\s+loss\\s+",
 ];
 
 
@@ -236,6 +236,10 @@ config.body_blacklist = [
 //
 config.name_blacklist = [
     "\\s+shoes\\s+",
+    "click\\s+here",
+    "\\s+for\\s+sale",
+    "click\\s+this\\s",
+    "click\\s+here",
     "shoes\\s+",
     "\\s+shoes",
     "forever.*recovery",
