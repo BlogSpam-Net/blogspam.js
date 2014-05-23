@@ -20,9 +20,9 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     //  If we're missing a site we're done.
     //
-    if ( ! site )
+    if ( ( ! site ) || ( ! ip ) )
     {
-        next( "missing IP address" );
+        next( "Missing site/ip in the submission." );
         return;
     }
 
