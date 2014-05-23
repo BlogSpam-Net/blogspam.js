@@ -16,6 +16,12 @@ exports.testJSON = function ( obj, spam, ok, next )
     var redis  = obj['_redis']
     var config = obj['_config']
 
+
+    //
+    // Strip leading/trailing whitespace.
+    //
+    subj = subj.trim();
+
     //
     // For each bad-subject we've got.
     //

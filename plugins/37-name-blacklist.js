@@ -18,6 +18,11 @@ exports.testJSON = function ( obj, spam, ok, next )
     var config = obj['_config']
 
     //
+    // Strip leading/trailing space.
+    //
+    name = name.trim();
+
+    //
     // For each bad-name.
     //
     config.name_blacklist.forEach(function(spam_str){
