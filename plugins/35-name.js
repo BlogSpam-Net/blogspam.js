@@ -17,8 +17,12 @@ exports.testJSON = function ( obj, spam, ok, next )
     var name    = obj['name']    || ""
     var redis   = obj['_redis']
 
+    //
+    // Strip leading space.
+    //
+    name = name.trim();
 
-    var http  = /^https?:\/\//i
+    var http  = /^(www\.|https?:\/\/)/i
     var match = http.exec( name );
     if ( !match )
     {
