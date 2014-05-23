@@ -34,7 +34,7 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     if ( ! ip )
     {
-        spam( "missing IP address" );
+        spam( "Missing IP address" );
         return;
     }
 
