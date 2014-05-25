@@ -31,7 +31,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     stratergies.forEach(function(regexp){
         if ( comment.match( regexp ) )
         {
-            console.log( "Matched linking stratergy regexp: " + regexp );
+            console.log( "Matched linking strategy regexp: " + regexp );
             methods += 1;
         }
     });
@@ -42,7 +42,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     //
     if ( methods >= 3 )
     {
-        spam( "Multiple linking stratergies" );
+        spam( "Multiple linking strategies" );
     }
     else
     {
