@@ -14,6 +14,7 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "alcoholism\\s+",
     "\\s+addiction",
     "addiction\\s+",
     "drug\\s+",
@@ -239,6 +240,7 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "alcoholism\\s+",
     "\\s+addiction",
     "addiction\\s+",
     "drug\\s+",
@@ -332,6 +334,7 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "alcoholism\\s+",
     "\\s+addiction",
     "addiction\\s+",
     "drug\\s+",
