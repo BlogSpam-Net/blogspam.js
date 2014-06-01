@@ -14,6 +14,10 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "\\s+addiction",
+    "addiction\\s+",
+    "drug\\s+",
+    "\\s+drug",
     "outlet$",
     "credit\\s+report",
     "\\s+seo",
@@ -235,6 +239,10 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "\\s+addiction",
+    "addiction\\s+",
+    "drug\\s+",
+    "\\s+drug",
     "\\s+shoes\\s+",
     "click\\s+here",
     "\\s+for\\s+sale",
@@ -324,6 +332,10 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "\\s+addiction",
+    "addiction\\s+",
+    "drug\\s+",
+    "\\s+drug",
     "\\s+seo",
     "^Add\\s+new\\s+comment",
     "mulberry.*outlet",
