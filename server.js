@@ -330,6 +330,25 @@ var server = http.createServer(function (request, response) {
             });
         });
     }
+    else if ( ( request.url.match( "^/lookup/([^\/]+)/?" ) )&&
+              ( request.method === 'GET' ) )
+    {
+        var match = request.url.match( "^/lookup/([^\/]+)/?" );
+        var ip    = match[1];
+
+        response.writeHead(200, {'content-type': 'application/json'});
+
+        redis.get( "blacklist-" + ip , function (err, reply) {
+            if ( reply ) {
+                response.end('{"IP":"'+ ip +'", "version":"2.0", "listed":"true"}');
+            }
+            else {
+                response.end('{"IP":"' + ip + '", "version":"2.0", "listed":"false"}');
+            }
+        });
+        return;
+
+    }
     else if ( ( request.url == "/stats" || request.url == '/stats/' ) &&
               ( request.method === 'POST' ) ) {
         var data = '';
