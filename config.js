@@ -231,6 +231,7 @@ config.body_blacklist = [
     "website traffic service",
     "muscle building supplement",
     "weight\\s+loss\\s+",
+    "Mcat\\s+Practice\\s+Tests\\s+",
 ];
 
 
