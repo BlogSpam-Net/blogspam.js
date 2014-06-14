@@ -228,10 +228,13 @@ config.body_blacklist = [
     "300 targeted visitors to day to my site",
     "POWERFUL and PRIVATE",
     "PRIVATE and POWERFUL",
+    "\\s+fat\\s+loss",
     "website traffic service",
     "muscle building supplement",
     "weight\\s+loss\\s+",
     "Mcat\\s+Practice\\s+Tests\\s+",
+    "build\\s+muscle",
+    "guest\\s+authoring",
 ];
 
 
