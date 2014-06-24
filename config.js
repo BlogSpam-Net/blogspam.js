@@ -235,6 +235,8 @@ config.body_blacklist = [
     "Mcat\\s+Practice\\s+Tests\\s+",
     "build\\s+muscle",
     "guest\\s+authoring",
+    "muscle\\s+tissue",
+    "muscle\\s+build",
 ];
 
 
