@@ -14,7 +14,12 @@ var config = {}
 
 
 config.anchor_blacklist = [
+    "facebook\\s+spy",
+    "spy\\s.*android",
+    "cell\\s+phone.*tracker",
+    "spy\\s.*iphone",
     "alcoholism\\s+",
+    "fitflop",
     "\\s+addiction",
     "addiction\\s+",
     "drug\\s+",
@@ -225,6 +230,7 @@ config.domain_blacklist = [
 //
 config.body_blacklist = [
     "New York Electrician, 94 Chambers St",
+    "Finding\\s+Vehicle\\s+Insurance",
     "300 targeted visitors to day to my site",
     "POWERFUL and PRIVATE",
     "PRIVATE and POWERFUL",
@@ -237,6 +243,8 @@ config.body_blacklist = [
     "guest\\s+authoring",
     "muscle\\s+tissue",
     "muscle\\s+build",
+    "Healthy\\s+Skin\\s+Care",
+
 ];
 
 
@@ -246,6 +254,8 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "phone\\s+directory",
+    "whatsapp\\s+hack",
     "alcoholism\\s+",
     "\\s+addiction",
     "addiction\\s+",
@@ -340,6 +350,7 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "whatsapp\\s+hack",
     "alcoholism\\s+",
     "\\s+addiction",
     "addiction\\s+",
