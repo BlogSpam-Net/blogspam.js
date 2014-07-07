@@ -222,6 +222,8 @@ config.domain_blacklist = [
     "buyzyban.info",
     "cis.se",
     "allalla.com",
+    "xtrahh.com",
+    "ouee.net",
 ];
 
 
