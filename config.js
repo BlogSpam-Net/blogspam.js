@@ -15,6 +15,8 @@ var config = {}
 
 config.anchor_blacklist = [
     "facebook\\s+spy",
+    "live\\s+sex",
+    "sex\\s+cam",
     "spy\\s.*android",
     "cell\\s+phone.*tracker",
     "spy\\s.*iphone",
