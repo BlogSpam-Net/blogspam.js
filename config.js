@@ -227,6 +227,7 @@ config.domain_blacklist = [
     "allalla.com",
     "xtrahh.com",
     "ouee.net",
+    "veoh.com",
 ];
 
 
@@ -250,6 +251,7 @@ config.body_blacklist = [
     "muscle\\s+tissue",
     "muscle\\s+build",
     "Healthy\\s+Skin\\s+Care",
+    "credit\\s+score\\s+",
 
 ];
 
