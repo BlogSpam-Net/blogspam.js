@@ -250,9 +250,13 @@ config.body_blacklist = [
     "guest\\s+authoring",
     "muscle\\s+tissue",
     "muscle\\s+build",
-    "Healthy\\s+Skin\\s+Care",
     "credit\\s+score\\s+",
-
+    "Firming\\s+Face\\s+Cream",
+    "skin\\s+care\\s",
+    "Vitality\\s+level",
+    "ripped\\s+and\\s+strong",
+    "Herbal\\s+Sex",
+    "sex\\s+Booster",
 ];
 
 
