@@ -268,6 +268,7 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "Sildenafil",
     "phone\\s+directory",
     "whatsapp\\s+hack",
     "alcoholism\\s+",
@@ -364,6 +365,7 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "Sildenafil",
     "whatsapp\\s+hack",
     "alcoholism\\s+",
     "\\s+addiction",
