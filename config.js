@@ -236,6 +236,8 @@ config.domain_blacklist = [
 //
 config.body_blacklist = [
     "New York Electrician, 94 Chambers St",
+    "Treatment\\s+Of\\s+Acne",
+    "Vitamin\\s+D\\s",
     "quality\\s+backlinks?",
     "Quality\\s+Sex",
     "sex\\s+Webcam",
