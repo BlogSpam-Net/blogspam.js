@@ -235,6 +235,7 @@ config.domain_blacklist = [
 // Blacklisted body
 //
 config.body_blacklist = [
+"bluehand roulette system",
     "New York Electrician, 94 Chambers St",
     "Treatment\\s+Of\\s+Acne",
     "Vitamin\\s+D\\s",
