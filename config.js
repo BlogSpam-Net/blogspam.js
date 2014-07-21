@@ -243,6 +243,7 @@ config.body_blacklist = [
     "quality\\s+backlinks?",
     "Quality\\s+Sex",
     "sex\\s+Webcam",
+    "sex\\s+Cam",
     "Finding\\s+Vehicle\\s+Insurance",
     "300 targeted visitors to day to my site",
     "POWERFUL and PRIVATE",
