@@ -228,6 +228,7 @@ config.domain_blacklist = [
     "xtrahh.com",
     "ouee.net",
     "veoh.com",
+    "kig8.net",
 ];
 
 
