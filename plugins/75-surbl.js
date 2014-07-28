@@ -17,29 +17,35 @@ exports.testJSON = function ( obj, spam, ok, next )
     var redis   = obj['_redis'];
     var config  = obj['_config']
     var dns     = require('dns');
+    var le   = obj['_link_extractor'];
 
     //
-    // Remove newlines.
+    //  Build up an array of links.
     //
-    comment = comment.replace(/(\r\n|\n|\r)/gm," ");
+    var urls = new Array();
+    var links = le.extract(comment);
 
     //
-    // Look for URLs.
+    //  Store each url for processing.
     //
-    var urls = comment.match(/https?:\/\/([^\/]+)\//gi);
+    links.forEach(function(item) {
+        var l = item['link'];
 
-    //
-    //  Test the link the user submitted too, if we got one.
-    //
-    if ( link && link.match(/https?:\/\/([^\/]+)\// ) )
-    {
         //
-        //  There might have been no links in the body, so setup a new
-        // array in that case.
+        //  Remove any quotes
         //
-        urls = urls ? urls : new Array()
-        urls.push( link );
-    }
+        l = l.replace(/^href=/, "");
+
+        l = l.replace(/^\"|\"$/, "");
+        l = l.replace(/^\"|\"$/, "");
+
+        //
+        //  Remove leading/trailing whitespace
+        //
+        l = l.trim(l);
+        console.log( "Found URL: " + l );
+        urls.push( l );
+    });
 
 
     //
@@ -61,19 +67,21 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             var entry = urls[currentEntry];
 
-            //
-            //  Remove http:// or https:// prefix.
-            //
-            //  Remove trailing "/".
-            //
-            entry = entry.substr( entry.indexOf( "//" ) + 2 );
-            entry = entry.replace(/\//gm,"");
+            var matches = entry.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+            var domain = matches && matches[1];  // domain will be null if no match is found
+
+            if ( !domain ) {
+                return;
+            }
+
+            console.log( "Link " + entry + " has domain '" + domain + "'" );
 
             //
             //  Look for blacklisted entries.
             //
             config.domain_blacklist.forEach(function(spam_str){
-                if ( entry == spam_str )
+
+                if ( domain === spam_str )
                 {
                     //
                     // Blacklist for 48 hours.
@@ -91,7 +99,7 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             //  The complete name we're looking up.
             //
-            var lookup = entry + ".multi.surbl.org";
+            var lookup = domain + ".multi.surbl.org";
 
             console.log( "Testing URL: " + lookup );
 
