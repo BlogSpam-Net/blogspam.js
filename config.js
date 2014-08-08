@@ -274,6 +274,7 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "^looky$",
     "Sildenafil",
     "phone\\s+directory",
     "whatsapp\\s+hack",
