@@ -147,7 +147,7 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             // Send the reply.
             //
-            spam( reply );
+            spam("IP previously blocked: " + reply);
         }
         else {
             next("next");
