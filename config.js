@@ -236,6 +236,9 @@ config.domain_blacklist = [
 // Blacklisted body
 //
 config.body_blacklist = [
+    "instantpaydayloans.me",
+    "instantpaydayloans.net",
+    "instantpaydayloans.com",
     "\\[\\[iframe",
     "bluehand roulette system",
     "New York Electrician, 94 Chambers St",
