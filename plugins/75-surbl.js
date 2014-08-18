@@ -30,11 +30,14 @@ exports.testJSON = function ( obj, spam, ok, next )
     //
     var c = comment.replace(/(\r\n|\n|\r)/gm," ");
     var u = comment.match(/https?:\/\/([^\/]+)\//gi);
-    u.forEach(function(entry){
-        var p = {};
-        p['link'] = entry;
-        links.push( p );
-    });
+    if ( u )
+    {
+        u.forEach(function(entry){
+            var p = {};
+            p['link'] = entry;
+            links.push( p );
+        });
+    }
 
     //
     //  Store each url for processing.
