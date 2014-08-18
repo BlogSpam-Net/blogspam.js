@@ -26,6 +26,17 @@ exports.testJSON = function ( obj, spam, ok, next )
     var links = le.extract(comment);
 
     //
+    //  Also add the links we find via the naive approach
+    //
+    var c = comment.replace(/(\r\n|\n|\r)/gm," ");
+    var u = comment.match(/https?:\/\/([^\/]+)\//gi);
+    u.forEach(function(entry){
+        var p = {};
+        p['link'] = entry;
+        links.push( p );
+    });
+
+    //
     //  Store each url for processing.
     //
     links.forEach(function(item) {
@@ -43,7 +54,6 @@ exports.testJSON = function ( obj, spam, ok, next )
         //  Remove leading/trailing whitespace
         //
         l = l.trim(l);
-        console.log( "Found URL: " + l );
         urls.push( l );
     });
 
@@ -67,6 +77,7 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             var entry = urls[currentEntry];
 
+            console.log( "Domain test:" + entry );
             var matches = entry.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
             var domain = matches && matches[1];  // domain will be null if no match is found
 
