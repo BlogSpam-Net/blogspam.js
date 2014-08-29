@@ -15,6 +15,7 @@ var config = {}
 
 config.anchor_blacklist = [
     "without.*prescription",
+    "Natural\\s+Cleanse",
     "facebook\\s+spy",
     "live\\s+sex",
     "sex\\s+cam",
