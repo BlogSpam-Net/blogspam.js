@@ -279,7 +279,12 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "pollen",
+    "\\s+uggs?",
+    "uggs?\\s+",
     "^looky$",
+    "soft\\s+gel",
+    "soft\\s+tab",
     "Sildenafil",
     "phone\\s+directory",
     "whatsapp\\s+hack",
@@ -336,7 +341,6 @@ config.name_blacklist = [
     "nfl\\s+jersey",
     "car\\s+insuran",
     "auto\\s+insuran",
-    "UGG.*Outlet",
     "^free.*samples$",
     "Ralph\\s+Lauren",
     "Beats\\s+By\\s+Dre",
@@ -361,9 +365,7 @@ config.name_blacklist = [
     "louis\\s+vuitton",
     "christian\\s+louboutin",
     "\\s+outlet$",
-    "\\s+Ugg\\s+Boots",
     "^cheap\\s+",
-    "^uggs\\s+",
     "weight\\s+loss",
     "child\\s+porn",
     "^horny$",
@@ -377,6 +379,11 @@ config.name_blacklist = [
 //  Blacklisted subjects.
 //
 config.subject_blacklist = [
+    "\\s+uggs?",
+    "uggs?\\s+",
+    "pollen",
+    "soft\\s+gel",
+    "soft\\s+tab",
     "Sildenafil",
     "whatsapp\\s+hack",
     "alcoholism\\s+",
@@ -401,7 +408,6 @@ config.subject_blacklist = [
     "^Jordans\\s+for\\s+Cheap",
     "^Cheap\\s+Jordans",
     "Jordans\\s+cheap",
-    "^cheap\\s+ugg\\s+boots",
     "^cheap\\s+nfl\\s+jerseys",
     "^Chanel\\s+handbags",
     "^uggs\\s+boots\\s+",
