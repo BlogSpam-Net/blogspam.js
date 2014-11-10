@@ -15,7 +15,7 @@
     "redis": ">=0.8.4",
     "cidr_match": ">=0.0.7",
     "link_extractor": ">=0.0.5",
-    "uvrun": ">=0.1.2",
+    "uvrun": ">=0.1.2"
   },
   "repository": {
     "type": "git",
