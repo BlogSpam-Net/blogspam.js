@@ -9,8 +9,6 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 exports.testJSON = function ( obj, spam, ok, next )
 {
     var ip     = obj['ip'] || "";
-    var result = "next";
-    var done   = false;
     var redis  = obj['_redis']
     var http   = require('http');
 
@@ -53,13 +51,11 @@ exports.testJSON = function ( obj, spam, ok, next )
             if ( str.indexOf( "<appears>yes</appears>" ) >= 0 )
             {
                 //
-                //  We should cache the IPs we've found listed for at least 48 hours.
+                // Cache the IPs we've found listed for at least 48 hours.
                 //
                 redis.set( "blacklist-" + ip , "Listed in StopForumSpam.com" );
                 redis.expire( "blacklist-" + ip , 60*60*48 );
-
-                result = "Listed in StopForumSpam.com" ;
-                spam( result );
+                spam( "Listed in StopForumSpam.com"  );
             }
             else
             {
