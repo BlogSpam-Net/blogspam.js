@@ -114,59 +114,31 @@ exports.testJSON = function ( obj, spam, ok, next )
             //  The complete name we're looking up.
             //
             var lookup = domain + ".multi.surbl.org";
+
             console.log( "Testing URL: " + lookup );
 
-
-            //
-            // Require the event-run-library
-            //
-            var uvrun = require( "uvrun" );
-
-            //
-            // These are updated in the callback.
-            //
-            var e;
-            var a;
-
-            //
-            // Update the variables.
-            //
             dns.resolve4(lookup, function (err, addresses) {
-                e = err;
-                a = addresses;
+                if (err)
+                {
+                    console.log( "\tFailed" );
+                    execute();
+                }
+                else
+                {
+                    console.log( "\tListed" );
+                    //
+                    // Cache the result for two days.
+                    //
+                    redis.set( "blacklist-" + ip , "Posting links listed in surbl.org" );
+                    redis.expire( "blacklist-" + ip , 60*60*48 );
+
+                    //
+                    // Return the result.
+                    //
+                    spam( "Posting links listed in surbl.org" );
+                    return;
+                }
             });
-
-
-            //
-            // At this point we block/stall until the callback has
-            // finished.
-            //
-            while( ( !e ) && ( !a ) ) {
-                uvrun.runOnce();
-            }
-
-            if (e)
-            {
-                // error == No DNS result found.
-                console.log( "\tFailed" );
-                execute();
-            }
-            else
-            {
-                console.log( "\tListed" );
-
-                //
-                // Cache the result for two days.
-                //
-                redis.set( "blacklist-" + ip , "Posting links listed in surbl.org" );
-                redis.expire( "blacklist-" + ip , 60*60*48 );
-
-                //
-                // Return the result.
-                //
-                spam( "Posting links listed in surbl.org" );
-                return;
-            }
         };
 
         execute();

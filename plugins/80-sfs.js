@@ -35,47 +35,46 @@ exports.testJSON = function ( obj, spam, ok, next )
         path: '/api?ip=' + ip,
     };
 
-
     //
-    //  The result of the request we're going to send.
-    //
-    var body = "";
-    var uvrun = require( "uvrun" );
-
-
-    //
-    // Send the GET request.
+    // A GET request.
     //
     var re = http.request(options, function(res) {
+        var str = '';
+
         res.on('data', function(chunk) {
-            body += chunk;
+            str += chunk;
         });
+
         res.on('error', function(e) {
             console.log( "ERROR" + e);
-            body = "Error Fetching URL " + e;
             next("next");
         });
-    }).end();
+        res.on('end', function() {
+            if ( str.indexOf( "<appears>yes</appears>" ) >= 0 )
+            {
+                //
+                //  We should cache the IPs we've found listed for at least 48 hours.
+                //
+                redis.set( "blacklist-" + ip , "Listed in StopForumSpam.com" );
+                redis.expire( "blacklist-" + ip , 60*60*48 );
 
-    //
-    // Block until we've got the damn thing back.
-    //
-    while( !body )
-    {
-        uvrun.runOnce();
-    }
+                result = "Listed in StopForumSpam.com" ;
+                spam( result );
+            }
+            else
+            {
+                next( "next" );
+            }
+        });
+    });
 
-    //
-    // Listed?
-    //
-    if ( body.indexOf( "<appears>yes</appears>" ) >= 0 )
-    {
-        spam( "Listed in StopForumSpam.com" );
-    }
-    else
-    {
-        next( "next" );
-    }
+
+    re.on('error', function(error) {
+        console.log( "\tError fetching URL" );
+        next('next');
+    });
+
+    re.end();
 };
 
 

@@ -20,45 +20,21 @@ exports.testJSON = function ( obj, spam, ok, next )
     {
         var domain = match[2].trim();
 
-        //
-        // Require the event-run-library
-        //
-        var uvrun = require( "uvrun" );
-
-        //
-        // These are updated in the callback.
-        //
-        var e;
-        var a;
-
-        //
-        // Update the variables.
-        //
         dns.resolveMx(domain, function (err, addresses) {
-            e = err;
-            a = addresses;
+            if (err)
+            {
+                spam( "No MX record for domain " + domain );
+                return;
+            }
+            else
+            {
+                next( "next" );
+                return;
+            }
         });
 
-
-        //
-        // At this point we block/stall until the callback has
-        // finished.
-        //
-        while( ( !e ) && ( !a ) ) {
-            uvrun.runOnce();
-        }
-
-        if (e)
-        {
-            // error == No DNS result found.
-            spam( "No MX record for domain " + domain );
-            return;
-        }
-        else
-        {
-            next( "next" );
-            return;
-        }
+        next( "next" );
+        return;
     }
     else
     {
