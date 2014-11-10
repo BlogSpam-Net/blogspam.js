@@ -62,40 +62,51 @@ exports.testJSON = function ( obj, spam, ok, next )
 
 
     //
+    //  For each link we've found get the domain.
+    //
+    var domains = new Array();
+    urls.forEach(function(item) {
+        var matches = item.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
+        var domain = matches && matches[1];  // domain will be null if no match is found
+        domains.push(domain);
+        console.log( "Link " + item + " has domain '" + domain + "'" );
+    });
+
+
+    //
+    // Now remove duplicate domains - to cut down on DNS-lookups.
+    //
+    var uniq = domains.filter(function(item, pos) {
+        return domains.indexOf(item) == pos;
+    });
+
+
+    //
     // For each link we found.
     //
-    if ( urls )
+    if ( uniq )
     {
         var currentEntry = -1;
 
         var execute = function() {
 
             currentEntry++;
-            if (currentEntry >= urls.length) {
+            if (currentEntry >= uniq.length) {
                 return;
             }
 
             //
             //  The current URL we're testing.
             //
-            var entry = urls[currentEntry];
+            var entry = uniq[currentEntry];
 
-            console.log( "Domain test:" + entry );
-            var matches = entry.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-            var domain = matches && matches[1];  // domain will be null if no match is found
-
-            if ( !domain ) {
-                return;
-            }
-
-            console.log( "Link " + entry + " has domain '" + domain + "'" );
 
             //
             //  Look for blacklisted entries.
             //
             config.domain_blacklist.forEach(function(spam_str){
 
-                if ( domain === spam_str )
+                if ( entry === spam_str )
                 {
                     //
                     // Blacklist for 48 hours.
@@ -113,14 +124,14 @@ exports.testJSON = function ( obj, spam, ok, next )
             //
             //  The complete name we're looking up.
             //
-            var lookup = domain + ".multi.surbl.org";
+            var lookup = entry + ".multi.surbl.org";
 
             console.log( "Testing URL: " + lookup );
 
             dns.resolve4(lookup, function (err, addresses) {
                 if (err)
                 {
-                    console.log( "\tFailed" );
+                    console.log( "\tFailed - Not listed in surble.org" );
                     execute();
                 }
                 else
