@@ -12,7 +12,12 @@ exports.testJSON = function ( obj, spam, ok, next)
     // Default to 10 links, which was the value we used
     // in the legacy API.
     //
-    var options = obj['options'] || 'max-links=10';
+    var max_urls = 10;
+
+    //
+    //  Get the data.
+    //
+    var options = obj['options'] || '';
     var comment = obj['comment'] || '';
 
     //
@@ -23,7 +28,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     //
     //  Look for "max-links=XX"  in the options.
     //
-    var reg = /^max-links=(.*)$/;
+    var reg = /^max-links=([0-9]+)$/;
 
     //
     //  Test each option in turn.
@@ -31,28 +36,23 @@ exports.testJSON = function ( obj, spam, ok, next)
     for (var i = 0; i < array.length; i++)
     {
         var option = array[i].trim()
-
-        //
-        //  If we match then we can compare the size.
-        //
-        var match = reg.exec( option );
+        var match  = reg.exec( option );
         if ( match )
         {
-            //
-            // The count.
-            //
-            var max = match[1].trim()
-
-            //
-            //  So we have a max-links count.  We need to count the links
-            //
-            var found = comment.match(/https?:\/\//g);
-
-            if ( found != null && ( found.length > max ) )
-            {
-                spam( "Too many links, found " + found.length + " max is " + max );
-            }
+            max_urls = match[1].trim()
         }
+    }
+
+
+    //
+    //  Now we have an (updated) count we can count the
+    // links in the body.
+    //
+    var found = comment.match(/https?:\/\//g);
+
+    if ( found != null && ( found.length > max_urls ) )
+    {
+        spam( "Too many links, found " + found.length + " max is " + max_urls );
     }
 
     //
