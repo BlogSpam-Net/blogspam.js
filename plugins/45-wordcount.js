@@ -15,8 +15,17 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 //
 exports.testJSON = function ( obj, spam, ok, next)
 {
-    var options = obj['options'] || 'min-words=5';
+    //
+    //  The data we received.
+    //
+    var options = obj['options'] || '';
     var comment = obj['comment'] || '';
+
+    //
+    //  The defaults
+    //
+    var min = 5;
+    var max = 0;
 
     //
     //  Count the words in the comment.
@@ -27,7 +36,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     var wcount = comment.split(' ').length;
 
     //
-    // Split the options.
+    // Split the provided options.
     //
     var array = options.split( "," );
 
@@ -52,20 +61,37 @@ exports.testJSON = function ( obj, spam, ok, next)
             var type = match[1].trim()
             var size = match[2].trim()
 
-            if ( ( type == "min-words" ) &&
-                 ( wcount < size ) )
+            if ( type == "min-words" )
             {
-                spam( "The comment had too few words." );
-                return
+                min = size;
             }
-
-            if ( ( type == "max-words" ) &&
-                 ( wcount > size ) )
+            else if ( type == "max-words" )
             {
-                spam( "The comment had too many words." );
-                return
+                max = size;
             }
         }
+    };
+
+
+
+    //
+    //  Now test the actual comment.
+    //
+    if ( ( min != 0 ) &&
+         ( wcount < min ) )
+    {
+        spam( "The comment had too few words." );
+        return
+    }
+
+    //
+    // Was a maximum specified?  And did we exceed it?
+    //
+    if ( ( max != 0 ) &&
+         ( wcount > max ) )
+    {
+        spam( "The comment had too many words." );
+        return
     }
 
     //
