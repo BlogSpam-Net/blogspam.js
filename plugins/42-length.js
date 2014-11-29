@@ -4,18 +4,25 @@ exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
 //
-//  As per the legacy API we look look for any constraints on the size of the
-// body - either min-size or max-size.
+// Report if the submitted name/subject was too long.
 //
 exports.testJSON = function ( obj, spam, ok, next)
 {
+    //
+    //  Get the data
+    //
     var subj = obj['subject'] || "";
-    var name = obj['name']  || "";
+    var name = obj['name']    || "";
+
+    //
+    //  Max length: TODO - Make this configurable.
+    //
     var max  = 140;
 
-    console.log( "Name is " + name.length + " characters long: " + name )
-    console.log( "Subj is " + subj.length + " characters long: " + subj  )
 
+    //
+    //  Drop long-submissions.
+    //
     if ( name.length >= max )
     {
         spam( "The submitted 'name' was too long." );
