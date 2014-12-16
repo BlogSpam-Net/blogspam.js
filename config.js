@@ -220,6 +220,7 @@ config.domain_blacklist = [
     "xomo.info",
     "xbob.info",
     "zzggx.com",
+    "glavporn.com",
     "xlov.info",
     "xsoxo.net",
     "da-r.com",
