@@ -240,6 +240,7 @@ config.domain_blacklist = [
 //
 config.body_blacklist = [
     "instantpaydayloans.me",
+    "%meta_keyword%",
     "instantpaydayloans.net",
     "instantpaydayloans.com",
     "\\[\\[iframe",
