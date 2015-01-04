@@ -119,6 +119,16 @@ var server = http.createServer(function (request, response) {
         request.addListener('data', function(chunk) { data += chunk; });
         request.addListener('end', function() {
 
+
+            //
+            // Store the comment in a rotating buffer.
+            //
+            // See also "recent-comments-ok" and "recent-comments-spam"
+            //
+            redis.lpush( "recent-comments", JSON.stringify(data));
+            redis.ltrim( "recent-comments", 0,  9000 );
+
+
             //
             // The hash all plugins use.
             //
@@ -282,8 +292,10 @@ var server = http.createServer(function (request, response) {
                     //
                     //  Log in a rotating buffer.
                     //
+                    //  See also "recent-comments-ok", and "recent-comments".
+                    //
                     redis.lpush( "recent-comments-spam", JSON.stringify(data));
-                    redis.ltrim( "recent-comments-spam", 0, 1000 );
+                    redis.ltrim( "recent-comments-spam", 0, 9000 );
 
                     response.end(JSON.stringify(hash));
                     redis.incr("site-" + site + "-spam");
@@ -297,8 +309,10 @@ var server = http.createServer(function (request, response) {
                     //
                     //  Log in a rotating buffer.
                     //
+                    //  See also "recent-comments-spam", and "recent-comments".
+                    //
                     redis.lpush( "recent-comments-ok", JSON.stringify(data));
-                    redis.ltrim( "recent-comments-ok", 0, 1000 );
+                    redis.ltrim( "recent-comments-ok", 0, 9000 );
 
                     response.writeHead(200, {'content-type': 'application/json'});
                     response.end('{"result":"OK", "version":"2.0"}');
