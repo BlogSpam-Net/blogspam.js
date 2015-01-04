@@ -6,8 +6,7 @@ This node.js server implements the [BlogSpam.net](http://blogspam.net) v2 API.
 
 The blogspam API & service allows site-owners to test incoming blog/forum comments for SPAM in real-time.
 
-The original (v1) blogspam API was written in Perl and used XML::RPC as the
-transport mechanism, that code is available
+The original (v1) blogspam API was written in Perl and used XML::RPC as thetransport mechanism, that code is available
 [on CPAN](http://search.cpan.org/dist/Blog-Spam/), but has been depreciated
 and replaced by this new API/implementation.
 
@@ -18,9 +17,7 @@ In brief:
 * The result will be returned as a JSON hash containing a results key declaring "`SPAM`" or "`OK`".
     * There may be other keys in the result, such as "`reason`" which declares the reason for a SPAM result, however these are optional.
 
-There is [a proxy](https://github.com/skx/blogspam-xml-rpc-proxy) which will translate between the old API and the new one, which allows legacy clients to continue to operate.
-
-Finally there is a [wordpress plugin](https://github.com/skx/blogspam-wordpress-plugin) which makes use of this API to allow simple filtering to users of Wordpress.
+There are clients for this server-API available for several applications including Trac, IkiWiki, and also [a wordpress plugin](https://github.com/skx/blogspam-wordpress-plugin).
 
 History
 -------
@@ -43,10 +40,8 @@ pretty good, but became hard to maintain for two main reasons:
    * In practice the node.js replacement has sidestepped this issue completely.
 
 This javascript port of the service replaces the legacy API and suffers
-from none of the drawbacks.  For compatibility there exists an XML::RPC
-proxy which accepts legacy-submissions and proxies them to the new API:
-
-* https://github.com/skx/blogspam-xml-rpc-proxy
+from none of the drawbacks.  For compatibility there exists [an XML::RPC proxy](https://github.com/skx/blogspam-xml-rpc-proxy)
+but this is no longer deployed live, as the old API has been retired.
 
 
 
@@ -172,18 +167,6 @@ There are a couple of perl utility scripts located beneath `./utils`.  In brief 
    * A simple programming sample, showing how to submit a comment for testing.
    * Other examples are included in the [online code samples area](http://blogspam.net/code/samples/).
 
-
-Current Status
---------------
-
-The code here is in production use, handling real-time SPAM-detection for over five hundred domains.
-
-There are two repositories/services deployed:
-
-* [blogspam.js](https://github.com/skx/blogspam.js)
-    * The server which implements the JSON-based v2 API.
-* [blogspam-xml-rpc-proxy](https://github.com/skx/blogspam-xml-rpc-proxy)
-    * A proxy to transform legacy XML-RPC requests into JSON versions.
 
 
 Steve
