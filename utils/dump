@@ -1,9 +1,10 @@
 #!/usr/bin/perl
 #
-#  The plugin plugins/05-logger.js will keep a rotating buffer of the
-# N most-recent JSON submissions.
+#  The blogspam server.js file will keep a rotating buffer of the # N
+# most-recent JSON submissions.
 #
-#  This utility will dump the given field from that buffer of JSON objects.
+#  This utility will dump the values received in a given field of those
+# recorded entries.
 #
 #  If you run it with no arguments you'll receive a dump of all known keys
 # that have been included in the recent submissions.
@@ -14,7 +15,7 @@
 #  For example:
 #
 #    ./dump email
-#
+#    ./dump site
 #    ./dump subject
 #
 # Steve
@@ -44,7 +45,8 @@ my %known;
 #
 #  Get the most recent logged entries
 #
-my $redis = new Redis();
+my $redis  = new Redis();
+my $json   = JSON->new()->allow_nonref();
 my @recent = $redis->lrange( "recent-comments", 0, -1 );
 
 #
@@ -55,8 +57,12 @@ foreach my $ent (@recent)
     my $obj;
 
     # decode if we can
-    eval {$obj = decode_json($ent)};
-    next if ($@);
+    eval {$obj = $json->decode($ent); $obj = $json->decode($obj)};
+    if ($@)
+    {
+        print "Failed to decode : $@";
+        next;
+    }
 
     # if we're showing a field ..
     if ($field)
