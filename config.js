@@ -220,6 +220,9 @@ config.domain_blacklist = [
     "xomo.info",
     "xbob.info",
     "zzggx.com",
+    "fastcashloansinusa2015.com",
+    "premlinks.com",
+    "dietingdestiny101s.com",
     "glavporn.com",
     "xlov.info",
     "xsoxo.net",
@@ -374,6 +377,13 @@ config.name_blacklist = [
     "Internet\\s+Marketing$",
     "^seo\\s+",
     "^seo$",
+];
+
+
+config.link_blacklist = [
+    "www.premlinks.com",
+    "fastcashloansinusa2015.com",
+    "dietingdestiny101s.com",
 ];
 
 
