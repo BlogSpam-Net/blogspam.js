@@ -284,6 +284,7 @@ config.body_blacklist = [
 //
 //
 config.name_blacklist = [
+    "^\/\/",
     "pollen",
     "\\s+uggs?",
     "uggs?\\s+",
