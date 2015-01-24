@@ -1,5 +1,5 @@
 exports.name    = function() {return "50-multilinks.js" ; };
-exports.purpose = function() {return "Look for different linking stratergies." ; };
+exports.purpose = function() {return "Look for different linking strategies." ; };
 exports.author  = function() { return "Steve Kemp <steve@steve.org.uk>" };
 
 
@@ -20,7 +20,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     //
     // Naive identification of the different linking methods.
     //
-    var stratergies = [ /<a href="https?:/i,
+    var strategies = [ /<a href="https?:/i,
                         /\[?url=https?:/i,
                         /\[?link=https?:/i,
                         /\s+https?:/i  ]
@@ -28,7 +28,7 @@ exports.testJSON = function ( obj, spam, ok, next)
     //
     // For each method.
     //
-    stratergies.forEach(function(regexp){
+    strategies.forEach(function(regexp){
         if ( comment.match( regexp ) )
         {
             console.log( "Matched linking strategy regexp: " + regexp );
