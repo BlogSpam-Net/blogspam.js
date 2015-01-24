@@ -384,6 +384,8 @@ config.link_blacklist = [
     "www.premlinks.com",
     "fastcashloansinusa2015.com",
     "dietingdestiny101s.com",
+    "pcgle.com",
+    "yourexpireddomains.com",
 ];
 
 
