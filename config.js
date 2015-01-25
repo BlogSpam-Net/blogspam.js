@@ -384,7 +384,9 @@ config.name_blacklist = [
 config.link_blacklist = [
     "www.premlinks.com",
     "Home90.com",
+    "zuschool.com",
     "fastcashloansinusa2015.com",
+    "room-matehotels.com",
     "dietingdestiny101s.com",
     "pcgle.com",
     "netsoftcompany.com",
