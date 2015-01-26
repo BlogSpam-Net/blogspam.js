@@ -256,6 +256,14 @@ var server = http.createServer(function (request, response) {
             }
 
 
+
+            //
+            //  Get the version of our caller, if known.
+            //
+            var ver = parsed['version'] || "unknown";
+            console.log( "Caller: " + ver );
+
+
             var done = false;
 
             async.eachSeries(plugins, function(plugin, callback) {
