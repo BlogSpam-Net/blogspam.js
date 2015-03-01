@@ -286,6 +286,7 @@ config.body_blacklist = [
 //
 config.name_blacklist = [
     "^\/\/",
+    "sale.dredger.biz",
     "iphone.*cases",
     "pollen",
     "\\s+uggs?",
