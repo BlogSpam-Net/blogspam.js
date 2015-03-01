@@ -242,6 +242,7 @@ config.domain_blacklist = [
 // Blacklisted body
 //
 config.body_blacklist = [
+    "StarSEO Marketing",
     "instantpaydayloans.me",
     "%meta_keyword%",
     "instantpaydayloans.net",
