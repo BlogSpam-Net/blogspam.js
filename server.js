@@ -240,18 +240,22 @@ var server = http.createServer(function (request, response) {
             //
             var site = parsed['site'];
 
+
+            //
+            // Look for valid sites - which will always be http/https.
+            //
+            var sites = /^https?:\/\//i;
+
             //
             //  If there is no site-parameter submitted then the
-            // remote client is malformed and we will drop the
-            // test here.
+            // remote client is malformed and we will drop the submission.
             //
-            if ( ! site )
+            if ( !site || ( sites.test(site) != true ) )
             {
                 redis.incr("global-dropped");
-
+                console.log( "Skiping bogus submission:" + site )
                 response.writeHead(200, {'content-type': 'application/json'});
                 response.end('{"result":"ERROR", "reason":"You did not submit the mandatory \'site\' paramater.", "version":"2.0"}');
-                done = true;
                 return;
             }
 
