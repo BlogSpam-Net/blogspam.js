@@ -33,8 +33,6 @@ exports.testJSON = function ( obj, spam, ok, next )
             }
         });
 
-        next( "next" );
-        return;
     }
     else
     {
