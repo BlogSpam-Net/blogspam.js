@@ -234,6 +234,12 @@ var server = http.createServer(function (request, response) {
 
 
             //
+            // Are we done with this connection?
+            //
+            var done = false;
+
+
+            //
             //  Get the name of the site which is causing the test
             // to be made - this will allow us to keep track of
             // per-site SPAM/OK counts.
@@ -256,6 +262,7 @@ var server = http.createServer(function (request, response) {
                 console.log( "Skiping bogus submission:" + site )
                 response.writeHead(200, {'content-type': 'application/json'});
                 response.end('{"result":"ERROR", "reason":"You did not submit the mandatory \'site\' paramater.", "version":"2.0"}');
+                done = true;
                 return;
             }
 
@@ -266,9 +273,6 @@ var server = http.createServer(function (request, response) {
             //
             var ver = parsed['version'] || "unknown";
             console.log( "Caller: " + ver );
-
-
-            var done = false;
 
             async.eachSeries(plugins, function(plugin, callback) {
                 var skip = false;
