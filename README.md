@@ -1,4 +1,10 @@
 
+# Obsolete
+
+**NOTE**: This repository is now obsolete, the current codebase behind the service is here:
+
+* https://github.com/skx/golang-blogspam
+
 JSON BlogSpam Service
 ---------------------
 
