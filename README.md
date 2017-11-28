@@ -3,7 +3,7 @@
 
 **NOTE**: This repository is now obsolete, the current [API](https://blogspam.net/api/2.0/) is implemented by the `golang` code in this repository:
 
-* https://github.com/BlogSpam-Net/golang-blogspam
+* https://github.com/BlogSpam-Net/blogspam-api
 
 JSON BlogSpam Service
 ---------------------
