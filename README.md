@@ -1,9 +1,9 @@
 
 # Obsolete
 
-**NOTE**: This repository is now obsolete, the current codebase behind the service is here:
+**NOTE**: This repository is now obsolete, the current [API](https://blogspam.net/api/2.0/) is implemented by the `golang` code in this repository:
 
-* https://github.com/skx/golang-blogspam
+* https://github.com/BlogSpam-Net/golang-blogspam
 
 JSON BlogSpam Service
 ---------------------
